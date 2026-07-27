@@ -1,0 +1,27 @@
+{
+  "created_utc": "2026-07-13T15:59:50.859659Z",
+  "files": [
+    {
+      "path": "falsification/mr_edge_events.parquet",
+      "sha256": "00e95171b9c28ed92d0ba7cd3c864827948b69cfb926ce07902e1a5770f56934"
+    },
+    {
+      "path": "falsification/mr_edge_horizons.csv",
+      "sha256": "4a7a38831be4e04f4af11e70707cd593ae84a1a0c81a0335b9a775366dc40096"
+    },
+    {
+      "path": "falsification/mr_edge_time_blocks.csv",
+      "sha256": "37930542bdff899c9b7b6f023c2cce93f661867bf811a30ce853a9f5238a04eb"
+    },
+    {
+      "path": "falsification/mr_falsification_decision.json",
+      "sha256": "a86fdba9adbbb8208fa9b97a83663d2891e36834b16e3b60a37e7e7573c61959"
+    },
+    {
+      "path": "falsification/mr_phi_by_outer_fold.csv",
+      "sha256": "09fd0b55f15006f2decabdf9421c29a888d05520f41b216c738c7da0e69586bb"
+    }
+  ],
+  "manifest_sha256": "6a948bb532ecd5a1512029f6d595327366929b282fa4e087dc9c11012c52f202",
+  "schema_version": 1
+}

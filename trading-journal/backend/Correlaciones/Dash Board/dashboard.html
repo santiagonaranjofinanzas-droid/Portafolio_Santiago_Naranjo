@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablero de Control Espectral y Topológico 3D - Tesis Doctoral 2026</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0d17;
+            --bg-secondary: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --color-neon-blue: #3b82f6;
+            --color-neon-purple: #8b5cf6;
+            --color-neon-emerald: #10b981;
+            --color-neon-gold: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, var(--bg-primary) 60%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 24px 40px;
+            background: rgba(11, 13, 23, 0.5);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 30%, var(--color-neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            padding: 30px 40px;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 380px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .glass-panel {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-panel h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+            color: #ffffff;
+        }
+
+        /* WIDGET DE ESTADO ACTUAL EN VIVO */
+        .status-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .status-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--color-neon-emerald);
+            color: #34d399;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.75px;
+            text-align: center;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+            width: 100%;
+        }
+
+        .status-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.02);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .metric-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-item {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 10px 12px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .item-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .item-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .thesis-box p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .thesis-box strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.06);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .tab-btn.active {
+            background: rgba(139, 92, 246, 0.12);
+            border-color: var(--color-neon-purple);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
+        }
+
+        .tab-btn-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active .tab-btn-dot {
+            background: var(--color-neon-purple);
+            box-shadow: 0 0 8px var(--color-neon-purple);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .visualization-window {
+            flex: 1;
+            min-height: 560px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .visualization-window iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+            background: rgb(10, 10, 18);
+        }
+
+        .description-panel {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .description-panel h3 {
+            font-family: 'Outfit', sans-serif;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .alert-crisis {
+            border-left: 4px solid var(--color-neon-gold);
+            background: rgba(245, 158, 11, 0.06);
+            padding: 12px 16px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .alert-crisis p {
+            color: #fbd38d;
+        }
+
+        .footer-info {
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-glass);
+            background: rgba(11, 13, 23, 0.8);
+        }
+
+        /* Ocultar pestañas inactivas */
+        .desc-text {
+            display: none;
+        }
+
+        .desc-text.active {
+            display: block;
+        }
+
+        /* Animación de pulso neón para la crisis */
+        .badge-live {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--color-neon-emerald);
+            color: #34d399;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-live-pulse {
+            width: 6px;
+            height: 6px;
+            background: var(--color-neon-emerald);
+            border-radius: 50%;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        /* ESTADO DEL MERCADO - DETALLES Y TABLAS */
+        .status-detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 1024px) {
+            .status-detail-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .status-text-desc {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .alert-recommendation {
+            border-left: 4px solid var(--color-neon-purple);
+            background: rgba(139, 92, 246, 0.08);
+            padding: 12px 16px;
+            border-radius: 0 12px 12px 0;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .alert-recommendation p {
+            color: #d8b4fe !important;
+            margin-top: 0;
+        }
+
+        .status-tables-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .status-tables-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .table-container-glass {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .table-container-glass h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 6px;
+        }
+
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .status-table th {
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            text-transform: uppercase;
+            font-size: 10px;
+        }
+
+        .status-table td {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            color: #f3f4f6;
+            vertical-align: middle;
+        }
+
+        .status-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .corr-badge {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 11px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .corr-badge.high {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .corr-badge.low {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <h1>Tablero de Visualización Espectral y Topológica 3D</h1>
+            <p>SISTEMAS ADAPTATIVOS COMPLEJOS • DCC-GARCH • GEOMETRÍA NO LINEAL</p>
+        </div>
+        <div class="badge-live">
+            <span class="badge-live-pulse"></span>
+            INTERACTIVO / DEFENSA DE TESIS
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Barra Lateral Izquierda (Controles e Hipótesis) -->
+        <div class="sidebar">
+            <!-- WIDGET DE ESTADO ACTUAL EN VIVO -->
+            <div class="glass-panel status-panel">
+                <h2>Estado Actual del Mercado</h2>
+                <div class="status-indicator">
+                    <div class="status-badge" id="market-regime-badge">Cargando...</div>
+                </div>
+                <div class="status-metric">
+                    <span class="metric-label">Probabilidad de Crisis:</span>
+                    <span class="metric-value" id="market-prob-val">0.0%</span>
+                </div>
+                <div class="status-grid">
+                    <div class="grid-item">
+                        <span class="item-label">Autovalor λ₁</span>
+                        <span class="item-val" id="market-lambda-val">0.00</span>
+                    </div>
+                    <div class="grid-item">
+                        <span class="item-label">Entropía H</span>
+                        <span class="item-val" id="market-entropy-val">0.00</span>
+                    </div>
+                    <div class="grid-item">
+                        <span class="item-label">Longitud MTL</span>
+                        <span class="item-val" id="market-mtl-val">0.00</span>
+                    </div>
+                    <div class="grid-item">
+                        <span class="item-label">Divergencia KLD</span>
+                        <span class="item-val" id="market-kld-val">0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel nav-panel">
+                <h2>Dimensiones de Análisis</h2>
+                <div class="nav-tabs">
+                    <button class="tab-btn active" onclick="switchTab('surf', this)">
+                        <span>1. Superficie de Correlación</span>
+                        <span class="tab-btn-dot"></span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('mds', this)">
+                        <span>2. Proyección Espacial MDS</span>
+                        <span class="tab-btn-dot"></span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('mst', this)">
+                        <span>3. Redes Dinámicas MST</span>
+                        <span class="tab-btn-dot"></span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('status', this)">
+                        <span>4. Estado del Mercado</span>
+                        <span class="tab-btn-dot"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-panel thesis-box">
+                <h2>Hipótesis de la Tesis</h2>
+                <p>
+                    La transición de un <strong>Sistema Adaptativo Complejo (SAC)</strong> hacia una contracción sistémica induce una <strong>reconfiguración topológica no lineal</strong> y un <strong>colapso dimensional</strong> en su matriz de covarianzas.
+                </p>
+                <p>
+                    Dicho colapso reduce la entropía y la dimensionalidad de las distancias relativas, concentrando la información del mercado en el autovalor dominante de la matriz de correlaciones condicionales $R_t$.
+                </p>
+            </div>
+        </div>
+
+        <!-- Panel de Visualización Principal -->
+        <div class="main-content">
+            <div class="glass-panel visualization-window">
+                <iframe id="vis-frame" src="correlation_surface_3d.html"></iframe>
+            </div>
+
+            <div class="glass-panel description-panel">
+                <!-- Descripción del Terreno 3D -->
+                <div id="desc-surf" class="desc-text active">
+                    <h3>Superficie de Correlación Condicional Dinámica con SPX500</h3>
+                    <p>
+                        Este gráfico representa la topografía de co-movimiento de los 26 activos financieros en relación al SPX500 a lo largo del tiempo. 
+                        En regímenes normales de mercado (izquierda y derecha), la superficie luce accidentada y escarpada, llena de valles profundos correspondientes a sectores independientes o con correlaciones bajas. 
+                        Durante el periodo de pánico financiero (centro), todas las correlaciones condicionales convergen instantáneamente hacia una meseta lisa y elevada cercana a Z = 1.0. Esto ilustra el <strong>colapso de co-dependencia</strong> que precede y acompaña a la crisis de mercado.
+                    </p>
+                </div>
+
+                <!-- Descripción de MDS -->
+                <div id="desc-mds" class="desc-text">
+                    <h3>Dispersión 3D de Coordenadas Principales (MDS 3D)</h3>
+                    <p>
+                        Proyección geométrica de la matriz de distancias métricas de Mantegna en un espacio Euclídeo de 3 dimensiones. 
+                        Presione <strong>Play</strong> para iniciar la animación. En mercados diversificados y estables, los activos flotan de forma dispersa, organizados por sectores lógicos en órbitas amplias. 
+                        A medida que la crisis estalla, se puede observar una atracción gravitacional sistémica: todas las esferas se precipitan en una condensación violenta hacia un único punto, disminuyendo la distancia relativa. 
+                        La alineación de Procrustes ortogonal elimina el jittering rotacional, permitiendo estudiar las verdaderas trayectorias de los activos.
+                    </p>
+                </div>
+
+                <!-- Descripción de MST -->
+                <div id="desc-mst" class="desc-text">
+                    <h3>Redes Complejas Dinámicas 3D (Minimum Spanning Tree - Kruskal)</h3>
+                    <p>
+                        Evolución topológica del árbol de expansión mínima del mercado estructurado sobre la geometría MDS. 
+                        Durante la fase normal, la red se ramifica en una topografía extendida (estructura dispersa en cadena). 
+                        Conforme se acelera la señal de pánico, los enlaces más débiles se rompen y la red colapsa geométricamente en una estructura de <strong>"estrella pura" hiper-centralizada</strong>. 
+                        El SPX500 y los activos dominantes absorben la conectividad sistémica global, actuando como el núcleo de transmisión de información en el crash.
+                    </p>
+                    <div class="alert-crisis">
+                        <p><strong>Comportamiento del Trading Bot:</strong> En la fase de contracción en estrella, el bot <code>TSMOM_EA.mq5</code> reduce el apalancamiento a su límite mínimo de riesgo y activa la cobertura de cola.</p>
+                    </div>
+                </div>
+
+                <!-- Descripción de Estado Actual del Mercado -->
+                <div id="desc-status" class="desc-text">
+                    <h3>Monitoreo en Tiempo Real y Diagnóstico de Alerta</h3>
+                    <div class="status-detail-layout">
+                        <div class="status-text-desc">
+                            <p>
+                                Este panel muestra el diagnóstico en tiempo real del meta-clasificador y la matriz de correlación condicional $R_t$ correspondiente al último día de datos disponible. 
+                                Permite identificar de manera granular qué sectores y activos específicos están arrastrando la correlación sistémica y cuáles se mantienen desacoplados, ofreciendo diversificación.
+                            </p>
+                            <div class="alert-recommendation" id="market-recommendation-box">
+                                <p><strong>Recomendación del Trading Bot:</strong> <span id="market-rec-text">Cargando...</span></p>
+                            </div>
+                        </div>
+                        <div class="status-tables-grid">
+                            <div class="table-container-glass">
+                                <h4>Top 5 Co-movimientos Fuertes (Mayor Correlación)</h4>
+                                <table class="status-table" id="table-highest-corr">
+                                    <thead>
+                                        <tr>
+                                            <th>Activo A</th>
+                                            <th>Activo B</th>
+                                            <th>Corr.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Inyectado dinámicamente -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-container-glass">
+                                <h4>Top 5 Activos Desacoplados (Menor Correlación)</h4>
+                                <table class="status-table" id="table-lowest-corr">
+                                    <thead>
+                                        <tr>
+                                            <th>Activo A</th>
+                                            <th>Activo B</th>
+                                            <th>Corr.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Inyectado dinámicamente -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-info">
+        Detección de Crisis y Transiciones de Régimen Financiero mediante Estructuras Espectrales Dinámicas y Aprendizaje Estadístico • Universidad • Tesis Doctoral 2026
+    </div>
+
+    <script>
+        // Placeholder dinámico para inyectar el estado del mercado actual calculado por Python
+        const latestMarketStatus = {
+            "date": "2026-06-08",
+            "prob": 0.3941571116447449,
+            "xi": 0.000294904144050193,
+            "lambda_dominant": 6.292222945370353,
+            "entropy_spectral": 0.8878442376582399,
+            "mtl": 1.1151993938321494,
+            "kld": 0.050411854227629505,
+            "top_highest_corr": [
+                        {
+                                    "asset_a": "USD/CHF",
+                                    "asset_b": "Trigo",
+                                    "corr": 0.4655546270442844
+                        },
+                        {
+                                    "asset_a": "S&P 500",
+                                    "asset_b": "USD/CHF",
+                                    "corr": 0.4406401346527782
+                        },
+                        {
+                                    "asset_a": "Nasdaq 100",
+                                    "asset_b": "EUR/USD",
+                                    "corr": 0.42993296465904773
+                        },
+                        {
+                                    "asset_a": "Gas Natural",
+                                    "asset_b": "Alemania 10Y",
+                                    "corr": 0.4202624897984437
+                        },
+                        {
+                                    "asset_a": "AUD/USD",
+                                    "asset_b": "Gas Natural",
+                                    "corr": 0.41760418388563914
+                        }
+            ],
+            "top_lowest_corr": [
+                        {
+                                    "asset_a": "EEUU 2Y",
+                                    "asset_b": "Alemania 10Y",
+                                    "corr": 0.020613413413733028
+                        },
+                        {
+                                    "asset_a": "AUD/USD",
+                                    "asset_b": "EEUU 2Y",
+                                    "corr": 0.032700849534384686
+                        },
+                        {
+                                    "asset_a": "FTSE 100",
+                                    "asset_b": "USD/CAD",
+                                    "corr": 0.034234661184762025
+                        },
+                        {
+                                    "asset_a": "FTSE 100",
+                                    "asset_b": "Reino Unido 10Y",
+                                    "corr": 0.034936332941403025
+                        },
+                        {
+                                    "asset_a": "Alemania 10Y",
+                                    "asset_b": "Reino Unido 10Y",
+                                    "corr": 0.03506879250379689
+                        }
+            ]
+};
+        
+        const assetCategories = {
+            "S&P 500": { cat: "RV", color: "#3b82f6" },
+            "Nasdaq 100": { cat: "RV", color: "#3b82f6" },
+            "Dow Jones": { cat: "RV", color: "#3b82f6" },
+            "DAX 40": { cat: "RV", color: "#3b82f6" },
+            "FTSE 100": { cat: "RV", color: "#3b82f6" },
+            "Nikkei 225": { cat: "RV", color: "#3b82f6" },
+            "Euro Stoxx 50": { cat: "RV", color: "#3b82f6" },
+            "EUR/USD": { cat: "FX", color: "#10b981" },
+            "GBP/USD": { cat: "FX", color: "#10b981" },
+            "USD/JPY": { cat: "FX", color: "#10b981" },
+            "AUD/USD": { cat: "FX", color: "#10b981" },
+            "USD/CAD": { cat: "FX", color: "#10b981" },
+            "USD/CHF": { cat: "FX", color: "#10b981" },
+            "Oro": { cat: "COMM", color: "#f59e0b" },
+            "Plata": { cat: "COMM", color: "#f59e0b" },
+            "Crudo Brent": { cat: "COMM", color: "#f59e0b" },
+            "Gas Natural": { cat: "COMM", color: "#f59e0b" },
+            "Cobre": { cat: "COMM", color: "#f59e0b" },
+            "Trigo": { cat: "COMM", color: "#f59e0b" },
+            "Maíz": { cat: "COMM", color: "#f59e0b" },
+            "EEUU 10Y": { cat: "RF", color: "#8b5cf6" },
+            "EEUU 2Y": { cat: "RF", color: "#8b5cf6" },
+            "Alemania 10Y": { cat: "RF", color: "#8b5cf6" },
+            "Reino Unido 10Y": { cat: "RF", color: "#8b5cf6" },
+            "Japón 10Y": { cat: "RF", color: "#8b5cf6" },
+            "EEUU 5Y": { cat: "RF", color: "#8b5cf6" }
+        };
+
+        function getAssetBadge(assetName) {
+            const info = assetCategories[assetName]  { cat: "ACTIVO", color: "#ffffff" };
+            return `<span style="color: ${info.color}; font-weight: 600; font-size: 10px; padding: 2px 5px; background: rgba(255,255,255,0.03); border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); margin-right: 4px;">${info.cat}</span><span style="font-weight:600;">${assetName}</span>`;
+        }
+
+        function updateLiveStatus() {
+            const probPercent = (latestMarketStatus.prob * 100).toFixed(1) + "%";
+            document.getElementById('market-prob-val').innerText = probPercent;
+            document.getElementById('market-lambda-val').innerText = latestMarketStatus.lambda_dominant.toFixed(2);
+            document.getElementById('market-entropy-val').innerText = latestMarketStatus.entropy_spectral.toFixed(2);
+            document.getElementById('market-mtl-val').innerText = latestMarketStatus.mtl.toFixed(2);
+            document.getElementById('market-kld-val').innerText = latestMarketStatus.kld.toFixed(2);
+            
+            const badge = document.getElementById('market-regime-badge');
+            const recBox = document.getElementById('market-recommendation-box');
+            const recText = document.getElementById('market-rec-text');
+
+            if (latestMarketStatus.prob > 0.5) {
+                badge.innerText = "ALERTA DE CRISIS (" + latestMarketStatus.date + ")";
+                badge.style.background = "rgba(239, 68, 68, 0.15)";
+                badge.style.borderColor = "#ef4444";
+                badge.style.color = "#f87171";
+                badge.style.boxShadow = "0 0 12px rgba(239, 68, 68, 0.35)";
+                
+                if (recText) {
+                    recText.innerHTML = "<strong>CRITICAL:</strong> Contracción severa del mercado detectada. Apalancamiento al mínimo histórico (0.1x), activar cobertura de cola (Tail Hedge) mediante opciones y cerrar posiciones cortas de volatilidad.";
+                    recBox.style.borderLeftColor = "#ef4444";
+                    recBox.style.background = "rgba(239, 68, 68, 0.08)";
+                }
+            } else if (latestMarketStatus.prob > 0.25) {
+                badge.innerText = "RÉGIMEN PREVENTIVO (" + latestMarketStatus.date + ")";
+                badge.style.background = "rgba(245, 158, 11, 0.15)";
+                badge.style.borderColor = "#f59e0b";
+                badge.style.color = "#fbbf24";
+                badge.style.boxShadow = "0 0 12px rgba(245, 158, 11, 0.35)";
+                
+                if (recText) {
+                    recText.innerHTML = "<strong>PREVENTIVO:</strong> Alerta amarilla. Reducir apalancamiento preventivamente al 50%, desactivar estrategias de arbitraje de correlación y preparar cobertura de volatilidad.";
+                    recBox.style.borderLeftColor = "#f59e0b";
+                    recBox.style.background = "rgba(245, 158, 11, 0.08)";
+                }
+            } else {
+                badge.innerText = "RÉGIMEN ESTABLE (" + latestMarketStatus.date + ")";
+                badge.style.background = "rgba(16, 185, 129, 0.15)";
+                badge.style.borderColor = "#10b981";
+                badge.style.color = "#34d399";
+                badge.style.boxShadow = "0 0 12px rgba(16, 185, 129, 0.35)";
+                
+                if (recText) {
+                    recText.innerHTML = "<strong>ESTABLE:</strong> Condiciones normales. Mantener apalancamiento estándar (1.0x), trading algorítmico TSMOM operando en modo normal sobre portafolio diversificado.";
+                    recBox.style.borderLeftColor = "#10b981";
+                    recBox.style.background = "rgba(16, 185, 129, 0.08)";
+                }
+            }
+
+            // Renderizar tablas de correlación extrema si existen
+            if (latestMarketStatus.top_highest_corr) {
+                const tbodyHigh = document.querySelector('#table-highest-corr tbody');
+                if (tbodyHigh) {
+                    tbodyHigh.innerHTML = '';
+                    latestMarketStatus.top_highest_corr.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${getAssetBadge(item.asset_a)}</td>
+                            <td>${getAssetBadge(item.asset_b)}</td>
+                            <td><span class="corr-badge high">${item.corr.toFixed(4)}</span></td>
+                        `;
+                        tbodyHigh.appendChild(row);
+                    });
+                }
+            }
+
+            if (latestMarketStatus.top_lowest_corr) {
+                const tbodyLow = document.querySelector('#table-lowest-corr tbody');
+                if (tbodyLow) {
+                    tbodyLow.innerHTML = '';
+                    latestMarketStatus.top_lowest_corr.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${getAssetBadge(item.asset_a)}</td>
+                            <td>${getAssetBadge(item.asset_b)}</td>
+                            <td><span class="corr-badge low">${item.corr.toFixed(4)}</span></td>
+                        `;
+                        tbodyLow.appendChild(row);
+                    });
+                }
+            }
+        }
+
+        function switchTab(type, buttonElement) {
+            // Actualizar clase activa en los botones de navegación
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+
+            // Cambiar la fuente del iframe
+            const iframe = document.getElementById('vis-frame');
+            
+            // Ocultar todas las descripciones
+            const descriptions = document.querySelectorAll('.desc-text');
+            descriptions.forEach(desc => desc.classList.remove('active'));
+
+            if (type === 'surf') {
+                iframe.src = 'correlation_surface_3d.html';
+                document.getElementById('desc-surf').classList.add('active');
+            } else if (type === 'mds') {
+                iframe.src = 'mds_rotation_3d.html';
+                document.getElementById('desc-mds').classList.add('active');
+            } else if (type === 'mst') {
+                iframe.src = 'mst_graph_3d.html';
+                document.getElementById('desc-mst').classList.add('active');
+            } else if (type === 'status') {
+                iframe.src = 'market_correlation_today.html';
+                document.getElementById('desc-status').classList.add('active');
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', updateLiveStatus);
+    </script>
+</body>
+</html>

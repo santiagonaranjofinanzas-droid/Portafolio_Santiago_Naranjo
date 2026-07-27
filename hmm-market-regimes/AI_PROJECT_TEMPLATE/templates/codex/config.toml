@@ -1,0 +1,10 @@
+# Codex Workspace Configuration
+[workspace]
+name = "{{PROJECT_NAME}}"
+encoding = "utf-8"
+
+[mcp]
+enable = true
+
+[hooks]
+pre-invocation = "cmd /c \"{{WORKSPACE_PATH}}\\.agents\\startup.bat\""

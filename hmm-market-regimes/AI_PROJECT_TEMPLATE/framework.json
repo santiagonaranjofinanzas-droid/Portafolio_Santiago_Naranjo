@@ -1,0 +1,12 @@
+﻿{
+  "framework_version": "1.0.0",
+  "template_path": "c:\\Users\\YOUR_USERNAME\\Desktop\\Trading\\1_#####HMM#####\\AI_PROJECT_TEMPLATE",
+  "components": {
+    "serena": "1.5.3",
+    "graphify": "0.9.14",
+    "codex": true,
+    "antigravity": true,
+    "notebooklm": true,
+    "stitch": true
+  }
+}

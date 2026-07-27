@@ -1,0 +1,36 @@
+# Reglas del Agente: Protocolo HRP-RMT V1 ETF Long-Only
+
+Este archivo define las directrices y restricciones obligatorias que debe seguir el Agente de IA al interactuar con este repositorio. El cumplimiento de estas reglas es crítico para garantizar la rigurosidad milimétrica del protocolo técnico de trading.
+
+---
+
+## 1. Documento de Referencia Principal
+El comportamiento, diseño del software y análisis cuantitativo deben alinearse sin excepciones con:
+*   [Protocolo_HRP_RMT_V1_ETF_LongOnly_10_10.md](file:///c:/Users/NuevoAdmin/Desktop/Trading/Portafolio_HRP_RMT/Protocolo_HRP_RMT_V1_ETF_LongOnly_10_10.md)
+
+---
+
+## 2. Restricciones Clave de Operación (V1)
+*   **Solo ETFs Líquidos en USD**: Excluir derivados, futuros, opciones, CFDs, apalancamiento, y activos con ADV < 5M USD.
+*   **Restricciones de Pesos**:
+    *   Peso mínimo por ETF = 0% (Long-Only).
+    *   Peso máximo por ETF = 15%.
+    *   Peso máximo por clúster = 35% del presupuesto de riesgo.
+*   **Rebalanceo Mensual Fijo**: Se ejecuta en la última sesión hábil del mes. Rotación buffer mínima para ejecutar = 3%.
+*   **Costos Reales**: Todas las evaluaciones y backtests deben ser netos de costos bajo el escenario **Base** (comisiones, spread y slippage).
+
+---
+
+## 3. Reglas de Validación y Parada (Falsación)
+*   **Prohibición de Look-Ahead/Survivorship Bias**: Si se detecta cualquier fuga de información futura o sesgo de supervivencia en los datos del backtest, se invalida toda la simulación.
+*   **Falsabilidad de RMT**: La limpieza espectral RMT solo se utilizará si demuestra una mejora neta fuera de muestra en el portafolio (Calmar, Sharpe, drawdown) frente a HRP empírico y Ledoit-Wolf. Si solo mejora el condition number de la matriz pero empeora el desempeño neto, RMT queda fuera.
+*   **CPCV Purgada y Embargada**: El motor de validación cruzada combinatoria (CPCV) debe purgar las observaciones de entrenamiento que solapen con periodos de prueba y aplicar un embargo mínimo de 22 días hábiles tras el bloque de prueba. Queda prohibido el barajamiento (*shuffling*).
+*   **Estabilidad de Matrices**: Toda matriz de covarianza debe validarse para simetría, diagonal positiva y definición positiva. Si `c = N/T > 0.50`, el diagnóstico de degeneración topológica es obligatorio.
+
+---
+
+## 4. Flujo de Trabajo Obligatorio en Cada Turno
+1.  **Revisión de Estado**: Leer las fases completadas en la sección 23.1 del protocolo y el archivo `task.md` activo.
+2.  **No Modificar Holdout**: Queda prohibido ajustar hiperparámetros o código de optimización tras observar resultados en el periodo de *Holdout*.
+3.  **TDD (Test-Driven Development)**: Escribir tests unitarios en `tests/` para validar restricciones matemáticas y dimensionales antes de finalizar la implementación de un módulo.
+4.  **Actualización de Puertas**: Tras completar una tarea, ejecutar la verificación automatizada, actualizar el reporte correspondiente e indicar el avance cambiando el estado en la tabla de Puertas de Aceptación (§23.1) y en el checklist operativo aplicable.

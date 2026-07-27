@@ -1,0 +1,125 @@
+project:
+  name: hsmm_xau_m15
+  version: "2.0"
+  seed: 20260717
+  timezone: UTC
+  protocol: PLAN_QUANT_RESEARCH_HSMM_XAUUSD.md
+
+paths:
+  ticks: ticks_parquet
+  artifacts: artifacts/v2
+  ledger: research/ledger.jsonl
+
+data:
+  primary_symbol: XAUUSD
+  context_symbols: [XAGUSD, NSXUSD]
+  bar_frequency: 15min
+  expected_start: "2012-01-01"
+  expected_end: "2026-07-16"
+  max_gap_bars: 480
+  extreme_spread_quantile: 0.999
+
+equilibrium:
+  kalman_process_variance: 0.000001
+  kalman_observation_variance: 0.0001
+  z_window: 96
+  ewma_span: 96
+
+labels:
+  event_z: 1.5
+  target_z: 0.25
+  stop_z: 2.5
+  horizons: [8, 16, 32]
+  primary_horizon: 16
+  purge_bars: 32
+  intrabar: true
+  same_bar_policy: stop_first
+  non_overlapping_positions: true
+
+features:
+  windows: [16, 32, 64, 96]
+  selected:
+    - residual_z
+    - return_acf1_64
+    - variance_ratio_64
+    - half_life_64
+    - efficiency_ratio_32
+    - realized_vol_32
+    - range_atr_32
+    - spread_z_96
+    - session_sin
+    - session_cos
+
+model:
+  states: 4
+  state_names: [mean_reversion, trend, breakout, neutral]
+  covariance_type: diag
+  emission_family: student_t
+  emission_df: 5.0
+  robust_location: true
+  max_duration: 64
+  duration_family: poisson
+  n_seeds: 3
+  max_iter: 100
+  tolerance: 0.0001
+  min_state_occupancy: 0.01
+  state_matching: hungarian_anchor
+
+opportunity:
+  model: elastic_net_logistic
+  primary_mode: all
+  c: 0.10
+  l1_ratio: 0.25
+  class_weight: balanced
+  max_iter: 3000
+  calibrators: [platt, isotonic, identity]
+  features:
+    - residual_z
+    - half_life_64
+    - efficiency_ratio_32
+    - realized_vol_32
+    - range_atr_32
+    - spread_z_96
+    - tick_activity_z_96
+    - equilibrium_stability
+    - session_sin
+    - session_cos
+
+walk_forward:
+  train_years: 3
+  calibration_months: 3
+  test_months: 3
+  step_months: 3
+  embargo_bars: 32
+
+costs:
+  commission_price: 0.0
+  slippage_spread_fraction: 0.10
+  spread_multiplier: 1.0
+
+decision:
+  mr_probability_threshold: 0.50
+  max_breakout_probability: 0.35
+  min_success_probability: 0.50
+  min_expected_value: 0.0
+
+portfolio:
+  initial_equity: 1.0
+  fixed_notional_fraction: 1.0
+  annualization_days: 252
+  one_position_at_a_time: true
+
+shadow:
+  enabled: false
+  kill_switch: true
+  reason: "Version 2 must pass frozen historical gates"
+
+approval:
+  max_ece: 0.05
+  min_roc_auc: 0.60
+  min_mcc: 0.15
+  min_profit_factor: 1.20
+  min_sharpe: 1.0
+  min_positive_fold_fraction: 0.70
+  min_dsr_probability: 0.95
+  max_pbo: 0.20

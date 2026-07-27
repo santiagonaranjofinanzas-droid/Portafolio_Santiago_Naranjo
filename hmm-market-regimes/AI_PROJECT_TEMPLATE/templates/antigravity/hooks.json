@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreInvocation": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cmd /c \"{{WORKSPACE_PATH}}\\.agents\\startup.bat\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

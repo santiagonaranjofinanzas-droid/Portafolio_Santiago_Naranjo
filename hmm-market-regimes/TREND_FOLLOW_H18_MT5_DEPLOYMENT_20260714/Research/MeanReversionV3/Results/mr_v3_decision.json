@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "candidate_id": "MR_V3_01_SHOCK_REJECTION",
+  "magic_reserved": 6003,
+  "status": "REJECTED_RESEARCH_ONLY_NO_EA",
+  "approved": false,
+  "live_authorized": false,
+  "data_manifest_sha256": "ea233b124abb58a1516f55479bc8896968ee969a860ba1f95c07549a053f050e",
+  "preregistration_sha256": "ce9b4da94d97e1d2b291f3b560d8ae2b70fedfa1f2d35b82f5cc84baea12ede2",
+  "config": {
+    "return_scale_window": 96,
+    "atr_window": 32,
+    "shock_z": 3.0,
+    "minimum_range_atr": 1.5,
+    "maximum_rejection_bars": 4,
+    "trend_score_veto": 0.35,
+    "stop_atr": 1.0,
+    "maximum_holding_bars": 16,
+    "minimum_reward_risk": 1.0,
+    "risk_fraction": 0.001,
+    "initial_balance": 100000.0,
+    "min_lot": 0.01,
+    "max_lot": 10.0,
+    "lot_step": 0.01,
+    "costs": {
+      "spread_price": 2.5,
+      "slippage_price_per_side": 0.1,
+      "commission_per_lot_per_side": 3.0,
+      "bar_price_basis": "bid",
+      "tick_size": 0.01,
+      "tick_value": 0.2,
+      "point": 0.01,
+      "min_lot": 0.01,
+      "max_lot": 10.0,
+      "lot_step": 0.01
+    }
+  },
+  "outer_folds": 7,
+  "historical_trials_in_dsr": 142,
+  "metrics": {
+    "closed_trades": 6,
+    "net_profit": 110.765212500003,
+    "return_pct": 0.11076521250000301,
+    "profit_factor": 1.4840900207294385,
+    "expectancy": 18.4608687500005,
+    "win_rate_pct": 50.0,
+    "daily_sharpe": 0.1775104175214706,
+    "dsr_probability": 0.013181302024267351,
+    "dsr_z": -2.2208281371765186,
+    "max_drawdown_money": -205.05878750000556,
+    "max_drawdown_pct": -0.20485749043275653,
+    "worst_quarter_profit_factor": 0.0,
+    "top5_winner_share_pct": 100.0
+  },
+  "adverse_metrics": {
+    "closed_trades": 6,
+    "net_profit": 99.32521249999776,
+    "return_pct": 0.09932521249999776,
+    "profit_factor": 1.4243013740104842,
+    "expectancy": 16.55420208333296,
+    "win_rate_pct": 50.0,
+    "daily_sharpe": 0.159998411434359,
+    "dsr_probability": 0.011676652478251497,
+    "dsr_z": -2.267604798541521,
+    "max_drawdown_money": -208.7987875000108,
+    "max_drawdown_pct": -0.20859794522638792,
+    "worst_quarter_profit_factor": 0.0,
+    "top5_winner_share_pct": 100.0
+  },
+  "crisis_metrics": {
+    "closed_trades": 6,
+    "net_profit": 78.52521249998529,
+    "return_pct": 0.07852521249998529,
+    "profit_factor": 1.3222324668592382,
+    "expectancy": 13.087535416664215,
+    "win_rate_pct": 50.0,
+    "daily_sharpe": 0.12763397686515918,
+    "dsr_probability": 0.009365243141022168,
+    "dsr_z": -2.350851919271908,
+    "max_drawdown_money": -215.5987875000137,
+    "max_drawdown_pct": -0.21539915125864417,
+    "worst_quarter_profit_factor": 0.0,
+    "top5_winner_share_pct": 100.0
+  },
+  "bootstrap": {
+    "samples": 10000,
+    "pf_p05": 0.05243552672273696,
+    "expectancy_p05": -0.23578903288958045,
+    "probability_positive": 0.6438
+  },
+  "positive_outer_folds": 2,
+  "minimum_fold_trades": 0,
+  "checks": [
+    {
+      "name": "minimum_trades",
+      "value": 6,
+      "required": 200,
+      "passed": false
+    },
+    {
+      "name": "profit_factor",
+      "value": 1.4840900207294385,
+      "required": 1.2,
+      "passed": true
+    },
+    {
+      "name": "positive_outer_folds",
+      "value": 2,
+      "required": 5,
+      "passed": false
+    },
+    {
+      "name": "minimum_fold_trades",
+      "value": 0,
+      "required": 20,
+      "passed": false
+    },
+    {
+      "name": "dsr",
+      "value": 0.013181302024267351,
+      "required": 0.95,
+      "passed": false
+    },
+    {
+      "name": "drawdown",
+      "value": 0.20485749043275653,
+      "required_max": 15.0,
+      "passed": true
+    },
+    {
+      "name": "bootstrap_pf_p05",
+      "value": 0.05243552672273696,
+      "required": 1.0,
+      "passed": false
+    },
+    {
+      "name": "bootstrap_probability_positive",
+      "value": 0.6438,
+      "required": 0.95,
+      "passed": false
+    },
+    {
+      "name": "adverse_cost_pf",
+      "value": 1.4243013740104842,
+      "required": 1.05,
+      "passed": true
+    },
+    {
+      "name": "crisis_cost_pf",
+      "value": 1.3222324668592382,
+      "required": 1.0,
+      "passed": true
+    }
+  ],
+  "pbo": "NOT_APPLICABLE_SINGLE_PREREGISTERED_CANDIDATE",
+  "prefix_invariance": "PASSED",
+  "coexistence": {
+    "TREND10_6001": {
+      "trend_only": {
+        "closed_trades": 300,
+        "net_profit": 43784.83860000363,
+        "return_pct": 43.78483860000363,
+        "profit_factor": 1.402040466140542,
+        "expectancy": 145.94946200001212,
+        "win_rate_pct": 40.33333333333333,
+        "daily_sharpe": 0.9557829752899458,
+        "dsr_probability": 0.41403911296174317,
+        "dsr_z": -0.21716696822272272,
+        "max_drawdown_money": -17915.057199999515,
+        "max_drawdown_pct": -11.92262776352546,
+        "worst_quarter_profit_factor": 0.10021585507575614,
+        "top5_winner_share_pct": 16.10039075367653
+      },
+      "trend_plus_mr_independent_ledger": {
+        "closed_trades": 306,
+        "net_profit": 43895.603812503636,
+        "return_pct": 43.89560381250364,
+        "profit_factor": 1.4022124897309598,
+        "expectancy": 143.44968566177658,
+        "win_rate_pct": 40.52287581699346,
+        "daily_sharpe": 0.9578829703514691,
+        "dsr_probability": 0.4162880283442812,
+        "dsr_z": -0.21139884659821112,
+        "max_drawdown_money": -17915.057199999515,
+        "max_drawdown_pct": -11.913845446044864,
+        "worst_quarter_profit_factor": 0.10021585507575614,
+        "top5_winner_share_pct": 16.06466391325251
+      },
+      "warning": "independent-ledger overlay; not shared-balance portfolio sizing"
+    },
+    "TREND11_6002": {
+      "trend_only": {
+        "closed_trades": 180,
+        "net_profit": 43623.557600002074,
+        "return_pct": 43.62355760000207,
+        "profit_factor": 1.5317571480751246,
+        "expectancy": 242.3530977777893,
+        "win_rate_pct": 41.11111111111111,
+        "daily_sharpe": 0.9186643598791824,
+        "dsr_probability": 0.40405224938535955,
+        "dsr_z": -0.24287207513905534,
+        "max_drawdown_money": -11818.897399999725,
+        "max_drawdown_pct": -8.36043361669247,
+        "worst_quarter_profit_factor": 0.033677744139064554,
+        "top5_winner_share_pct": 22.65481648844552
+      },
+      "trend_plus_mr_independent_ledger": {
+        "closed_trades": 186,
+        "net_profit": 43734.32281250208,
+        "return_pct": 43.734322812502086,
+        "profit_factor": 1.531624567813568,
+        "expectancy": 235.130767809151,
+        "win_rate_pct": 41.39784946236559,
+        "daily_sharpe": 0.9208951312305301,
+        "dsr_probability": 0.4066166058091845,
+        "dsr_z": -0.23625705142748385,
+        "max_drawdown_money": -11818.897399999754,
+        "max_drawdown_pct": -8.371966704338366,
+        "worst_quarter_profit_factor": 0.033677744139064554,
+        "top5_winner_share_pct": 22.59376048672694
+      },
+      "warning": "independent-ledger overlay; not shared-balance portfolio sizing"
+    }
+  }
+}

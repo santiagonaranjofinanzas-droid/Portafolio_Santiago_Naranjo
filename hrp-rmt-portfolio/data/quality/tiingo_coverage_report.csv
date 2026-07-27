@@ -1,0 +1,46 @@
+ticker,name,asset_class,sub_class,region,currency,role,exists,rows,first_date,last_date,zero_volume_rows
+SPY,SPDR S&P 500 ETF Trust,Equity,US large cap,United States,USD,core,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+VTI,Vanguard Total Stock Market ETF,Equity,US total market,United States,USD,benchmark_core,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+QQQ,Invesco QQQ Trust,Equity,US growth/technology,United States,USD,satellite,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+IWM,iShares Russell 2000 ETF,Equity,US small cap,United States,USD,diversifier,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+EFA,iShares MSCI EAFE ETF,Equity,Developed ex-US,International Developed,USD,core,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+IEFA,iShares Core MSCI EAFE ETF,Equity,Developed ex-US,International Developed,USD,core,True,3432,2012-10-24T00:00:00.000Z,2026-06-22T00:00:00.000Z,2
+VGK,Vanguard FTSE Europe ETF,Equity,Europe,Europe,USD,satellite,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+EWJ,iShares MSCI Japan ETF,Equity,Japan,Japan,USD,satellite,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+EEM,iShares MSCI Emerging Markets ETF,Equity,Emerging markets,Emerging Markets,USD,core,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+VWO,Vanguard FTSE Emerging Markets ETF,Equity,Emerging markets,Emerging Markets,USD,core,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+FXI,iShares China Large-Cap ETF,Equity,China,China,USD,satellite,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLF,Financial Select Sector SPDR Fund,Equity,Financials,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLK,Technology Select Sector SPDR Fund,Equity,Technology,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLE,Energy Select Sector SPDR Fund,Equity,Energy,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLV,Health Care Select Sector SPDR Fund,Equity,Health care,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLI,Industrial Select Sector SPDR Fund,Equity,Industrials,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLY,Consumer Discretionary Select Sector SPDR Fund,Equity,Consumer discretionary,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLP,Consumer Staples Select Sector SPDR Fund,Equity,Consumer staples,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLU,Utilities Select Sector SPDR Fund,Equity,Utilities,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLB,Materials Select Sector SPDR Fund,Equity,Materials,United States,USD,sector,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+XLRE,Real Estate Select Sector SPDR Fund,Equity,Real estate sector,United States,USD,sector,True,2690,2015-10-08T00:00:00.000Z,2026-06-22T00:00:00.000Z,2
+USMV,iShares MSCI USA Min Vol Factor ETF,Equity,Minimum volatility factor,United States,USD,factor,True,3687,2011-10-20T00:00:00.000Z,2026-06-22T00:00:00.000Z,7
+MTUM,iShares MSCI USA Momentum Factor ETF,Equity,Momentum factor,United States,USD,factor,True,3314,2013-04-18T00:00:00.000Z,2026-06-22T00:00:00.000Z,2
+VLUE,iShares MSCI USA Value Factor ETF,Equity,Value factor,United States,USD,factor,True,3314,2013-04-18T00:00:00.000Z,2026-06-22T00:00:00.000Z,59
+QUAL,iShares MSCI USA Quality Factor ETF,Equity,Quality factor,United States,USD,factor,True,3251,2013-07-18T00:00:00.000Z,2026-06-22T00:00:00.000Z,1
+AGG,iShares Core U.S. Aggregate Bond ETF,Fixed Income,US aggregate bonds,United States,USD,core,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+BND,Vanguard Total Bond Market ETF,Fixed Income,US aggregate bonds,United States,USD,core,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+TLT,iShares 20+ Year Treasury Bond ETF,Fixed Income,Long Treasuries,United States,USD,duration,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+IEF,iShares 7-10 Year Treasury Bond ETF,Fixed Income,Intermediate Treasuries,United States,USD,duration,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,4
+SHY,iShares 1-3 Year Treasury Bond ETF,Fixed Income,Short Treasuries,United States,USD,defensive,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+TIP,iShares TIPS Bond ETF,Fixed Income,Inflation-linked bonds,United States,USD,inflation,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+LQD,iShares iBoxx Investment Grade Corporate Bond ETF,Fixed Income,Investment grade credit,United States,USD,credit,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+HYG,iShares iBoxx High Yield Corporate Bond ETF,Fixed Income,High yield credit,United States,USD,credit,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+EMB,iShares J.P. Morgan USD Emerging Markets Bond ETF,Fixed Income,Emerging market USD debt,Emerging Markets,USD,credit,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+BNDX,Vanguard Total International Bond ETF,Fixed Income,International aggregate bonds,International Developed,USD,diversifier,True,3282,2013-06-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+BIL,SPDR Bloomberg 1-3 Month T-Bill ETF,Cash,T-bills,United States,USD,cash,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+SGOV,iShares 0-3 Month Treasury Bond ETF,Cash,T-bills,United States,USD,cash,True,1524,2020-05-28T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+GLD,SPDR Gold Shares,Commodity,Gold,Global,USD,commodity,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+IAU,iShares Gold Trust,Commodity,Gold,Global,USD,commodity,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+SLV,iShares Silver Trust,Commodity,Silver,Global,USD,commodity,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+DBC,Invesco DB Commodity Index Tracking Fund,Commodity,Broad commodities,Global,USD,commodity,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+USO,United States Oil Fund LP,Commodity,Crude oil,Global,USD,commodity,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+VNQ,Vanguard Real Estate ETF,Real Estate,US REITs,United States,USD,real_estate,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+VNQI,Vanguard Global ex-U.S. Real Estate ETF,Real Estate,Global ex-US REITs,International,USD,real_estate,True,3932,2010-11-01T00:00:00.000Z,2026-06-22T00:00:00.000Z,0
+RWX,SPDR Dow Jones International Real Estate ETF,Real Estate,International REITs,International,USD,real_estate,True,4141,2010-01-04T00:00:00.000Z,2026-06-22T00:00:00.000Z,0

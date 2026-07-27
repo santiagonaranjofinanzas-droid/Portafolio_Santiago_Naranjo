@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+artifacts/
+dist/
+*.egg-info/
+graphify-out/.graphify_*.json
+graphify-out/.graphify_chunk_*.json
+

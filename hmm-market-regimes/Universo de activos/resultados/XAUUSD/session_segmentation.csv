@@ -1,0 +1,4 @@
+Label,Trades,Win Rate %,Avg Win,Avg Loss,Profit Factor,Expectancy,Max DD %,Sharpe Ratio,DSR Prob,Exposure %,Avg Bars Held
+Londres,167,40.72%,$169.75,$-110.63,1.05,$3.54,-15.93%,0.30,2.12%,6.49%,19.1
+Nueva York,74,36.49%,$148.80,$-99.68,0.86,$-9.02,-14.10%,-0.43,0.11%,2.93%,19.5
+Asia,127,42.52%,$187.01,$-111.12,1.24,$15.64,-12.06%,0.88,11.38%,4.54%,17.6

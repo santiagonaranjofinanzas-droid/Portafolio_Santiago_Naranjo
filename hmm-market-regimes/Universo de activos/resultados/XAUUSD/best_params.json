@@ -1,0 +1,8 @@
+{
+  "threshold": 0.6,
+  "min_strength": 0.3,
+  "vol_multiplier": 2.5,
+  "reward_risk": 2.5,
+  "kalman_gate": true,
+  "score": 1.9650641615144515
+}

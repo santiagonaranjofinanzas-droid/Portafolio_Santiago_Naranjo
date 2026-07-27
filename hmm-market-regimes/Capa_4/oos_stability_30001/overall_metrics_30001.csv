@@ -1,0 +1,2 @@
+segment,start_time,end_time,trades,return_pct_on_initial,win_rate_pct,profit_factor,expectancy,max_drawdown_pct,max_consecutive_wins,max_consecutive_losses,sharpe_trade,gross_profit,gross_loss,net_pnl
+OOS_202405_FULL,2024-05-06 03:45:00,2026-05-29 11:30:00,479,134.30500045449617,49.478079331941544,1.343813232514442,28.038622224320697,-11.137819151570735,7,9,2.9816043705104307,52493.85996102666,-39063.359915577035,13430.500045449615

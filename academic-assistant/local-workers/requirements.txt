@@ -1,0 +1,7 @@
+playwright
+supabase
+python-telegram-bot
+python-dotenv
+requests
+beautifulsoup4
+dateparser

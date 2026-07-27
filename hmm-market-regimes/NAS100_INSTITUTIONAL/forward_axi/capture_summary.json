@@ -1,0 +1,19 @@
+{
+  "symbol": "NAS100.fs",
+  "source": "Axi MT5 copy_ticks_range COPY_TICKS_INFO; M15 Bid OHLC aggregated locally",
+  "start_requested_utc": "2026-06-20T00:00:00+00:00",
+  "end_terminal_utc": "2026-07-10T08:11:42+00:00",
+  "tick_rows": 7814606,
+  "tick_days": 15,
+  "bar_rows": 1301,
+  "bar_start": "2026-06-22 01:00:00",
+  "bar_end": "2026-07-10 08:00:00",
+  "profile_checks": {
+    "point": 0.01,
+    "tick_size": 0.01,
+    "tick_value": 0.2,
+    "volume_min": 0.01,
+    "volume_max": 10.0,
+    "volume_step": 0.01
+  }
+}

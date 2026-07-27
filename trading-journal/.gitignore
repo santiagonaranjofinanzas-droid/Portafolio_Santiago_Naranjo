@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+
+# Local databases and runtime artifacts
+*.db
+*.db-wal
+*.db-shm
+.codex-runtime/
+_journal_data/
+*.pid
+*.log
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+
+# Environment files
+.env
+.env.*
+backend/.env
+frontend/.env
+PHASE2_CREDENTIALS.md
+PHASE2_CREDENTIALS.local.md
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build / cache
+.cache/
+.tmp/

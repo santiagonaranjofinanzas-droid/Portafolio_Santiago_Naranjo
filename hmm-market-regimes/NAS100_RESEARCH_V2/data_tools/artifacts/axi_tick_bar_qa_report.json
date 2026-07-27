@@ -1,0 +1,94 @@
+{
+  "audit_interval": {
+    "development_cutoff_exclusive_utc": "2026-07-11T00:00:00Z",
+    "end_exclusive_utc": "2026-07-10T08:11:42Z",
+    "start_utc": "2026-06-20T00:00:00Z"
+  },
+  "bar_quality": {
+    "all_observed_slots": 1301,
+    "canonical_complete_bars": 1300,
+    "complete_bar_coverage": 1.0,
+    "expected_complete_bars": 1300,
+    "extra_complete_slots": [],
+    "first_bar_utc": "2026-06-22T01:00:00+00:00",
+    "frequency": "15min",
+    "last_bar_utc": "2026-07-10T07:45:00+00:00",
+    "missing_complete_slots": [],
+    "ohlc_invariant_violations": 0,
+    "partial_or_outside_bars_excluded": 1
+  },
+  "broker": "Axi-US51-Live",
+  "config_sha256": "9ee7a3628006364d71b20b2d445abac81a790f1cac2e220c4adce7597c45bf6a",
+  "dataset_id": "AXI_NAS100_FS_FORWARD_20260620_20260710_CANONICAL_V2",
+  "gate_results": {
+    "active_gap_count": true,
+    "bar_ohlc_invariants": true,
+    "complete_bar_coverage": true,
+    "crossed_rows": true,
+    "duplicate_timestamps": true,
+    "invalid_price_rows": true,
+    "locked_rows": true,
+    "non_overlapping_partitions": true,
+    "off_grid_rows": true,
+    "out_of_order_rows": true,
+    "reference_bid_ohlc_parity": true,
+    "source_file_count": true,
+    "spread_max": true,
+    "stale_run_count": true
+  },
+  "generated_utc": "2026-07-10T12:48:50.147131Z",
+  "quality_gates": {
+    "maximum_active_gap_count": 0,
+    "maximum_active_tick_gap_seconds": 30.0,
+    "maximum_crossed_rows": 0,
+    "maximum_duplicate_timestamps": 0,
+    "maximum_invalid_price_rows": 0,
+    "maximum_locked_rows": 0,
+    "maximum_off_grid_rows": 0,
+    "maximum_out_of_order_rows": 0,
+    "maximum_spread_price": 20.0,
+    "maximum_stale_quote_seconds": 30.0,
+    "maximum_stale_run_count": 0,
+    "minimum_complete_bar_coverage": 0.995
+  },
+  "quality_passed": true,
+  "reference_bar_comparison": {
+    "available": true,
+    "common_complete_bars": 1300,
+    "missing_canonical_slots_in_reference": 0,
+    "ohlc_mismatch_cells": 0,
+    "path": "C:\\Users\\YOUR_USERNAME\\Desktop\\Trading\\1_#####HMM#####\\NAS100_INSTITUTIONAL\\forward_axi\\NAS100_fs_M15_FORWARD.parquet"
+  },
+  "schema_version": 1,
+  "source": {
+    "excluded_after_interval": 0,
+    "excluded_before_interval": 0,
+    "file_count": 15,
+    "glob": "year=*/month=*/ticks_NAS100_fs_*.parquet",
+    "included_rows": 7814606,
+    "overlapping_file_count": 0,
+    "raw_rows": 7814606,
+    "root": "NAS100_INSTITUTIONAL/forward_axi/ticks"
+  },
+  "source_dataset_sha256": "38c10cc1b9ae75fb1e42d017d84ed17433b85c5eae3881254f167d069325e00f",
+  "symbol": "NAS100.fs",
+  "tick_quality": {
+    "active_gap_count": 0,
+    "crossed_rows": 0,
+    "duplicate_timestamps": 0,
+    "invalid_price_rows": 0,
+    "locked_rows": 0,
+    "maximum_active_gap_seconds": 0.0,
+    "maximum_stale_quote_seconds": 11.817,
+    "off_grid_rows": 0,
+    "out_of_order_rows": 0,
+    "same_quote_rows": 8507,
+    "spread_price": {
+      "max": 16.75,
+      "median": 2.5,
+      "p95": 3.0,
+      "p99": 3.5
+    },
+    "stale_run_count": 0
+  }
+}

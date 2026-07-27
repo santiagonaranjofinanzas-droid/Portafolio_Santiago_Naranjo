@@ -1,0 +1,3 @@
+model,symbol,timeframe,python_status,mt5_implementation,backtest_mode,release_status,live_locked,reason
+MEAN_REVERSION,NAS100.fs,M15,AUDITED,NOT_PORTED,OHLC_PESSIMISTIC,RETIRED_FROM_CANDIDATE_PORTFOLIO,true,IS median PF below 1 and OOS PF below 1; no stable temporal niche
+TREND_FOLLOW,NAS100.fs,M15,AUDITED,XAUUSD_IMPLEMENTATION_NOT_REUSABLE,TICK_BID_ASK,SUSPENDED_REDESIGN_REQUIRED,true,Historical PF DSR bootstrap nested walk-forward and Axi forward gates fail

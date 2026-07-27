@@ -1,0 +1,99 @@
+{
+  "created_utc": "2026-07-13T16:40:26.819134Z",
+  "files": [
+    {
+      "path": "candidate_TREND_01_MOM_LONG_outer_oos_trades.csv",
+      "sha256": "8e9904ba4691f573019d30bfbf330b54e48158f4c83fa450da8ecd54bbe2dcf6"
+    },
+    {
+      "path": "candidate_TREND_02_MOM_SHORT_outer_oos_trades.csv",
+      "sha256": "1fd70d17fea00e5f7ac94cdab3661a621b3e5918451332990d68864178d0b194"
+    },
+    {
+      "path": "candidate_TREND_03_LONG_P55_outer_oos_trades.csv",
+      "sha256": "49843d7c21d6aac9befea4ea7ce7789bbdd902dea6b7a07bf35819bf7ea6178f"
+    },
+    {
+      "path": "candidate_TREND_04_LONG_P65_outer_oos_trades.csv",
+      "sha256": "1172b60fba4e790f7aee3c819c96771e4d9ddc0c42a13adf42040438395ab6c1"
+    },
+    {
+      "path": "candidate_TREND_05_LONG_T10_outer_oos_trades.csv",
+      "sha256": "a4285a9e291f417f6347687179be6e47336210d08d04e6c281b9a54a590ed9c1"
+    },
+    {
+      "path": "candidate_TREND_06_LONG_T30_outer_oos_trades.csv",
+      "sha256": "51ec7c719dc0b3faf1f1ad07fccdeaf2ba90c0c087436f3a0284faa6f48b81b6"
+    },
+    {
+      "path": "candidate_TREND_07_SHORT_P55_outer_oos_trades.csv",
+      "sha256": "81408433543853416e70b25593f8c2062bb11e36d60757091a1be09137940327"
+    },
+    {
+      "path": "candidate_TREND_08_SHORT_P65_outer_oos_trades.csv",
+      "sha256": "b56b55ece513b8f7fda64a676b73271824c111607616b928d86978a26752592f"
+    },
+    {
+      "path": "diagnostics.json",
+      "sha256": "8e889f0e4d4f6c46ca7651da0b6c85d6fbd55464e3091cdbf05211ac1659c751"
+    },
+    {
+      "path": "inner_cpcv_fold_0.csv",
+      "sha256": "87e4c1db26ec1e15b6f45e24dde0712952034ebff8592e83662838fb9567527e"
+    },
+    {
+      "path": "inner_cpcv_fold_1.csv",
+      "sha256": "d7048d883703ece5e923b9098a32656e382057183fedc2bc0d8386ca9913f3b8"
+    },
+    {
+      "path": "inner_cpcv_fold_2.csv",
+      "sha256": "3527f50c9b998a90fc32045ab12438576582fb2cbce52e7f39916d77a370f95c"
+    },
+    {
+      "path": "inner_cpcv_fold_3.csv",
+      "sha256": "6e1639ff3c9f57c12d5489d0f75088749232959e42ebb9e27a6b5d7056b04420"
+    },
+    {
+      "path": "inner_cpcv_fold_4.csv",
+      "sha256": "cb83ad9afa5721f478a4dfc971eb41d6566a63d59fc0d511bae3f76a6e1da51b"
+    },
+    {
+      "path": "inner_cpcv_fold_5.csv",
+      "sha256": "419315046dc367d5f7bbb125b558660860e8a815537f1fc6da0c82d9f9d52934"
+    },
+    {
+      "path": "inner_cpcv_fold_6.csv",
+      "sha256": "7d8b340ff5132dbf3af5b519013a6567aed6d723e730207377919105f8a2b743"
+    },
+    {
+      "path": "nested_adverse_trades.csv",
+      "sha256": "dd06684b96659db817efad5798d43d7468e83bd4ef64496f7326e6d6f5239d7f"
+    },
+    {
+      "path": "nested_crisis_trades.csv",
+      "sha256": "4cacd73e83d7f49a1ff152230f1e7f1922226921cf5497731da0833e0fd54749"
+    },
+    {
+      "path": "nested_decision.json",
+      "sha256": "b16b264e1f32a71e92b1c525bad444659d946951ab073520c458e53cfc2ad40d"
+    },
+    {
+      "path": "nested_fold_metrics.csv",
+      "sha256": "3356469537679ab2c541a82c169bf55899cf1fb90eb5e87eefede9b7ee961a32"
+    },
+    {
+      "path": "nested_outer_oos_trades.csv",
+      "sha256": "8d1bdb5620908db6ea7b194d059dfe1b1ee09a306f844bb8bf9b3580ba4b7f07"
+    },
+    {
+      "path": "outer_folds.csv",
+      "sha256": "0b781fd2fbcc67cd74af53dca063355088c4e731e005e4115b2ea8ee3f4c0ef7"
+    },
+    {
+      "path": "outer_selections.csv",
+      "sha256": "e262e7965d8ccd0caf48ccc59ecaf70e7249c76cc8ced234c6b0767ca3bb1a51"
+    }
+  ],
+  "manifest_sha256": "d1036015ff66bb3d587d617496d4b449fe10ecd11a75c0f43eb31620f6cfb534",
+  "schema_version": 1
+}

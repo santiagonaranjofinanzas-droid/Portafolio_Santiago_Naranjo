@@ -1,0 +1,51 @@
+{
+  "policy_version": 1,
+  "fail_closed": true,
+  "research": {
+    "min_closed_trades": 200,
+    "min_trades_per_fold": 30,
+    "min_profit_factor": 1.10,
+    "min_median_fold_pf": 1.05,
+    "min_fold_pf": 1.00,
+    "min_daily_sharpe": 0.80,
+    "min_dsr": 0.80,
+    "max_drawdown_pct": 15.0,
+    "min_bootstrap_pf_p05": 1.00,
+    "min_probability_positive": 0.95,
+    "max_pbo": 0.20,
+    "min_worst_quarter_pf": 0.90,
+    "max_top5_winner_share_pct": 40.0,
+    "min_neighbor_positive_fraction": 0.70,
+    "min_adverse_cost_pf": 1.05,
+    "min_crisis_cost_pf": 1.00,
+    "min_probability_improvement": 0.95
+  },
+  "institutional": {
+    "min_closed_trades": 250,
+    "min_trades_per_fold": 30,
+    "min_profit_factor": 1.20,
+    "min_median_fold_pf": 1.10,
+    "min_fold_pf": 1.00,
+    "min_daily_sharpe": 1.00,
+    "min_dsr": 0.95,
+    "max_drawdown_pct": 15.0,
+    "min_bootstrap_pf_p05": 1.00,
+    "min_probability_positive": 0.95,
+    "max_pbo": 0.10,
+    "min_worst_quarter_pf": 0.90,
+    "max_top5_winner_share_pct": 40.0,
+    "min_neighbor_positive_fraction": 0.70,
+    "min_adverse_cost_pf": 1.05,
+    "min_crisis_cost_pf": 1.00,
+    "min_probability_improvement": 0.95
+  },
+  "operational": {
+    "holdout_min_months": 4,
+    "holdout_min_trades": 40,
+    "forward_min_months": 6,
+    "forward_min_trades": 60,
+    "future_total_min_trades": 100,
+    "min_forward_pf": 1.10,
+    "max_forward_drawdown_pct": 10.0
+  }
+}

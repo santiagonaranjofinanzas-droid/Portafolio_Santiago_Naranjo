@@ -1,0 +1,29 @@
+{
+  "model_version": "v1.3.2",
+  "feature_version": "fv_1.0.3",
+  "artifacts": {
+    "scaler_params.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Universidad\\Tesis_2026\\Tesis\\models\\scaler_params.pkl",
+    "xgb.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Universidad\\Tesis_2026\\Tesis\\models\\xgb.pkl",
+    "hmm.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Universidad\\Tesis_2026\\Tesis\\models\\hmm.pkl",
+    "hmm_prior.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Universidad\\Tesis_2026\\Tesis\\models\\hmm_prior.pkl"
+  },
+  "raw_asset_names": [
+    "OIL",
+    "USD",
+    "GOLD",
+    "SP500",
+    "BOND10Y"
+  ],
+  "feature_names_xgb": [
+    "ISRI",
+    "CLR_State_0",
+    "CLR_State_1",
+    "CLR_State_2"
+  ],
+  "hmm_n_states": 3,
+  "hmm_pi_0": [
+    0.31691532546010476,
+    0.37468955854459074,
+    0.30839511599530456
+  ]
+}

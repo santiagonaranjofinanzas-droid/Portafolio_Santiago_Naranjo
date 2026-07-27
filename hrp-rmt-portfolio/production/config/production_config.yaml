@@ -1,0 +1,12 @@
+mode: shadow_paper_mvp_with_timescaledb_sync
+storage: timescaledb_primary_csv_append_only_audit_mirror
+primary_vendor: tiingo
+ordinary_rebalance: month_end
+daily_weight_calculation: true
+ordinary_daily_trading: false
+rebalance_buffer: 0.03
+max_weight: 0.15
+vol_target_annual: 0.12
+emergency_vol_threshold_annual: 0.18
+cash_ticker: BIL
+portfolio_value_usd: 1000000

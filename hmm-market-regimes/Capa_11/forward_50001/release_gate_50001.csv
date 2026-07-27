@@ -1,0 +1,2 @@
+bot_id,decision,closed_trades,profit_factor,max_consecutive_losses,max_drawdown_pct,avg_slippage_points,monitor_state
+50001,BLOCKED_DEMO_ONLY,0,0.0,0,0.0,0.0,WAITING_FOR_FORWARD_DATA

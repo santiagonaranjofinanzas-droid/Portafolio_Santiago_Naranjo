@@ -1,0 +1,34 @@
+{
+  "approved": false,
+  "status": "LIVE_LOCKED",
+  "model_decisions": {
+    "MEAN_REVERSION_V2": "RETIRED",
+    "MEAN_REVERSION_V3_SHOCK_REJECTION": "REJECTED_INSUFFICIENT_SAMPLE_NO_EA",
+    "MEAN_REVERSION_V4_TREND_PULLBACK_LONG": "REJECTED_NEGATIVE_EXPECTANCY_NO_EA",
+    "TREND_HMM_V2": "REJECTED_AND_REGIME_REMOVED",
+    "MOMENTUM_LONG_ONLY": "REJECTED",
+    "H18_ASYMMETRIC_SLOW_TREND": "REJECTED_RESEARCH_PROMISING_NOT_APPROVED"
+  },
+  "checks": [
+    {"name": "institutional_backtest", "passed": false},
+    {"name": "h18_institutional_backtest", "value": "PF_1.264_DSR_0.120_PBO_0.327", "passed": false},
+    {"name": "h18_risk_overlay_diagnostic", "value": "PF_1.262_DD_2.94_SHARPE_0.593_DSR_0.207_BOOTSTRAP_PF_P05_1.010_CONSUMED_HISTORY", "passed": false},
+    {"name": "python_mt5_signal_parity", "value": "STATIC_CONTRACT_ALIGNED_RUNTIME_NOT_OBSERVED", "passed": false},
+    {"name": "python_mt5_risk_parity", "value": "IMPLEMENTED_NOT_OBSERVED", "passed": false},
+    {"name": "server_stop_coverage", "value": 0.0, "required": 1.0, "passed": false},
+    {"name": "orphan_positions", "value": "NOT_OBSERVED", "required": 0, "passed": false},
+    {"name": "mr_v3_one_shot_gate", "value": "6_TRADES_PF_1.484_DSR_0.013_BOOTSTRAP_PPOS_0.644", "passed": false},
+    {"name": "mr_v4_buy_dip_gate", "value": "102_TRADES_PF_0.914_DSR_0.001_EVENT16_MINUS_7.94BPS", "passed": false},
+    {"name": "holdout_months", "value": 0, "required": 4, "passed": false},
+    {"name": "holdout_trades", "value": 0, "required": 40, "passed": false},
+    {"name": "forward_months", "value": 0, "required": 6, "passed": false},
+    {"name": "forward_trades", "value": 0, "required": 60, "passed": false},
+    {"name": "future_total_trades", "value": 0, "required": 100, "passed": false}
+  ],
+  "mt5_port_action": "DEMO_INCUBATION_CODE_BUILT_LIVE_NOT_AUTHORIZED",
+  "mr_v3_mt5_port_action": "BLOCKED_NO_EXECUTABLE_EA_MAGIC_6003_RESERVED_ONLY",
+  "mr_v4_mt5_port_action": "BLOCKED_NEGATIVE_EDGE_MAGIC_6003_RESERVED_ONLY",
+  "holdout_start_utc": null,
+  "incubation_start_rule": "SET_AFTER_FRESH_DEMO_LOGIN_AND_RUNTIME_PARITY_START",
+  "counter_reset_rule": "ANY_MODEL_OR_PARAMETER_CHANGE_RESTARTS_HOLDOUT_AND_FORWARD"
+}

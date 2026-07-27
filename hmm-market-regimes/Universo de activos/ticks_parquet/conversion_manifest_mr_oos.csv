@@ -1,0 +1,27 @@
+asset,month,status,rows,parquet_file
+NSXUSD,202405,EXISTS,3598131,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=5\ticks_NSXUSD_202405.parquet
+NSXUSD,202406,EXISTS,3454365,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=6\ticks_NSXUSD_202406.parquet
+NSXUSD,202407,EXISTS,4518689,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=7\ticks_NSXUSD_202407.parquet
+NSXUSD,202408,EXISTS,4743739,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=8\ticks_NSXUSD_202408.parquet
+NSXUSD,202409,EXISTS,4402871,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=9\ticks_NSXUSD_202409.parquet
+NSXUSD,202410,EXISTS,4500360,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=10\ticks_NSXUSD_202410.parquet
+NSXUSD,202411,EXISTS,4112455,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=11\ticks_NSXUSD_202411.parquet
+NSXUSD,202412,EXISTS,3967824,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2024\month=12\ticks_NSXUSD_202412.parquet
+NSXUSD,202501,EXISTS,5132424,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=1\ticks_NSXUSD_202501.parquet
+NSXUSD,202502,EXISTS,4321757,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=2\ticks_NSXUSD_202502.parquet
+NSXUSD,202503,EXISTS,5746182,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=3\ticks_NSXUSD_202503.parquet
+NSXUSD,202504,EXISTS,6409181,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=4\ticks_NSXUSD_202504.parquet
+NSXUSD,202505,EXISTS,5217033,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=5\ticks_NSXUSD_202505.parquet
+NSXUSD,202506,EXISTS,4966147,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=6\ticks_NSXUSD_202506.parquet
+NSXUSD,202507,EXISTS,4845354,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=7\ticks_NSXUSD_202507.parquet
+NSXUSD,202508,EXISTS,4761630,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=8\ticks_NSXUSD_202508.parquet
+NSXUSD,202509,EXISTS,4700508,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=9\ticks_NSXUSD_202509.parquet
+NSXUSD,202510,EXISTS,6094731,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=10\ticks_NSXUSD_202510.parquet
+NSXUSD,202511,EXISTS,6735549,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=11\ticks_NSXUSD_202511.parquet
+NSXUSD,202512,EXISTS,5653353,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2025\month=12\ticks_NSXUSD_202512.parquet
+NSXUSD,202601,EXISTS,6332494,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2026\month=1\ticks_NSXUSD_202601.parquet
+NSXUSD,202602,EXISTS,7140482,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2026\month=2\ticks_NSXUSD_202602.parquet
+NSXUSD,202603,EXISTS,9136928,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2026\month=3\ticks_NSXUSD_202603.parquet
+NSXUSD,202604,EXISTS,7151361,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2026\month=4\ticks_NSXUSD_202604.parquet
+NSXUSD,202605,WRITTEN,7620000,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2026\month=5\ticks_NSXUSD_202605.parquet
+NSXUSD,202606,WRITTEN,6004812,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\Universo de activos\ticks_parquet\NSXUSD\year=2026\month=6\ticks_NSXUSD_202606.parquet

@@ -1,0 +1,11 @@
+Fold 0 PF=0.998616
+Fold 1 PF=0.924906
+Running selected candidate fold 2
+Fold 2 PF=0.982531
+Running selected candidate fold 3
+Fold 3 PF=1.004964
+ fold_id  profit_factor  total_return_pct  max_drawdown_pct  closed_trades
+       0       0.998616         -0.116761        -22.806266            579
+       1       0.924906         -6.625624        -21.387611            187
+       2       0.982531         -0.402463         -8.456947             44
+       3       1.004964          0.070048         -4.289779             28

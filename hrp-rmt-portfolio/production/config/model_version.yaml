@@ -1,0 +1,10 @@
+model_version: HRP_UNCONDITIONAL_CORE_V1
+status: frozen_for_f8_forward_holdout
+lookback_days: 504
+covariance: OAS
+linkage: single
+redistribution: proportional
+max_weight: 0.15
+vol_target_annual: 0.12
+leverage_allowed: false
+ordinary_rebalance: month_end

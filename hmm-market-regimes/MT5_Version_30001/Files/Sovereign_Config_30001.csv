@@ -1,0 +1,2 @@
+profile,symbol,timeframe,hmm_params_file,threshold,min_strength,vol_multiplier,reward_risk,kalman_gate,risk_percent,max_lot,use_partials,magic,indicator_path,source,status
+DEMO_30001_OLD_OPTIMIZATION,XAUUSD,M15,HMM_Params_15M_30001.csv,0.65,0.35,2.50,2.00,true,1.00,10.00,true,30001,Sovereign\\Sovereign_30001_Signal,old_pre_hmm_folder_optimization,DEMO_ONLY_LEGACY_BASELINE

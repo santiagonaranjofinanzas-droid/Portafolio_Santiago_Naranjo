@@ -1,0 +1,373 @@
+[
+  {
+    "fold_id": 0,
+    "candidate_id": "TREND_12_STOP_CONTROL",
+    "component": "h18_asymmetric_slow_trend",
+    "decision_clock": "completed_UTC_H1_only",
+    "direction": "long_only",
+    "execution_clock": "next_M15_open",
+    "slow_trend_config": {
+      "atr_window_h1": 32,
+      "confirmation_closes": 2,
+      "entry_threshold": 0.35,
+      "exit_threshold": 0.0,
+      "minimum_holding_h1": 8,
+      "momentum_horizons_h1": [
+        16,
+        32,
+        64
+      ],
+      "rearm_threshold": 0.0,
+      "volatility_window_h1": 96
+    },
+    "strategy": "slow_trend_long",
+    "survivorship_scope": "index_CFD_history_not_surviving_equity_constituents",
+    "universe_policy": "single_preregistered_tradable_NAS100.fs_no_constituent_selection",
+    "uses_regime_model": false,
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 220.67771612902723,
+      "bar_sharpe_annualized": 0.792468362438027,
+      "closed_trades": 31,
+      "commission_cost": 60.18,
+      "final_equity": 106841.00919999988,
+      "gross_loss": 11731.829600000101,
+      "gross_profit": 18572.838799999947,
+      "initial_cash": 100000.0,
+      "long_trades": 31,
+      "max_drawdown_pct": -10.109803061369416,
+      "net_profit": 6841.009199999884,
+      "profit_factor": 1.583115288343413,
+      "return_pct": 6.841009199999881,
+      "short_trades": 0,
+      "spread_slippage_cost": 541.6200000001462,
+      "total_transaction_cost": 601.800000000146,
+      "win_rate": 0.3870967741935484
+    }
+  },
+  {
+    "fold_id": 1,
+    "candidate_id": "TREND_11_ULTRASLOW_LONG",
+    "component": "h18_asymmetric_slow_trend",
+    "decision_clock": "completed_UTC_H1_only",
+    "direction": "long_only",
+    "execution_clock": "next_M15_open",
+    "slow_trend_config": {
+      "atr_window_h1": 32,
+      "confirmation_closes": 2,
+      "entry_threshold": 0.35,
+      "exit_threshold": 0.0,
+      "minimum_holding_h1": 8,
+      "momentum_horizons_h1": [
+        24,
+        48,
+        96
+      ],
+      "rearm_threshold": 0.0,
+      "volatility_window_h1": 96
+    },
+    "strategy": "slow_trend_long",
+    "survivorship_scope": "index_CFD_history_not_surviving_equity_constituents",
+    "universe_policy": "single_preregistered_tradable_NAS100.fs_no_constituent_selection",
+    "uses_regime_model": false,
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 547.0773454545435,
+      "bar_sharpe_annualized": 1.2294224893679753,
+      "closed_trades": 22,
+      "commission_cost": 49.32,
+      "final_equity": 112035.7016,
+      "gross_loss": 8034.030400000068,
+      "gross_profit": 20069.732000000025,
+      "initial_cash": 100000.0,
+      "long_trades": 22,
+      "max_drawdown_pct": -5.17444492276522,
+      "net_profit": 12035.7016,
+      "profit_factor": 2.4980901242295346,
+      "return_pct": 12.035701600000003,
+      "short_trades": 0,
+      "spread_slippage_cost": 443.880000000071,
+      "total_transaction_cost": 493.200000000071,
+      "win_rate": 0.36363636363636365
+    }
+  },
+  {
+    "fold_id": 2,
+    "candidate_id": "TREND_12_STOP_CONTROL",
+    "component": "h18_asymmetric_slow_trend",
+    "decision_clock": "completed_UTC_H1_only",
+    "direction": "long_only",
+    "execution_clock": "next_M15_open",
+    "slow_trend_config": {
+      "atr_window_h1": 32,
+      "confirmation_closes": 2,
+      "entry_threshold": 0.35,
+      "exit_threshold": 0.0,
+      "minimum_holding_h1": 8,
+      "momentum_horizons_h1": [
+        16,
+        32,
+        64
+      ],
+      "rearm_threshold": 0.0,
+      "volatility_window_h1": 96
+    },
+    "strategy": "slow_trend_long",
+    "survivorship_scope": "index_CFD_history_not_surviving_equity_constituents",
+    "universe_policy": "single_preregistered_tradable_NAS100.fs_no_constituent_selection",
+    "uses_regime_model": false,
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 84.35865853660832,
+      "bar_sharpe_annualized": 0.36877346452709875,
+      "closed_trades": 41,
+      "commission_cost": 88.86,
+      "final_equity": 103458.70500000099,
+      "gross_loss": 17173.8015999995,
+      "gross_profit": 20632.506600000448,
+      "initial_cash": 100000.0,
+      "long_trades": 41,
+      "max_drawdown_pct": -10.728728571169343,
+      "net_profit": 3458.7050000009913,
+      "profit_factor": 1.201394256237422,
+      "return_pct": 3.4587050000009834,
+      "short_trades": 0,
+      "spread_slippage_cost": 799.7399999991395,
+      "total_transaction_cost": 888.5999999991396,
+      "win_rate": 0.4634146341463415
+    }
+  },
+  {
+    "fold_id": 3,
+    "candidate_id": "TREND_10_MEDIUM_LONG",
+    "component": "h18_asymmetric_slow_trend",
+    "decision_clock": "completed_UTC_H1_only",
+    "direction": "long_only",
+    "execution_clock": "next_M15_open",
+    "slow_trend_config": {
+      "atr_window_h1": 32,
+      "confirmation_closes": 2,
+      "entry_threshold": 0.35,
+      "exit_threshold": 0.0,
+      "minimum_holding_h1": 8,
+      "momentum_horizons_h1": [
+        12,
+        24,
+        48
+      ],
+      "rearm_threshold": 0.0,
+      "volatility_window_h1": 96
+    },
+    "strategy": "slow_trend_long",
+    "survivorship_scope": "index_CFD_history_not_surviving_equity_constituents",
+    "universe_policy": "single_preregistered_tradable_NAS100.fs_no_constituent_selection",
+    "uses_regime_model": false,
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 39.10485333335179,
+      "bar_sharpe_annualized": 0.19743527719475498,
+      "closed_trades": 45,
+      "commission_cost": 79.44,
+      "final_equity": 101759.71840000086,
+      "gross_loss": 19157.489399999464,
+      "gross_profit": 20917.207800000295,
+      "initial_cash": 100000.0,
+      "long_trades": 45,
+      "max_drawdown_pct": -11.854319922272328,
+      "net_profit": 1759.7184000008565,
+      "profit_factor": 1.09185537641487,
+      "return_pct": 1.7597184000008648,
+      "short_trades": 0,
+      "spread_slippage_cost": 714.9599999992308,
+      "total_transaction_cost": 794.3999999992309,
+      "win_rate": 0.3111111111111111
+    }
+  },
+  {
+    "fold_id": 4,
+    "candidate_id": "TREND_10_MEDIUM_LONG",
+    "component": "h18_asymmetric_slow_trend",
+    "decision_clock": "completed_UTC_H1_only",
+    "direction": "long_only",
+    "execution_clock": "next_M15_open",
+    "slow_trend_config": {
+      "atr_window_h1": 32,
+      "confirmation_closes": 2,
+      "entry_threshold": 0.35,
+      "exit_threshold": 0.0,
+      "minimum_holding_h1": 8,
+      "momentum_horizons_h1": [
+        12,
+        24,
+        48
+      ],
+      "rearm_threshold": 0.0,
+      "volatility_window_h1": 96
+    },
+    "strategy": "slow_trend_long",
+    "survivorship_scope": "index_CFD_history_not_surviving_equity_constituents",
+    "universe_policy": "single_preregistered_tradable_NAS100.fs_no_constituent_selection",
+    "uses_regime_model": false,
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 10.070477272740185,
+      "bar_sharpe_annualized": 0.07269820189968865,
+      "closed_trades": 44,
+      "commission_cost": 50.4,
+      "final_equity": 100443.10100000053,
+      "gross_loss": 15328.848399999699,
+      "gross_profit": 15771.949400000265,
+      "initial_cash": 100000.0,
+      "long_trades": 44,
+      "max_drawdown_pct": -7.907399774097912,
+      "net_profit": 443.10100000053353,
+      "profit_factor": 1.028906346284994,
+      "return_pct": 0.4431010000005342,
+      "short_trades": 0,
+      "spread_slippage_cost": 453.59999999951077,
+      "total_transaction_cost": 503.9999999995108,
+      "win_rate": 0.4318181818181818
+    }
+  },
+  {
+    "fold_id": 5,
+    "candidate_id": "TREND_10_MEDIUM_LONG",
+    "component": "h18_asymmetric_slow_trend",
+    "decision_clock": "completed_UTC_H1_only",
+    "direction": "long_only",
+    "execution_clock": "next_M15_open",
+    "slow_trend_config": {
+      "atr_window_h1": 32,
+      "confirmation_closes": 2,
+      "entry_threshold": 0.35,
+      "exit_threshold": 0.0,
+      "minimum_holding_h1": 8,
+      "momentum_horizons_h1": [
+        12,
+        24,
+        48
+      ],
+      "rearm_threshold": 0.0,
+      "volatility_window_h1": 96
+    },
+    "strategy": "slow_trend_long",
+    "survivorship_scope": "index_CFD_history_not_surviving_equity_constituents",
+    "universe_policy": "single_preregistered_tradable_NAS100.fs_no_constituent_selection",
+    "uses_regime_model": false,
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": -34.03412499998357,
+      "bar_sharpe_annualized": -0.13989011576304541,
+      "closed_trades": 48,
+      "commission_cost": 75.24000000000001,
+      "final_equity": 98366.36200000075,
+      "gross_loss": 19859.66179999944,
+      "gross_profit": 18226.02380000023,
+      "initial_cash": 100000.0,
+      "long_trades": 48,
+      "max_drawdown_pct": -8.87223560460818,
+      "net_profit": -1633.6379999992496,
+      "profit_factor": 0.917740895265434,
+      "return_pct": -1.633637999999249,
+      "short_trades": 0,
+      "spread_slippage_cost": 677.1599999992695,
+      "total_transaction_cost": 752.3999999992695,
+      "win_rate": 0.3541666666666667
+    }
+  },
+  {
+    "fold_id": 6,
+    "candidate_id": "TREND_11_ULTRASLOW_LONG",
+    "component": "h18_asymmetric_slow_trend",
+    "decision_clock": "completed_UTC_H1_only",
+    "direction": "long_only",
+    "execution_clock": "next_M15_open",
+    "slow_trend_config": {
+      "atr_window_h1": 32,
+      "confirmation_closes": 2,
+      "entry_threshold": 0.35,
+      "exit_threshold": 0.0,
+      "minimum_holding_h1": 8,
+      "momentum_horizons_h1": [
+        24,
+        48,
+        96
+      ],
+      "rearm_threshold": 0.0,
+      "volatility_window_h1": 96
+    },
+    "strategy": "slow_trend_long",
+    "survivorship_scope": "index_CFD_history_not_surviving_equity_constituents",
+    "universe_policy": "single_preregistered_tradable_NAS100.fs_no_constituent_selection",
+    "uses_regime_model": false,
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 150.21886666667544,
+      "bar_sharpe_annualized": 0.42652434640408904,
+      "closed_trades": 27,
+      "commission_cost": 27.180000000000003,
+      "final_equity": 104055.90940000024,
+      "gross_loss": 10770.623399999831,
+      "gross_profit": 14826.532800000066,
+      "initial_cash": 100000.0,
+      "long_trades": 27,
+      "max_drawdown_pct": -10.439299879883922,
+      "net_profit": 4055.909400000237,
+      "profit_factor": 1.376571461963873,
+      "return_pct": 4.055909400000246,
+      "short_trades": 0,
+      "spread_slippage_cost": 244.61999999973605,
+      "total_transaction_cost": 271.79999999973603,
+      "win_rate": 0.37037037037037035
+    }
+  }
+]

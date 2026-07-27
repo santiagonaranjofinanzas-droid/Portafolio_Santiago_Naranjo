@@ -1,0 +1,40 @@
+@echo off
+setlocal
+cd /d "%~dp0"
+set "CODEX_HOME=%USERPROFILE%\.codex"
+set "PATH=%APPDATA%\npm;%PATH%"
+
+echo [1/3] Actualizando Graphify de forma incremental...
+if exist "graphify-out\graph.json" (
+    graphify update .
+) else (
+    graphify extract . --code-only
+)
+if errorlevel 1 goto :graphify_error
+set "CODEX_GRAPHIFY_READY=%CD%"
+
+echo [2/3] Verificando entorno AI...
+where codex >nul 2>&1 || goto :codex_error
+call codex --version
+call serena --version
+echo Serena: activacion automatica por directorio
+echo Context7: plugin administrado por Codex
+
+if /I "%~1"=="--check" (
+    echo [3/3] Validacion completada; Codex no se abrira.
+    exit /b 0
+)
+
+echo [3/3] Abriendo Codex...
+call codex
+exit /b %errorlevel%
+
+:graphify_error
+echo ERROR: Graphify no pudo actualizar el indice.
+pause
+exit /b 1
+
+:codex_error
+echo ERROR: codex no esta disponible en %%APPDATA%%\npm ni en PATH.
+pause
+exit /b 1

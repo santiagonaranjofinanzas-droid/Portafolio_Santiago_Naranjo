@@ -1,0 +1,21 @@
+{
+  "description": "Grilla conservadora para reducir alpha decay sin sobreoptimizar. Ajustar MAX_CANDIDATES para barridos largos.",
+  "threshold": [0.60, 0.65, 0.70],
+  "min_strength": [0.30, 0.35, 0.40],
+  "vol_multiplier": [2.0, 2.5, 3.0],
+  "reward_risk": [1.5, 2.0, 2.5],
+  "kalman_gate": [true],
+  "objective_weights": {
+    "profit_factor": 1.00,
+    "deflated_sharpe_probability": 1.00,
+    "recovery_factor": 0.35,
+    "total_return_pct": 0.02,
+    "drawdown_penalty": 0.04,
+    "low_trade_penalty": 0.05
+  },
+  "constraints": {
+    "min_closed_trades": 80,
+    "max_drawdown_pct_floor": -35.0,
+    "min_profit_factor": 1.0
+  }
+}

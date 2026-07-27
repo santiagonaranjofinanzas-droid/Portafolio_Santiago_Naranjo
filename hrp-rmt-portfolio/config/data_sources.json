@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "primary_price_vendor": "tiingo",
+  "selection_cost_scenario": "base",
+  "currency_policy": "USD-listed ETFs only for V1",
+  "vendors": {
+    "tiingo": {
+      "enabled": true,
+      "api_key_env": "TIINGO_API_KEY",
+      "role": "primary_eod_prices_and_corporate_actions",
+      "required_fields": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "adjOpen",
+        "adjHigh",
+        "adjLow",
+        "adjClose",
+        "adjVolume",
+        "divCash",
+        "splitFactor"
+      ]
+    },
+    "nasdaq_data_link": {
+      "enabled": false,
+      "api_key_env": "NASDAQ_DATA_LINK_API_KEY",
+      "role": "optional_security_master_or_paid_sharadar_upgrade"
+    }
+  },
+  "quality_gates": {
+    "min_history_years_preferred": 5,
+    "min_history_years_absolute": 3,
+    "required_tiingo_rows_for_smoke_test": 1,
+    "reject_if_missing_required_fields": true,
+    "reject_if_zero_volume_all_period": true
+  }
+}

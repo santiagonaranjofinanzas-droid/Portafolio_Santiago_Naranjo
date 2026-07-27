@@ -1,0 +1,63 @@
+{
+    "date": "2026-06-08",
+    "prob": 0.3941571116447449,
+    "xi": 0.000294904144050193,
+    "lambda_dominant": 6.292222945370353,
+    "entropy_spectral": 0.8878442376582399,
+    "mtl": 1.1151993938321494,
+    "kld": 0.050411854227629505,
+    "top_highest_corr": [
+        {
+            "asset_a": "USD/CHF",
+            "asset_b": "Trigo",
+            "corr": 0.4655546270442844
+        },
+        {
+            "asset_a": "S&P 500",
+            "asset_b": "USD/CHF",
+            "corr": 0.4406401346527782
+        },
+        {
+            "asset_a": "Nasdaq 100",
+            "asset_b": "EUR/USD",
+            "corr": 0.42993296465904773
+        },
+        {
+            "asset_a": "Gas Natural",
+            "asset_b": "Alemania 10Y",
+            "corr": 0.4202624897984437
+        },
+        {
+            "asset_a": "AUD/USD",
+            "asset_b": "Gas Natural",
+            "corr": 0.41760418388563914
+        }
+    ],
+    "top_lowest_corr": [
+        {
+            "asset_a": "EEUU 2Y",
+            "asset_b": "Alemania 10Y",
+            "corr": 0.020613413413733028
+        },
+        {
+            "asset_a": "AUD/USD",
+            "asset_b": "EEUU 2Y",
+            "corr": 0.032700849534384686
+        },
+        {
+            "asset_a": "FTSE 100",
+            "asset_b": "USD/CAD",
+            "corr": 0.034234661184762025
+        },
+        {
+            "asset_a": "FTSE 100",
+            "asset_b": "Reino Unido 10Y",
+            "corr": 0.034936332941403025
+        },
+        {
+            "asset_a": "Alemania 10Y",
+            "asset_b": "Reino Unido 10Y",
+            "corr": 0.03506879250379689
+        }
+    ]
+}

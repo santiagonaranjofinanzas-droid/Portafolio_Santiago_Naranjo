@@ -1,0 +1,5 @@
+Label,Trades,Win Rate %,Avg Win,Avg Loss,Profit Factor,Expectancy,Max DD %,Sharpe Ratio,DSR Prob,Exposure %,Avg Bars Held
+Threshold Fijo (0.60),306,38.89%,$184.54,$-113.40,1.04,$2.47,-26.26%,0.30,2.14%,11.27%,18.1
+Threshold Dinámico (k=0.05),316,41.46%,$183.06,$-114.29,1.13,$8.98,-23.24%,0.82,10.01%,11.80%,18.3
+Threshold Dinámico (k=0.10),366,37.43%,$154.46,$-95.00,0.97,$-1.62,-28.51%,-0.08,0.50%,13.26%,17.8
+Threshold Dinámico (k=0.15),454,37.22%,$144.25,$-89.69,0.95,$-2.61,-29.29%,-0.22,0.28%,16.97%,18.4

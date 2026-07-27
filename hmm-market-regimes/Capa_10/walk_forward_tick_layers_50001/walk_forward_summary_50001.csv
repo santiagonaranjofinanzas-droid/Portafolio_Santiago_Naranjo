@@ -1,0 +1,2 @@
+folds,median_test_pf,min_test_pf,mean_test_return_pct,worst_test_dd_pct,total_test_trades,pass_pf_110_all,pass_min_trades
+5,0.9855723771818047,0.9777253804323925,8.74393701180407,-12.15040606660223,416,False,True

@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "immutable": true,
+  "program_id": "NAS100_EDGE_RECOVERY_V2_20260710",
+  "created_utc": "2026-07-10T12:00:00Z",
+  "research_scope": {
+    "symbol": "NAS100.fs",
+    "broker": "Axi-US51-Live",
+    "timeframe": "M15",
+    "model_families": [
+      "TREND_V2",
+      "MEAN_REVERSION_V2"
+    ]
+  },
+  "data_policy": {
+    "development_start_utc": "2000-01-01T00:00:00Z",
+    "development_end_exclusive_utc": "2026-07-11T00:00:00Z",
+    "holdout_start_utc": "2026-07-11T00:00:00Z",
+    "holdout_boundary_rule": "[start,end); timestamps >= holdout_start are holdout",
+    "consumed_sources": [
+      {
+        "dataset_id": "AXI_NAS100_FS_FORWARD_20260620_20260710",
+        "path": "NAS100_INSTITUTIONAL/forward_axi",
+        "classification": "DEVELOPMENT_CONSUMED",
+        "reason": "Previously captured, evaluated and discussed before preregistration"
+      },
+      {
+        "dataset_id": "LEGACY_NAS100_RESEARCH_ALL",
+        "path": "NAS100_INSTITUTIONAL and predecessor research folders",
+        "classification": "DEVELOPMENT_CONSUMED",
+        "reason": "All historical backtests, folds and screens available on 2026-07-10 are consumed"
+      }
+    ],
+    "holdout_access": {
+      "development_purposes": [
+        "QA_METADATA",
+        "EDA",
+        "FEATURE_ENGINEERING",
+        "TRAINING",
+        "TUNING",
+        "BACKTEST",
+        "REPRODUCTION"
+      ],
+      "holdout_purposes": [
+        "FINAL_EVALUATION",
+        "FORWARD_MONITORING"
+      ],
+      "authorization_required": true,
+      "max_final_evaluations_per_experiment_dataset": 1,
+      "mixed_window_policy": "DENY"
+    }
+  },
+  "candidate_budgets": {
+    "TREND_V2": {
+      "max_candidates": 12,
+      "counting_rule": "Every distinct specification inspected against outcomes counts"
+    },
+    "MEAN_REVERSION_V2": {
+      "max_candidates": 9,
+      "counting_rule": "Every distinct specification inspected against outcomes counts"
+    }
+  },
+  "reproducibility": {
+    "random_seeds": [
+      20260710,
+      314159,
+      271828,
+      161803
+    ],
+    "deterministic_sorting": true,
+    "hash_algorithm": "SHA-256",
+    "required_run_bindings": [
+      "preregistration_sha256",
+      "candidate_config_sha256",
+      "canonical_data_manifest_sha256",
+      "code_identity",
+      "environment_sha256"
+    ]
+  },
+  "governance": {
+    "live_trading": "LIVE_LOCKED",
+    "registry_mode": "APPEND_ONLY_HASH_CHAIN",
+    "integrity_failure_policy": "FAIL_CLOSED",
+    "parameter_change_policy": "NEW_CANDIDATE_AND_NEW_REGISTRY_EVENT"
+  }
+}

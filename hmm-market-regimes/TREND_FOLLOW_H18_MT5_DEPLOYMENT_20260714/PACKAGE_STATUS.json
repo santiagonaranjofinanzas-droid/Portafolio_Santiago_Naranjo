@@ -1,0 +1,37 @@
+{
+  "package": "H18_TREND_FOLLOW_MT5",
+  "package_date": "2026-07-14",
+  "symbol": "NAS100.fs",
+  "timeframe": "M15",
+  "account_authorization": ["STRATEGY_TESTER", "DEMO_HEDGING"],
+  "live_authorized": false,
+  "institutional_approved": false,
+  "runtime_parity_observed": false,
+  "risk_engine_version": "H18_RISK_V1_20260714",
+  "risk_parity_observed": false,
+  "server_disaster_stop_atr": 8.0,
+  "executive_stop_atr": 6.0,
+  "per_sleeve_risk_fraction": 0.0025,
+  "aggregate_risk_fraction": 0.005,
+  "variants": [
+    {
+      "magic": 6001,
+      "candidate": "TREND_10_MEDIUM_LONG",
+      "h1_horizons": [12, 24, 48]
+    },
+    {
+      "magic": 6002,
+      "candidate": "TREND_11_ULTRASLOW_LONG",
+      "h1_horizons": [24, 48, 96]
+    }
+  ],
+  "portfolio_policy": "SHARED_GOVERNOR_RESEARCH_PORTFOLIO_LIVE_LOCKED",
+  "mean_reversion_v3": {
+    "magic_reserved": 6003,
+    "status": "REJECTED_RESEARCH_ONLY_NO_EA",
+    "closed_trades": 6,
+    "profit_factor": 1.4840900207294385,
+    "dsr": 0.013181302024267351,
+    "executable_included": false
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "policy": "Conservative count of every inspected model, seed, target, gate and threshold combination",
+  "experiments": [
+    {"version": "v1", "trials": 15, "status": "observed"},
+    {"version": "v2", "trials": 135, "status": "observed"},
+    {"version": "v2.1", "trials": 135, "status": "observed"},
+    {"version": "v3_honest", "trials": 135, "status": "pre_registered"}
+  ],
+  "total_trials": 420,
+  "pbo_current_family": {
+    "opportunity_modes": ["all", "market_only", "regime_only"],
+    "thresholds": [0.50, 0.55, 0.60, 0.65, 0.70],
+    "candidates": 15
+  }
+}

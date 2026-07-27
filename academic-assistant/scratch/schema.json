@@ -1,0 +1,15 @@
+[
+  "id",
+  "materia",
+  "titulo",
+  "descripcion",
+  "fecha_entrega",
+  "estado",
+  "checklist",
+  "archivada",
+  "creado_at",
+  "id_moodle",
+  "texto_extraido",
+  "archivos_adjuntos",
+  "resumen_ia"
+]

@@ -1,0 +1,16 @@
+{
+  "symbol": "XAUUSD",
+  "point": 0.01,
+  "tick_size": 0.01,
+  "tick_value": 1.0,
+  "spread_price": 0.15,
+  "commission_per_lot": 3.0,
+  "slippage_price": 0.05,
+  "min_lot": 0.01,
+  "lot_step": 0.01,
+  "max_lot": 10.0,
+  "timezone": "America/New_York",
+  "source_timezone": "UTC",
+  "session_timezone": "America/New_York",
+  "oos_start_date": "2024-05-01"
+}

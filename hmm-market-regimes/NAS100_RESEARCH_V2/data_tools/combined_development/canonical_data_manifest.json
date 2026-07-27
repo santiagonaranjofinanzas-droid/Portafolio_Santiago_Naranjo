@@ -1,0 +1,32 @@
+{
+  "artifact_files": {
+    "axi_spread_hour_profile": {
+      "path": "axi_spread_hour_profile.csv",
+      "sha256": "e3368d4815287c6986e588744002e310215e39ef9da1311428c64699edc44a2a"
+    },
+    "canonical_bars": {
+      "path": "NAS100_M15_COMBINED_DEVELOPMENT_UTC.parquet",
+      "sha256": "8417879c776c47ab163835d8a1f491bb0535bd1ca68be689aa6882c8d647377e"
+    }
+  },
+  "canonical_bar_rows": 145818,
+  "canonical_timezone": "UTC",
+  "classification": "DEVELOPMENT_CONSUMED",
+  "created_utc": "2026-07-13T15:51:35.704742Z",
+  "dataset_id": "NAS100_HISTDATA_PLUS_AXI_DEVELOPMENT_CONSUMED_V2",
+  "manifest_sha256": "ea233b124abb58a1516f55479bc8896968ee969a860ba1f95c07549a053f050e",
+  "program": "NAS100_EDGE_RECOVERY_V2",
+  "provider_boundary": {
+    "axi_first": "2026-06-22T01:00:00+00:00",
+    "histdata_last": "2026-06-19T17:45:00+00:00",
+    "price_gap": 228.10800000000017
+  },
+  "quality_passed": true,
+  "release_evidence_eligible": false,
+  "schema_version": 1,
+  "source_manifests": {
+    "axi": "77c9320b9fc92d7f336f0f283201500c795ed00c6b10cf5be7eaf8fccee1c9da",
+    "histdata": "b9f08dced441755d55cabf4f5cee6f78964a318bf52a9043351eab26652cab00"
+  },
+  "spread_model": "Axi empirical UTC-hour median; actual consumed Axi spread where available"
+}

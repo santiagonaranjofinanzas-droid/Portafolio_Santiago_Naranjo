@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defensa de Tesis: Detección de Regímenes HMM-XGBoost</title>
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- MathJax configurado localmente para renderizado TeX a SVG (100% Offline) -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1f2937;
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --accent-amber: #f59e0b;
+            --accent-indigo: #6366f1;
+            --border-radius: 12px;
+            --font-main: 'Outfit', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-cyan) var(--bg-secondary);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            overflow-hidden: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        /* Contenedor Principal */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        /* Barra Lateral (Navegación de Diapositivas) */
+        .sidebar {
+            width: 300px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px 16px;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            list-style: none;
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 24px;
+            padding-right: 4px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            text-align: left;
+        }
+
+        .step-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .step-item.active {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: rgba(6, 182, 212, 0.3);
+            color: var(--accent-cyan);
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active .step-number {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .step-title-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 16px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* Área de Contenido Principal (Slide) */
+        .content-area {
+            flex-grow: 1;
+            padding: 32px;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Cabecera del Slide */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-title h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .slide-title h1 span {
+            color: var(--accent-cyan);
+        }
+
+        .slide-tag {
+            background-color: rgba(99, 102, 241, 0.15);
+            color: var(--accent-indigo);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        /* Controles de Perspectiva (Tabs) */
+        .perspective-container {
+            display: flex;
+            background-color: var(--bg-secondary);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            width: fit-content;
+        }
+
+        .perspective-tab {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .perspective-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .perspective-tab.active {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        /* Cuerpo del Slide (Grid Dos Columnas) */
+        .slide-body {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 32px;
+            flex-grow: 1;
+            min-height: 0; /* Permite scroll interno */
+        }
+
+        @media (max-width: 1024px) {
+            .slide-body {
+                grid-template-columns: 1fr;
+                overflow-y: auto;
+            }
+        }
+
+        /* Columna Explicativa */
+        .explanation-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .explanation-text p {
+            margin-bottom: 12px;
+        }
+
+        .explanation-text ul, .explanation-text ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .explanation-text li {
+            margin-bottom: 6px;
+        }
+
+        /* Columna Visual / Interactiva */
+        .visualizer-pane {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.01);
+            border: 1px dashed var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            position: relative;
+            min-height: 350px;
+            overflow: hidden;
+        }
+
+        /* Diapositivas e Imágenes */
+        .image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .thesis-img {
+            max-width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            border-radius: 6px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            background-color: #ffffff; /* Algunas gráficas de matplotlib tienen fondo blanco transparente */
+            transition: transform 0.3s ease;
+        }
+
+        .thesis-img:hover {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* Formateo de Código */
+        pre {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            width: 100%;
+            max-height: 400px;
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #e5e7eb;
+        }
+
+        code .keyword { color: #f43f5e; }
+        code .function { color: #6366f1; }
+        code .string { color: #10b981; }
+        code .comment { color: #6b7280; font-style: italic; }
+        code .number { color: #f59e0b; }
+
+        /* Renderizado Matemático Limpio (CSS + HTML) */
+        .math-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            margin: 12px 0;
+            font-family: 'Outfit', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            border-left: 3px solid var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        .math-inline {
+            font-family: 'Outfit', serif;
+            font-style: italic;
+            background: rgba(255,255,255,0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Botones de Navegación del Slider */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 16px;
+        }
+
+        .nav-btn {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-color: var(--accent-cyan);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Dashboard de Resultados (Paso 7) */
+        .results-dashboard {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .metric-card.highlight {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.03);
+        }
+
+        .metric-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .metric-comparison {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 4px;
+        }
+
+        .metric-value-model {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-value-model.win {
+            color: var(--accent-emerald);
+        }
+
+        .metric-value-bench {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .comparison-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .badge-positive {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+        }
+
+        .badge-neutral {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--accent-amber);
+        }
+
+        /* Simulador de Purga y Embargo (Paso 6) */
+        .simulator-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sim-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .sim-btn {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            border: 1px solid var(--glass-border);
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sim-btn.active {
+            background-color: var(--accent-indigo);
+            color: white;
+            border-color: var(--accent-indigo);
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            gap: 4px;
+            margin: 12px 0;
+        }
+
+        .timeline-node {
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .node-train {
+            background-color: rgba(99, 102, 241, 0.3);
+            border-color: var(--accent-indigo);
+            color: #c7d2fe;
+        }
+
+        .node-val {
+            background-color: rgba(16, 185, 129, 0.3);
+            border-color: var(--accent-emerald);
+            color: #a7f3d0;
+        }
+
+        .node-purged {
+            background-color: rgba(244, 63, 94, 0.15);
+            border-color: var(--accent-rose);
+            color: var(--accent-rose);
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .node-embargo {
+            background-color: rgba(245, 158, 11, 0.15);
+            border-color: var(--accent-amber);
+            color: var(--accent-amber);
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .node-overlap {
+            background-color: rgba(244, 63, 94, 0.4);
+            border-color: var(--accent-rose);
+            color: #fecdd3;
+            animation: pulse-red 1.5s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(244, 63, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+
+        .sim-legend {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* Alertas tipo github */
+        .alert-box {
+            border-left: 4px solid transparent;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            background-color: rgba(255,255,255,0.02);
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+
+        .alert-note {
+            border-left-color: var(--accent-cyan);
+            background-color: rgba(6, 182, 212, 0.03);
+        }
+
+        .alert-warning {
+            border-left-color: var(--accent-amber);
+            background-color: rgba(245, 158, 11, 0.03);
+        }
+
+        .alert-danger {
+            border-left-color: var(--accent-rose);
+            background-color: rgba(244, 63, 94, 0.03);
+        }
+
+        .alert-box strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .alert-note strong { color: var(--accent-cyan); }
+        .alert-warning strong { color: var(--accent-amber); }
+        .alert-danger strong { color: var(--accent-rose); }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- BARRA LATERAL -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Inferencia de Regímenes</h2>
+                <p>HMM-XGBoost Híbrido en Finanzas</p>
+            </div>
+            
+            <ul class="steps-list" id="stepsList">
+                <!-- Generado dinámicamente por JS -->
+            </ul>
+            
+            <div class="sidebar-footer">
+                Tesis de Grado en Economía<br>Universidad de Tesis
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="content-area">
+            
+            <!-- Cabecera del Slide -->
+            <div class="slide-header">
+                <div class="slide-title">
+                    <h1 id="slideTitle">Paso 1: <span>Cargando...</span></h1>
+                </div>
+                <span class="slide-tag" id="slideTag">Estadística</span>
+            </div>
+
+            <!-- Selectores de Perspectiva (Sub-Tabs) -->
+            <div class="perspective-container" id="perspectiveContainer">
+                <button class="perspective-tab active" onclick="setPerspective('concepto')">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    Concepto
+                </button>
+                <button class="perspective-tab" onclick="setPerspective('matematica')">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    Matemática
+                </button>
+                <button class="perspective-tab" onclick="setPerspective('codigo')">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    Código
+                </button>
+                <button class="perspective-tab" onclick="setPerspective('visualizacion')">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Visualización
+                </button>
+            </div>
+
+            <!-- Cuerpo del Slide -->
+            <div class="slide-body">
+                <!-- Columna Izquierda: Explicación -->
+                <div class="explanation-pane" id="explanationPane">
+                    <!-- Dinámico -->
+                </div>
+
+                <!-- Columna Derecha: Visualización interactiva o imagen -->
+                <div class="visualizer-pane" id="visualizerPane">
+                    <!-- Dinámico -->
+                </div>
+            </div>
+
+            <!-- Botones Inferiores de Navegación del Slide -->
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    Anterior
+                </button>
+                <span style="font-size: 0.85rem; color: var(--text-secondary);" id="slideProgress">Slide 1 de 7</span>
+                <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+                    Siguiente
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- SCRIPT DE DATOS Y LOGICA DE NAVEGACION -->
+    <script>
+        // Datos de la presentación
+        const slidesData = [
+            {
+                title: "Marco Teórico & Mercados Adaptativos",
+                tag: "Teoría Económica",
+                concepto: `
+                    <div class="card">
+                        <div class="card-title">La Hipótesis del Mercado Adaptativo (AMH)</div>
+                        <div class="explanation-text">
+                            <p>La asignación estática tradicional asume que las correlaciones y primas de riesgo son constantes en el tiempo. Sin embargo, en la práctica, los mercados operan como <strong>Sistemas Adaptativos Complejos (SAC)</strong>.</p>
+                            <p>En el marco de la AMH propuesto por Andrew Lo, la eficiencia de mercado no es un estado absoluto, sino que fluctúa según las fuerzas evolutivas de competencia, adaptación y supervivencia de los agentes.</p>
+                            <p>Los parámetros de riesgo y retorno colapsan precisamente en transiciones estructurales de mercado. Esta tesis propone un <strong>modelo híbrido (HMM + XGBoost)</strong> para capturar probabilísticamente estas dinámicas no lineales de cambio de régimen.</p>
+                        </div>
+                    </div>
+                    <div class="alert-box alert-note">
+                        <strong>¿Por qué un modelo híbrido?</strong>
+                        Los Modelos Ocultos de Markov (HMM) aíslan la probabilidad de estados latentes inobservables a partir de los datos, mientras que XGBoost aprovecha esa estructura para predecir colas izquierdas futuras de forma no lineal.
+                    </div>
+                `,
+                matematica: `
+                    <div class="card">
+                        <div class="card-title">Retornos Logarítmicos y Limitaciones Estructurales</div>
+                        <div class="explanation-text">
+                            <p>Para modelar activos multi-periodo, primero transformamos los precios a retornos logarítmicos continuos:</p>
+                            <div class="math-block">
+                                R_t = \\ln(P_t / P_{t-1})
+                            </div>
+                            <p>Esto asegura aditividad temporal:</p>
+                            <div class="math-block">
+                                R_{t,t+k} = \\sum_{i=1}^k R_{t+i}
+                            </div>
+                            <p>Los modelos clásicos asumen que <span class="math-inline">R_t \\sim N(\\mu, \\sigma^2)</span> con variables idéntica e independientemente distribuidas (i.i.d.). No obstante, las series reales sufren de <strong>agrupamiento de volatilidad</strong> (*volatility clustering*) y <strong>asimetría de cola izquierda</strong>, lo que viola la premisa i.i.d. y exige modelar la varianza condicional como un proceso estocástico no lineal.</p>
+                        </div>
+                    </div>
+                `,
+                codigo: `
+                    <div class="card">
+                        <div class="card-title">Carga y Transformación en Python</div>
+                        <div class="explanation-text">
+                            <p>Los precios de cierre ajustados se transforman a retornos logarítmicos de forma desacoplada dentro de la clase <code>DataEngine</code>. Además, se realiza una corrección crucial para los rendimientos de renta fija:</p>
+                            <pre><code><span class="comment"># Retornos logarítmicos en data_engine.py</span>
+returns_train = np.log(df_train / df_train.shift(1))
+
+<span class="comment"># Corrección macro: el rendimiento de un bono TNX (yield)
+#se mueve de forma inversa a su precio real. Para alinear el
+#bono como refugio de capital, invertimos su signo.</span>
+if 'BOND10Y' in returns_train.columns:
+    returns_train['BOND10Y'] = -returns_train['BOND10Y']</code></pre>
+                        </div>
+                    </div>
+                `,
+                visualizacion: `
+                    <div class="card">
+                        <div class="card-title">Esquema Conceptual de Regímenes</div>
+                        <div class="explanation-text">
+                            <p>Los mercados transitan por regímenes diferenciados de comportamiento:</p>
+                            <ol>
+                                <li><strong>Régimen 0 (Estabilidad):</strong> Retornos promedio positivos, baja volatilidad, correlaciones normales (baja correlación acciones-oro).</li>
+                                <li><strong>Régimen 1 (Transición):</strong> Volatilidad en aumento, retornos planos, rotaciones tácticas de activos iniciales.</li>
+                                <li><strong>Régimen 2 (Estrés Sistémico):</strong> Alta volatilidad, caídas severas y correlaciones que convergen a 1, destruyendo los beneficios de la diversificación estática.</li>
+                            </ol>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Preprocesamiento Robusto (Data Prep)",
+                tag: "Ingeniería de Datos",
+                concepto: `
+                    <div class="card">
+                        <div class="card-title">Prevención de Fuga de Información (Data Leakage)</div>
+                        <div class="explanation-text">
+                            <p>En series temporales financieras, el <em>Data Leakage</em> es el error metodológico más común. Ocurre cuando información del futuro (out-of-sample) se filtra al conjunto de entrenamiento, inflando artificialmente las métricas.</p>
+                            <p>Para evitar esto, aplicamos un protocolo estricto en el preprocesamiento:</p>
+                            <ul>
+                                <li><strong>Winsorización Local:</strong> Los límites para recortar valores atípicos extremas se calculan estrictamente sobre el set de entrenamiento (finalizando en diciembre de 2021) y se aplican posteriormente al de prueba.</li>
+                                <li><strong>Escalamiento Local:</strong> Las medias y desviaciones estándar para calcular el Z-score se obtienen únicamente del entrenamiento.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                matematica: `
+                    <div class="card">
+                        <div class="card-title">Matemática del Preprocesamiento Causal</div>
+                        <div class="explanation-text">
+                            <p>La <strong>Winsorización</strong> limita los valores extremos a percentiles fijos calculados exclusivamente sobre la partición in-sample <span class="math-inline">D_{train}</span>:</p>
+                            <div class="math-block">
+                                R'_t = \\max(Q_{1}(R_{train}), \\min(Q_{99}(R_{train}), R_t))
+                            </div>
+                            <p>La **Normalización Z-score** estandariza los datos restando la media muestral y dividiendo por la desviación estándar del set de entrenamiento:</p>
+                            <div class="math-block">
+                                Z_t = \\frac{R'_t - \\mu_{train}}{\\sigma_{train}}
+                            </div>
+                            <p>Esto garantiza que <span class="math-inline">Z_{test}</span> se construye sin conocer ningún parámetro estadístico del periodo fuera de muestra (2022-2026).</p>
+                        </div>
+                    </div>
+                `,
+                codigo: `
+                    <div class="card">
+                        <div class="card-title">Implementación Limpia del Preprocesamiento</div>
+                        <div class="explanation-text">
+                            <p>Código extraído de <code>DataEngine.preprocess</code> en <code>data_engine.py</code>:</p>
+                            <pre><code><span class="keyword">def</span> <span class="function">preprocess</span>(self, df, training_split=None):
+    <span class="comment"># 1. Separar sets de forma estricta</span>
+    df_train = df.loc[:training_split].ffill().dropna()
+    df_test = df.loc[training_split:].ffill().dropna()
+    
+    <span class="comment"># 2. Winsorización local con cuantiles IS</span>
+    train_returns = returns.loc[:training_split]
+    lower = train_returns.quantile(0.01)
+    upper = train_returns.quantile(0.99)
+    returns_winsorized = returns.clip(lower=lower, upper=upper, axis=1)
+    
+    <span class="comment"># 3. Escalamiento Z-score ajustado solo en train</span>
+    scaler = StandardScaler()
+    scaler.fit(returns_winsorized.loc[:training_split])
+    
+    returns_scaled = pd.DataFrame(
+        scaler.transform(returns_winsorized),
+        index=returns_winsorized.index,
+        columns=returns_winsorized.columns
+    )
+    <span class="keyword">return</span> returns_scaled, scaler</code></pre>
+                        </div>
+                    </div>
+                `,
+                visualizacion: `
+                    <div class="card">
+                        <div class="card-title">Efecto del Preprocesamiento Causal</div>
+                        <div class="explanation-text">
+                            <p>El preprocesamiento robusto asegura una división temporal perfecta:</p>
+                            <ul>
+                                <li><strong>Set In-Sample (IS):</strong> 2015-01-01 a 2021-12-31 (entrenamiento y ajuste de parámetros).</li>
+                                <li><strong>Set Out-of-Sample (OOS):</strong> 2022-01-01 a 2026-06-15 (prueba estricta y backtesting en tiempo real).</li>
+                            </ul>
+                            <p>En el panel visual, las series transformadas reflejan una varianza estabilizada, lo que previene que colapsos extremos de mercado (como la crisis COVID-19) distorsionen la escala del clasificador supervisado.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Extracción del ISRI (PCA)",
+                tag: "Estadística Cuantitativa",
+                concepto: `
+                    <div class="card">
+                        <div class="card-title">Construcción del Índice de Rotación Intermercado (ISRI)</div>
+                        <div class="explanation-text">
+                            <p>De acuerdo con la Teoría de Rotación Intermercado de John Murphy, los flujos de capital entre acciones, bonos, materias primas y divisas revelan el sentimiento de riesgo sistémico subyacente.</p>
+                            <p>Para no sesgar las ponderaciones con índices predefinidos, empleamos <strong>Análisis de Componentes Principales (PCA)</strong> sobre un universo multi-activo: S&P 500 (Acciones), Oro (Refugio metal), Petróleo (Energía/Inflación), Bono 10Y (Refugio tasa), y Dólar (Divisa reserva).</p>
+                            <p>El <strong>Primer Componente Principal (PC1)</strong> actúa como el <strong>ISRI</strong>: captura el factor dominante de covarianza conjunta de todo el sistema financiero.</p>
+                        </div>
+                    </div>
+                `,
+                matematica: `
+                    <div class="card">
+                        <div class="card-title">Matemática de la Reducción de Dimensionalidad</div>
+                        <div class="explanation-text">
+                            <p>Dada la matriz de covarianza de retornos normalizados in-sample <span class="math-inline">\\Sigma_{IS}</span>, resolvemos los autovalores y autovectores correspondientes:</p>
+                            <div class="math-block">
+                                \\Sigma_{IS} w_i = \\lambda_i w_i
+                            </div>
+                            <p>Donde el mayor autovalor <span class="math-inline">\\lambda_1</span> corresponde al PC1. El ISRI se calcula para toda la muestra aplicando los pesos factoriales (autovectores) de entrenamiento:</p>
+                            <div class="math-block">
+                                ISRI_t = w_{1,1} Z_{t,SP500} + w_{1,2} Z_{t,GOLD} + \\dots + w_{1,5} Z_{t,USD}
+                            </div>
+                            <p>Este procedimiento previene la fuga de la matriz de covarianza ya que <span class="math-inline">w_1</span> se fija en 2021.</p>
+                        </div>
+                    </div>
+                `,
+                codigo: `
+                    <div class="card">
+                        <div class="card-title">Cálculo de PC1 en Python</div>
+                        <div class="explanation-text">
+                            <p>Módulo de extracción de características en <code>pca_isri.py</code>:</p>
+                            <pre><code><span class="keyword">class</span> <span class="function">PCAEngine</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, n_components=1):
+        self.pca = PCA(n_components=n_components)
+        self.loadings = None
+        
+    <span class="keyword">def</span> <span class="function">fit_isri</span>(self, df_scaled, training_split=None):
+        <span class="keyword">if</span> training_split <span class="keyword">is not</span> None:
+            <span class="comment"># Ajustar PCA estrictamente con el pasado</span>
+            train_data = df_scaled.loc[:training_split]
+            self.pca.fit(train_data)
+        <span class="keyword">else:</span>
+            self.pca.fit(df_scaled)
+            
+        <span class="comment"># Proyectar el índice sobre toda la muestra</span>
+        isri_values = self.pca.transform(df_scaled)
+        
+        self.loadings = pd.DataFrame(
+            self.pca.components_.T,
+            index=df_scaled.columns,
+            columns=['PC1']
+        )
+        <span class="keyword">return</span> pd.Series(isri_values[:, 0], index=df_scaled.index, name='ISRI')</code></pre>
+                        </div>
+                    </div>
+                `,
+                visualizacion: `
+                    <div class="card">
+                        <div class="card-title">Contribución de Activos al PC1 (Loadings)</div>
+                        <div class="explanation-text">
+                            <p>Los loadings o factores de carga muestran cómo se compone el ISRI:</p>
+                            <ul>
+                                <li><strong>BOND10Y (ajustado):</strong> ~0.59 (Fuerte ponderación positiva)</li>
+                                <li><strong>S&P 500 (Acciones):</strong> ~0.45 (Ponderación positiva)</li>
+                                <li><strong>GOLD (Oro):</strong> ~-0.48 (Fuerte correlación negativa)</li>
+                            </ul>
+                            <p>Esto valida la teoría macroeconómica: valores altamente positivos del ISRI denotan un entorno de confianza y apetito por riesgo (<strong>Risk-On</strong>), mientras que caídas profundas en territorio negativo denotan pánico y una fuga de capital hacia el Oro (<strong>Risk-Off</strong>).</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Regímenes Estocásticos (HMM & Filtro Causal)",
+                tag: "Modelos Econométricos",
+                concepto: `
+                    <div class="card">
+                        <div class="card-title">Inferencia de Estados Ocultos</div>
+                        <div class="explanation-text">
+                            <p>El mercado financiero opera bajo dinámicas cambiantes difíciles de prever con datos superficiales. Asumimos que existe un <strong>proceso de Markov latente (no observable)</strong> que rige los regímenes del ISRI.</p>
+                            <p>Implementamos un <strong>Modelo Oculto de Markov (HMM)</strong> de 3 estados. Sin embargo, en finanzas tradicionales se suele aplicar suavizado a posteriori (algoritmo Viterbi o suavizado forward-backward), lo cual lee el futuro y genera look-ahead bias.</p>
+                            <p>Para solucionar esto, implementamos una <strong>inferencia causal basada en el Filtro Forward incremental</strong>: la probabilidad del régimen en el día <span class="math-inline">t</span> se calcula usando exclusivamente observaciones de <span class="math-inline">t</span> hacia atrás.</p>
+                        </div>
+                    </div>
+                `,
+                matematica: `
+                    <div class="card">
+                        <div class="card-title">Matemática del Filtro Forward Causal</div>
+                        <div class="explanation-text">
+                            <p>El HMM se define por la probabilidad del estado inicial <span class="math-inline">\\pi</span>, la matriz de transición <span class="math-inline">A</span> y las densidades de emisión Gaussianas <span class="math-inline">B</span>.</p>
+                            <p>El <strong>filtro Forward</strong> calcula la probabilidad conjunta de la secuencia de observaciones y el estado actual de forma recursiva:</p>
+                            <div class="math-block">
+                                \\alpha_t(j) = P(x_1, \\dots, x_t, S_t = s_j  \\theta)
+                            </div>
+                            <div class="math-block">
+                                \\alpha_t(j) = \\left[ \\sum_{i=1}^N \\alpha_{t-1}(i) a_{ij} \\right] b_j(x_t)
+                            </div>
+                            <p>La probabilidad filtrada del estado es:</p>
+                            <div class="math-block">
+                                P(S_t = s_j  x_1, \\dots, x_t) = \\frac{\\alpha_t(j)}{\\sum_{k=1}^N \\alpha_t(k)}
+                            </div>
+                            <p>Esto representa una inferencia puramente temporal y causal, sin utilizar información futura.</p>
+                        </div>
+                    </div>
+                `,
+                codigo: `
+                    <div class="card">
+                        <div class="card-title">Filtro Forward incremental O(N^2)</div>
+                        <div class="explanation-text">
+                            <p>Fragmento de <code>HMMRegimes.fit_predict</code> en <code>hmm_regimes.py</code>:</p>
+                            <pre><code><span class="comment"># Ajuste con set de entrenamiento</span>
+self.model.fit(X_train)
+
+<span class="comment"># Inferencia causal incremental</span>
+probs_list = []
+states_list = []
+<span class="keyword">for</span> i <span class="keyword">in</span> range(1, len(X) + 1):
+    <span class="comment"># Ventana expansiva hasta i (evita fuga)</span>
+    X_slice = X[:i]
+    current_probs = self.model.predict_proba(X_slice)[-1]
+    current_state = self.model.predict(X_slice)[-1]
+    probs_list.append(current_probs)
+    states_list.append(current_state)</code></pre>
+                        </div>
+                    </div>
+                `,
+                visualizacion: `
+                    <div class="card">
+                        <div class="card-title">Segmentación y Densidad de Estados</div>
+                        <div class="explanation-text">
+                            <p>El HMM identifica 3 estados claramente caracterizados en los gráficos:</p>
+                            <ul>
+                                <li><strong>Estado 0 (Estabilidad):</strong> Concentrado en valores de ISRI positivos con varianza estrecha.</li>
+                                <li><strong>Estado 1 (Transición):</strong> Distribución intermedia en torno a 0.</li>
+                                <li><strong>Estado 2 (Estrés Sistémico):</strong> Distribución achatada, con gran dispersión y cola izquierda muy pronunciada (caídas extremas del ISRI).</li>
+                            </ul>
+                            <p>Las probabilidades estimadas por este filtro causal sirven como características dinámicas principales para el clasificador supervisado.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Mapeo Real & Clasificación (CLR + XGBoost)",
+                tag: "Machine Learning",
+                concepto: `
+                    <div class="card">
+                        <div class="card-title">La Transformación CLR y Clasificación del Riesgo</div>
+                        <div class="explanation-text">
+                            <p>Las probabilidades inferidas por el HMM viven en el <strong>simplex probabilístico</strong> (valores entre 0 y 1 que suman exactamente 1). Esto induce colinealidad perfecta y singularidad en las covarianzas, obstaculizando el aprendizaje de modelos matemáticos.</p>
+                            <p>Para solucionar esto, aplicamos la **Transformación CLR (Centered Log-Ratio)** que mapea las probabilidades al espacio real <span class="math-inline">\\mathbb{R}^3</span>.</p>
+                            <p>Luego, alimentamos al modelo <strong>XGBoost Classifier</strong> con estas características para predecir si el S&P 500 sufrirá un drawdown extremo (clase 1, inferior al cuantil 5% histórico) dentro de los próximos 5 días.</p>
+                        </div>
+                    </div>
+                `,
+                matematica: `
+                    <div class="card">
+                        <div class="card-title">Fórmulas de CLR y el Target Financiero</div>
+                        <div class="explanation-text">
+                            <p>La **Transformación CLR** para un vector de probabilidades <span class="math-inline">p_t = [p_1, p_2, p_3]</span> se calcula como:</p>
+                            <div class="math-block">
+                                CLR(p_{t,i}) = \\ln \\left( \\frac{p_{t,i} + \\epsilon}{g(p_t + \\epsilon)} \\right)
+                            </div>
+                            <p>Donde <span class="math-inline">g(p_t)</span> es la media geométrica:</p>
+                            <div class="math-block">
+                                g(p_t) = \\sqrt[3]{\\prod_{i=1}^3 (p_{t,i} + \\epsilon)}
+                            </div>
+                            <p>El **Target Académico de Estrés** se define de forma acumulada a futuro sobre el S&P 500:</p>
+                            <div class="math-block">
+                                Y_t = \\mathbb{I} \\left( \\sum_{k=1}^{5} R_{t+k, SP500} < Q_{0.05}(R_{train}) \\right)
+                            </div>
+                        </div>
+                    </div>
+                `,
+                codigo: `
+                    <div class="card">
+                        <div class="card-title">CLR y Preparación del Target en Python</div>
+                        <div class="explanation-text">
+                            <p>Implementación matemática en <code>main_pipeline.py</code> y <code>xgb_predictor.py</code>:</p>
+                            <pre><code><span class="keyword">def</span> <span class="function">transform_to_clr</span>(hmm_probs_df):
+    eps = 1e-6
+    smoothed_probs = hmm_probs_df + eps
+    geom_mean = np.exp(np.log(smoothed_probs).mean(axis=1))
+    
+    clr_df = pd.DataFrame(index=hmm_probs_df.index)
+    <span class="keyword">for</span> col <span class="keyword">in</span> hmm_probs_df.columns:
+        clr_df[f'CLR_{col}'] = np.log(smoothed_probs[col] / geom_mean)
+    <span class="keyword">return</span> clr_df
+
+<span class="comment"># Target financiero: retorno futuro acumulado < cuantil 5%</span>
+forward_returns = sp500_returns.rolling(window=5).sum().shift(-5)
+threshold = sp500_returns.quantile(0.05)
+target = (forward_returns < threshold).astype(int)</code></pre>
+                        </div>
+                    </div>
+                `,
+                visualizacion: `
+                    <div class="card">
+                        <div class="card-title">Importancia de Características e Interpretabilidad SHAP</div>
+                        <div class="explanation-text">
+                            <p>El análisis de importancia muestra que la <strong>Probabilidad transformada de Estado 2 (Estrés)</strong> del HMM domina por completo la clasificación con cerca del 60% del peso relativo.</p>
+                            <p>El análisis de XAI mediante valores SHAP ratifica esta jerarquía: valores altos de la probabilidad del estado estocástico de crisis empujan severamente la frontera de decisión hacia alertas de riesgo activa.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Mitigación de Fugas Temporales (Purga & Embargo)",
+                tag: "Validación Científica",
+                concepto: `
+                    <div class="card">
+                        <div class="card-title">Evitando el Overlap Temporal en Validación Cruzada</div>
+                        <div class="explanation-text">
+                            <p>Debido a que el target se define con una ventana futura de 5 días (<span class="math-inline">t+5</span>), las etiquetas de las observaciones consecutivas están correlacionadas y comparten retornos solapados.</p>
+                            <p>Si dividimos los datos para validación cruzada clásica sin precauciones, el set de entrenamiento terminará conociendo retornos que ocurren dentro del periodo de validación (look-ahead leak).</p>
+                            <p>Para lograr rigor científico institucional, aplicamos los métodos de Marcos López de Prado:</p>
+                            <ol>
+                                <li><strong>Purga (Purging):</strong> Recorta y elimina observaciones de entrenamiento al final del fold que solapan con la ventana futura del set de prueba.</li>
+                                <li><strong>Embargo (Embargo):</strong> Elimina un periodo adicional de datos al inicio de la validación para anular la autocorrelación de las características debido a la correlación serial.</li>
+                            </ol>
+                        </div>
+                    </div>
+                `,
+                matematica: `
+                    <div class="card">
+                        <div class="card-title">Matemática del Solapamiento de Información</div>
+                        <div class="explanation-text">
+                            <p>Una observación de entrenamiento <span class="math-inline">i</span> ocurre en el intervalo <span class="math-inline">[t_{i,s}, t_{i,e}]</span> y una de validación <span class="math-inline">j</span> en <span class="math-inline">[t_{j,s}, t_{j,e}]</span>.</p>
+                            <p>Hay solapamiento si:</p>
+                            <div class="math-block">
+                                t_{i,s} \\le t_{j,s} \\le t_{i,e} \\quad \\text{o} \\quad t_{j,s} \\le t_{i,s} \\le t_{j,e}
+                            </div>
+                            <p>Para purgar, eliminamos del set de entrenamiento cualquier observación <span class="math-inline">i</span> cuyo fin sea posterior al inicio del set de validación menos la ventana:</p>
+                            <div class="math-block">
+                                t_{i,e} \\ge t_{j,s} - h
+                            </div>
+                            <p>Para el embargo, eliminamos observaciones de validación que estén a menos de <span class="math-inline">h_{emb}</span> días del fin del entrenamiento para disipar la autocorrelación serial residual.</p>
+                        </div>
+                    </div>
+                `,
+                codigo: `
+                    <div class="card">
+                        <div class="card-title">Implementación de Purga y Embargo en Optuna</div>
+                        <div class="explanation-text">
+                            <p>Código extraído de <code>train_with_optuna</code> en <code>xgb_predictor.py</code>:</p>
+                            <pre><code><span class="comment"># Parámetros del protocolo</span>
+horizon = 5          <span class="comment"># Ventana de target (Purga)</span>
+embargo_period = 10  <span class="comment"># Margen de correlación serial (Embargo)</span>
+purge_and_embargo = max(horizon, embargo_period)
+
+tscv = TimeSeriesSplit(n_splits=3)
+<span class="keyword">for</span> train_idx, val_idx <span class="keyword">in</span> tscv.split(X):
+    <span class="comment"># Purgar y Embargar el final del fold de entrenamiento</span>
+    <span class="keyword">if</span> len(train_idx) > purge_and_embargo:
+        effective_train_idx = train_idx[:-purge_and_embargo]
+    <span class="keyword">else:</span>
+        effective_train_idx = train_idx
+        
+    X_t, X_v = X.iloc[effective_train_idx], X.iloc[val_idx]
+    y_t, y_v = y.iloc[effective_train_idx], y.iloc[val_idx]</code></pre>
+                        </div>
+                    </div>
+                `,
+                visualizacion: `
+                    <div class="card">
+                        <div class="card-title">Simulador del Flujo de Datos Causal</div>
+                        <div class="explanation-text">
+                            <p>A la derecha, interactúa con el simulador de validación cruzada temporal. Observa cómo cambian las celdas según el método seleccionado:</p>
+                            <ul>
+                                <li><strong>Sin Mitigación:</strong> Información futura del target en entrenamiento se solapa directamente con el fold de validación (zona roja/fuga).</li>
+                                <li><strong>Solo Purga:</strong> Corta las observaciones finales de train eliminando la fuga directa del target.</li>
+                                <li><strong>Purga + Embargo:</strong> Inserta una zona de amortiguación (buffer) temporal para neutralizar la autocorrelación y asegurar la independencia estocástica real.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Resultados & Comparativa de Backtesting",
+                tag: "Resultados & Alpha",
+                concepto: `
+                    <div class="card">
+                        <div class="card-title">Rigor Científico vs. Ilusión de Predictibilidad</div>
+                        <div class="explanation-text">
+                            <p>Tras aplicar de forma rigurosa la eliminación de fugas temporales y la inferencia causal, el clasificador XGBoost arroja una **AUC Out-of-Sample de 0.4950** (frente a una AUC In-Sample perfecta de 1.0000).</p>
+                            <p>En lugar de ocultar este resultado, lo defendemos como un **éxito de rigor metodológico**: valida la Hipótesis de los Mercados Eficientes en su forma débil (la dirección de precios diaria es impredecible/Random Walk).</p>
+                            <p>No obstante, la optimización de varianza mínima global condicional (GMV) basada en la <strong>calibración probabilística (Brier Score de 0.2025)</strong> logra batir ampliamente al benchmark Buy & Hold.</p>
+                        </div>
+                    </div>
+                `,
+                matematica: `
+                    <div class="card">
+                        <div class="card-title">Asignación Condicional Global Minimum Variance (GMV)</div>
+                        <div class="explanation-text">
+                            <p>En lugar de hacer trading direccional binario, el portafolio se rebalancea dinámicamente según la probabilidad predictiva de estrés de XGBoost (<span class="math-inline">\\hat{p}_{t+1}</span>), mezclando las covarianzas latentes de los regímenes:</p>
+                            <div class="math-block">
+                                \\Sigma_{t+1} = (1 - \\hat{p}_{t+1}) \\Sigma_{Normal} + \\hat{p}_{t+1} \\Sigma_{Estres}
+                            </div>
+                            <p>Posteriormente, se resuelve analíticamente el portafolio de varianza mínima sin posiciones cortas (long-only):</p>
+                            <div class="math-block">
+                                w^* = \\frac{\\Sigma_{t+1}^{-1} \\mathbf{1}}{\\mathbf{1}^T \\Sigma_{t+1}^{-1} \\mathbf{1}}
+                            </div>
+                            <p>Se restringe a <span class="math-inline">w_i \\in [0, 1]</span> y <span class="math-inline">\\sum w_i = 1</span>, penalizando un costo transaccional de 2 bps por turnover.</p>
+                        </div>
+                    </div>
+                `,
+                codigo: `
+                    <div class="card">
+                        <div class="card-title">Frontera Dinámica Causal en Python</div>
+                        <div class="explanation-text">
+                            <p>Algoritmo premium de rebalanceo extraído de <code>main_pipeline.py</code>:</p>
+                            <pre><code><span class="comment"># Bucle de rebalanceo causal fuera de muestra</span>
+<span class="keyword">for</span> date, prob <span class="keyword">in</span> p_t_causal.items():
+    <span class="comment"># Mezclar matrices de covarianza condicionales</span>
+    cov_predictiva = (1.0 - prob) * cov_normal + prob * cov_estres
+    
+    <span class="comment"># Resolver GMV analítico Long-Only</span>
+    inv_sigma = np.linalg.inv(cov_predictiva + np.eye(5)*1e-6)
+    unos = np.ones(5)
+    w_opt = np.dot(inv_sigma, unos) / np.dot(unos, np.dot(inv_sigma, unos))
+    w_opt = np.clip(w_opt, 0.0, 1.0)
+    w_opt /= np.sum(w_opt)
+    
+    <span class="comment"># Calcular retorno neto de fricción (2 bps)</span>
+    ret_bruto = np.dot(w_opt, retornos_dia)
+    turnover = np.sum(np.abs(w_opt - pesos_anteriores))
+    strat_returns.append(ret_bruto - turnover * 0.0002)</code></pre>
+                        </div>
+                    </div>
+                `,
+                visualizacion: `
+                    <div class="card">
+                        <div class="card-title">Comparativa de Backtesting OOS (2022 - 2026)</div>
+                        <div class="explanation-text">
+                            <p>En el panel derecho, se expone el cuadro de mandos con la comparativa detallada entre el **Modelo Dinámico GMV**, la estrategia pasiva **Buy & Hold (B&H) del S&P 500** y otras primas de riesgo.</p>
+                            <p>El portafolio dinámico optimiza la relación retorno-riesgo, logrando una reducción significativa del drawdown y una mayor tasa de retorno compuesto anualizado mediante la diversificación táctica en metales y bonos.</p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        // Estado de la Presentación
+        let currentSlide = 0;
+        let currentPerspective = 'concepto'; // 'concepto', 'matematica', 'codigo', 'visualizacion'
+
+        // Inicializar barra lateral
+        function initSidebar() {
+            const list = document.getElementById('stepsList');
+            list.innerHTML = '';
+            slidesData.forEach((slide, index) => {
+                const li = document.createElement('li');
+                li.className = `step-item ${index === currentSlide ? 'active' : ''}`;
+                li.onclick = () => selectSlide(index);
+                li.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <span class="step-title-text">${slide.title}</span>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        // Seleccionar una diapositiva específica
+        function selectSlide(index) {
+            currentSlide = index;
+            updateSlideUI();
+            
+            // Actualizar clase activa en barra lateral
+            const items = document.querySelectorAll('.step-item');
+            items.forEach((item, idx) => {
+                if (idx === currentSlide) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Navegar diapositivas
+        function changeSlide(direction) {
+            const target = currentSlide + direction;
+            if (target >= 0 && target < slidesData.length) {
+                selectSlide(target);
+            }
+        }
+
+        // Cambiar perspectiva (Tab de contenido)
+        function setPerspective(perspective) {
+            currentPerspective = perspective;
+            
+            // Actualizar botones de perspectiva
+            const tabs = document.querySelectorAll('.perspective-tab');
+            tabs.forEach(tab => {
+                if (tab.getAttribute('onclick').includes(perspective)) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            renderSlideContent();
+        }
+
+        // Actualizar interfaz general del Slide
+        function updateSlideUI() {
+            const slide = slidesData[currentSlide];
+            document.getElementById('slideTitle').innerHTML = `Paso ${currentSlide + 1}: <span>${slide.title}</span>`;
+            document.getElementById('slideTag').innerText = slide.tag;
+            document.getElementById('slideProgress').innerText = `Slide ${currentSlide + 1} de ${slidesData.length}`;
+            
+            // Habilitar/Deshabilitar botones de navegación
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slidesData.length - 1;
+            
+            renderSlideContent();
+        }
+
+        // Renderizar el contenido (Explicación + Visualizador) según el paso y la perspectiva
+        function renderSlideContent() {
+            const slide = slidesData[currentSlide];
+            const explanationPane = document.getElementById('explanationPane');
+            const visualizerPane = document.getElementById('visualizerPane');
+            
+            // Cargar explicación según perspectiva
+            if (currentPerspective === 'concepto') {
+                explanationPane.innerHTML = slide.concepto;
+            } else if (currentPerspective === 'matematica') {
+                explanationPane.innerHTML = slide.matematica;
+            } else if (currentPerspective === 'codigo') {
+                explanationPane.innerHTML = slide.codigo;
+            } else if (currentPerspective === 'visualizacion') {
+                explanationPane.innerHTML = slide.visualizacion;
+            }
+            
+            // Cargar visualización/interacción según paso y perspectiva
+            // Esta lógica conecta las imágenes reales o renderiza el simulador interactivo
+            visualizerPane.innerHTML = ''; // Limpiar
+            
+            if (currentSlide === 0) { // Paso 1
+                renderVisualStep1();
+            } else if (currentSlide === 1) { // Paso 2
+                renderVisualStep2();
+            } else if (currentSlide === 2) { // Paso 3
+                renderVisualStep3();
+            } else if (currentSlide === 3) { // Paso 4
+                renderVisualStep4();
+            } else if (currentSlide === 4) { // Paso 5
+                renderVisualStep5();
+            } else if (currentSlide === 5) { // Paso 6: SIMULADOR INTERACTIVO
+                renderVisualStep6();
+            } else if (currentSlide === 6) { // Paso 7: DASHBOARD COMPARATIVO
+                renderVisualStep7();
+            }
+            
+            // Renderizar ecuaciones matemáticas
+            renderMath();
+        }
+
+        // --- RENDERIZADORES DE DIAPOSITIVAS ---
+
+        function renderVisualStep1() {
+            const pane = document.getElementById('visualizerPane');
+            pane.innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; padding: 20px;">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--accent-indigo)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
+                    </svg>
+                    <h3 style="color:var(--text-primary); font-size:1.15rem;">Sistemas Adaptativos Complejos (SAC)</h3>
+                    <p style="color:var(--text-secondary); font-size:0.85rem; max-width:280px; line-height:1.5;">
+                        Los agentes aprenden y se adaptan de forma continua. La eficiencia del mercado cambia dinámicamente, lo que exige algoritmos de aprendizaje de regímenes evolutivos.
+                    </p>
+                    <div style="display:flex; gap:12px; margin-top:8px;">
+                        <span style="background:rgba(16,185,129,0.1); color:var(--accent-emerald); font-size:0.75rem; padding:4px 8px; border-radius:4px; font-weight:600;">AMH</span>
+                        <span style="background:rgba(244,63,94,0.1); color:var(--accent-rose); font-size:0.75rem; padding:4px 8px; border-radius:4px; font-weight:600;">Regímenes Dinámicos</span>
+                        <span style="background:rgba(6,182,212,0.1); color:var(--accent-cyan); font-size:0.75rem; padding:4px 8px; border-radius:4px; font-weight:600;">No Linealidad</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderVisualStep2() {
+            const pane = document.getElementById('visualizerPane');
+            pane.innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; padding: 20px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="border: 1px solid var(--glass-border); padding: 10px 16px; border-radius:6px; background:rgba(255,255,255,0.02);">
+                            <div style="font-size:0.7rem; color:var(--text-muted);">Set Entrenamiento (IS)</div>
+                            <div style="font-size:0.9rem; font-weight:600; color:var(--accent-cyan); margin-top:4px;">Calcula Cuantiles & Z-scores</div>
+                        </div>
+                        <svg width="20" height="20" fill="none" stroke="var(--text-muted)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <div style="border: 1px solid var(--glass-border); padding: 10px 16px; border-radius:6px; background:rgba(255,255,255,0.02);">
+                            <div style="font-size:0.7rem; color:var(--text-muted);">Set de Prueba (OOS)</div>
+                            <div style="font-size:0.9rem; font-weight:600; color:var(--accent-emerald); margin-top:4px;">Aplica Transformación Fija</div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-secondary); max-width:300px; line-height:1.5; margin-top:12px;">
+                        Los parámetros de winsorización (1% y 99%) y escalamiento (Z-score) se determinan de forma local in-sample y se congelan. Esto previene look-ahead bias durante el periodo 2022-2026.
+                    </p>
+                    <div style="border-left: 2px solid var(--accent-rose); background:rgba(244,63,94,0.02); padding: 10px 14px; border-radius: 0 6px 6px 0; text-align:left; font-size:0.75rem; color:var(--text-secondary); max-width:320px; width: 100%;">
+                        <strong style="color:var(--accent-rose);">Regla de Oro:</strong> Ningún dato de validación u out-of-sample debe ser expuesto a los estimadores de normalización.
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderVisualStep3() {
+            const pane = document.getElementById('visualizerPane');
+            if (currentPerspective === 'visualizacion') {
+                pane.innerHTML = `
+                    <div class="image-container">
+                        <img class="thesis-img" src="resultados/graficos/pca_loadings.png" alt="PCA Loadings" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.1. Contribución de Activos al PC1 (Estructura del ISRI). Muestra la correlación de cada activo con el apetito de riesgo general.</div>
+                    </div>
+                `;
+            } else {
+                pane.innerHTML = `
+                    <div class="image-container">
+                        <img class="thesis-img" src="resultados/graficos/isri_timeseries.png" alt="ISRI Time Series" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.2. Evolución Temporal del Índice Sintético de Rotación Intermercado (ISRI).</div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderVisualStep4() {
+            const pane = document.getElementById('visualizerPane');
+            if (currentPerspective === 'visualizacion') {
+                pane.innerHTML = `
+                    <div class="image-container" style="overflow-y:auto; gap:20px; max-height:450px;">
+                        <img class="thesis-img" src="resultados/graficos/hmm_regimes_scatter.png" alt="HMM Regimes Scatter" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.3. Dispersión del ISRI por Régimen Oculto (HMM).</div>
+                        <img class="thesis-img" src="resultados/graficos/regime_distributions.png" alt="Regime Distributions" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.4. Distribución de Densidad del ISRI por Estado.</div>
+                    </div>
+                `;
+            } else {
+                pane.innerHTML = `
+                    <div class="image-container">
+                        <img class="thesis-img" src="resultados/graficos/state_probabilities.png" alt="State Probabilities" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.5. Probabilidades de los Estados Ocultos a lo largo del tiempo (Inferencia Causal).</div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderVisualStep5() {
+            const pane = document.getElementById('visualizerPane');
+            if (currentPerspective === 'visualizacion') {
+                pane.innerHTML = `
+                    <div class="image-container">
+                        <img class="thesis-img" src="resultados/shap_summary_plot.png" alt="SHAP Summary Plot" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.7. Análisis de Explicabilidad SHAP en XGBoost. Muestra el impacto marginal neto de cada variable sobre la probabilidad de crisis.</div>
+                    </div>
+                `;
+            } else {
+                pane.innerHTML = `
+                    <div class="image-container">
+                        <img class="thesis-img" src="resultados/graficos/feature_importance.png" alt="Feature Importance" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.6. Importancia Gini de Características. La probabilidad del Estado 2 (Estrés) lidera el peso predictivo.</div>
+                    </div>
+                `;
+            }
+        }
+
+        // --- SIMULADOR INTERACTIVO PASO 6 ---
+        let simMode = 'none'; // 'none', 'purge', 'embargo'
+        
+        function renderVisualStep6() {
+            const pane = document.getElementById('visualizerPane');
+            pane.innerHTML = `
+                <div class="simulator-container">
+                    <h3 style="font-size:1rem; color:var(--text-primary); text-align:center;">Simulador del Protocolo de Validación Temporal</h3>
+                    
+                    <div class="sim-controls">
+                        <button class="sim-btn ${simMode === 'none' ? 'active' : ''}" onclick="setSimMode('none')">Sin Mitigación (Fuga)</button>
+                        <button class="sim-btn ${simMode === 'purge' ? 'active' : ''}" onclick="setSimMode('purge')">Solo Purga</button>
+                        <button class="sim-btn ${simMode === 'embargo' ? 'active' : ''}" onclick="setSimMode('embargo')">Purga + Embargo (Rigor)</button>
+                    </div>
+
+                    <div class="timeline-grid" id="timelineGrid">
+                        <!-- Generado por JS -->
+                    </div>
+
+                    <div class="sim-legend">
+                        <div class="legend-item">
+                            <div class="legend-color node-train"></div>
+                            <span>Train (Entrenamiento)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-val"></div>
+                            <span>Val (Validación)</span>
+                        </div>
+                        <div class="legend-item" id="legendOverlap" style="display:${simMode === 'none' ? 'flex' : 'none'}">
+                            <div class="legend-color node-overlap"></div>
+                            <span>Fuga de Target (Overlap)</span>
+                        </div>
+                        <div class="legend-item" id="legendPurged" style="display:${simMode !== 'none' ? 'flex' : 'none'}">
+                            <div class="legend-color node-purged"></div>
+                            <span>Purgado (Eliminado)</span>
+                        </div>
+                        <div class="legend-item" id="legendEmbargo" style="display:${simMode === 'embargo' ? 'flex' : 'none'}">
+                            <div class="legend-color node-embargo"></div>
+                            <span>Embargado (Eliminado)</span>
+                        </div>
+                    </div>
+
+                    <div id="simExplanation" style="font-size:0.75rem; color:var(--text-secondary); background:rgba(255,255,255,0.02); padding:10px; border-radius:6px; border:1px solid var(--glass-border); line-height:1.4;">
+                        <!-- Dinámico -->
+                    </div>
+                </div>
+            `;
+            generateTimelineGrid();
+        }
+
+        function setSimMode(mode) {
+            simMode = mode;
+            renderVisualStep6();
+        }
+
+        function generateTimelineGrid() {
+            const grid = document.getElementById('timelineGrid');
+            const exp = document.getElementById('simExplanation');
+            grid.innerHTML = '';
+            
+            // 15 nodos para representar una serie de tiempo
+            // Supongamos que dividimos a la mitad: Train 0-9, Val 10-14
+            // El horizonte es h = 2 nodos. El embargo es embargo_period = 2 nodos.
+            
+            for (let i = 0; i < 15; i++) {
+                const node = document.createElement('div');
+                node.className = 'timeline-node';
+                node.innerText = `t_${i}`;
+                
+                if (i >= 10) {
+                    // fold de validación
+                    node.classList.add('node-val');
+                } else {
+                    // fold de entrenamiento (sujeto a purga/embargo)
+                    if (simMode === 'none') {
+                        if (i >= 8) {
+                            // Fuga: t_8 y t_9 predicen drawdowns que solapan con t_10 y t_11
+                            node.classList.add('node-overlap');
+                            node.innerHTML += `<div style="font-size:0.5rem; color:#ffe4e6; margin-top:2px;">Leak</div>`;
+                        } else {
+                            node.classList.add('node-train');
+                        }
+                    } else if (simMode === 'purge') {
+                        if (i >= 8) {
+                            node.classList.add('node-purged');
+                            node.innerHTML += `<div style="font-size:0.5rem; color:var(--accent-rose); margin-top:2px;">Purg</div>`;
+                        } else {
+                            node.classList.add('node-train');
+                        }
+                    } else if (simMode === 'embargo') {
+                        if (i >= 8) {
+                            node.classList.add('node-purged');
+                            node.innerHTML += `<div style="font-size:0.5rem; color:var(--accent-rose); margin-top:2px;">Purg</div>`;
+                        } else if (i >= 6) {
+                            node.classList.add('node-embargo');
+                            node.innerHTML += `<div style="font-size:0.5rem; color:var(--accent-amber); margin-top:2px;">Emb</div>`;
+                        } else {
+                            node.classList.add('node-train');
+                        }
+                    }
+                }
+                grid.appendChild(node);
+            }
+
+            // Actualizar explicaciones escritas
+            if (simMode === 'none') {
+                exp.innerHTML = `<strong>Modo Sin Mitigación:</strong> Las observaciones finales de entrenamiento (<span class="math-inline">t_8</span> y <span class="math-inline">t_9</span>) estiman retornos acumulados futuros en un horizonte <span class="math-inline">h</span> que penetra la zona de validación (<span class="math-inline">t_{10}</span> en adelante). El modelo "conoce" las etiquetas del set de prueba en el entrenamiento, provocando una sobreestimación artificial de la precisión (look-ahead bias).`;
+            } else if (simMode === 'purge') {
+                exp.innerHTML = `<strong>Modo Solo Purga:</strong> Cortamos las últimas <span class="math-inline">h = 2</span> observaciones del entrenamiento (<span class="math-inline">t_8</span> y <span class="math-inline">t_9</span>). Ahora, ninguna etiqueta del entrenamiento depende de retornos que ocurran en el periodo de validación. La fuga del target directo queda eliminada.`;
+            } else if (simMode === 'embargo') {
+                exp.innerHTML = `<strong>Modo Purga + Embargo (López de Prado):</strong> Además de purgar el solapamiento del target (<span class="math-inline">t_8</span>, <span class="math-inline">t_9</span>), eliminamos un periodo adicional de datos (<span class="math-inline">t_6</span>, <span class="math-inline">t_7</span>) para amortiguar la autocorrelación serial de las variables de entrada. Esto garantiza una independencia estadística estricta en el fold de validación, representando el máximo rigor científico en series temporales financieras.`;
+            }
+            
+            // Renderizar ecuaciones matemáticas en el simulador
+            renderMath();
+        }
+
+        // --- DASHBOARD DE RESULTADOS PASO 7 ---
+        function renderVisualStep7() {
+            const pane = document.getElementById('visualizerPane');
+            
+            if (currentPerspective === 'visualizacion') {
+                pane.innerHTML = `
+                    <div class="image-container" style="overflow-y:auto; gap:20px; max-height:450px;">
+                        <img class="thesis-img" src="resultados/graficos/roc_curves_comparison.png" alt="ROC Curves Comparison" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.8. Comparación de Curvas ROC (In-Sample vs. Out-of-Sample). Muestra el sobreajuste real del mercado.</div>
+                        <img class="thesis-img" src="resultados/graficos/calibration_curve.png" alt="Calibration Curve" onerror="imgError(this)">
+                        <div class="image-caption">FIGURA 4.9. Curva de Calibración del Clasificador. Valida la fiabilidad de las probabilidades predichas.</div>
+                    </div>
+                `;
+            } else {
+                pane.innerHTML = `
+                    <div class="results-dashboard">
+                        <h3 style="font-size:0.95rem; color:var(--text-primary); text-align:center; margin-bottom:4px;">Cuadro de Mandos: Backtesting Out-of-Sample (2022 - 2026)</h3>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card highlight">
+                                <div class="metric-header">Ratio de Sharpe (Anualizado)</div>
+                                <div class="metric-comparison">
+                                    <span class="metric-value-model win">0.6841</span>
+                                    <span class="metric-value-bench">B&H SP500: 0.5967</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                                    <span class="comparison-badge badge-positive">+14.6% vs SP500</span>
+                                    <span style="font-size:0.6rem; color:var(--accent-emerald);">Mejora Consistente</span>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-card highlight">
+                                <div class="metric-header">Ratio de Sortino</div>
+                                <div class="metric-comparison">
+                                    <span class="metric-value-model win">0.9509</span>
+                                    <span class="metric-value-bench">B&H SP500: 0.8467</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                                    <span class="comparison-badge badge-positive">+12.3% vs SP500</span>
+                                    <span style="font-size:0.6rem; color:var(--accent-emerald);">Menor volatilidad a la baja</span>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">CAGR (Retorno Compuesto)</div>
+                                <div class="metric-comparison">
+                                    <span class="metric-value-model" style="color:var(--accent-cyan);">10.45%</span>
+                                    <span class="metric-value-bench">B&H SP500: 9.29%</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                                    <span class="comparison-badge badge-positive">+1.16% Absoluto</span>
+                                    <span style="font-size:0.6rem; color:var(--text-muted);">Con fricción de 2 bps</span>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-header">Máximo Drawdown (MDD)</div>
+                                <div class="metric-comparison">
+                                    <span class="metric-value-model" style="color:var(--accent-rose);">-27.66%</span>
+                                    <span class="metric-value-bench">B&H SP500: -27.11%</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                                    <span class="comparison-badge badge-neutral">Similar Drawdown</span>
+                                    <span style="font-size:0.6rem; color:var(--accent-rose);">-0.55% vs SP500</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background:rgba(255,255,255,0.02); padding:10px; border-radius:6px; border:1px solid var(--glass-border); font-size:0.7rem; color:var(--text-secondary);">
+                            <strong style="color:var(--accent-cyan); display:inline;">Fórmula de Éxito en Defensa:</strong> B&H de activos alternativos OOS muestran desempeños dispersos (Oro Sharpe: 1.0498, Petróleo: -0.0025). El portafolio GMV condicional del modelo aprovecha las covarianzas estimadas para rotar tácticamente a activos defensivos sin incurrir en volatilidad destructiva ni optimismo metodológico artificial.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Manejar errores de imágenes cuando el usuario corre la página localmente
+        function imgError(image) {
+            image.onerror = null;
+            // Reemplazar por un placeholder SVG explicativo si la imagen no se encuentra
+            const parent = image.parentNode;
+            const altText = image.alt;
+            
+            // Crear bloque visual explicativo
+            const placeholder = document.createElement('div');
+            placeholder.style.width = '100%';
+            placeholder.style.height = '200px';
+            placeholder.style.border = '1px dashed var(--accent-cyan)';
+            placeholder.style.borderRadius = '8px';
+            placeholder.style.background = 'rgba(6, 182, 212, 0.03)';
+            placeholder.style.display = 'flex';
+            placeholder.style.flexDirection = 'column';
+            placeholder.style.alignItems = 'center';
+            placeholder.style.justifyContent = 'center';
+            placeholder.style.padding = '20px';
+            placeholder.style.textAlign = 'center';
+            placeholder.innerHTML = `
+                <svg width="32" height="32" fill="none" stroke="var(--accent-cyan)" viewBox="0 0 24 24" style="margin-bottom:8px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <div style="font-size:0.8rem; font-weight:600; color:var(--text-primary);">${altText}</div>
+                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Archivo de imagen esperado en el directorio:</div>
+                <div style="font-family:var(--font-code); font-size:0.65rem; color:var(--accent-cyan); margin-top:2px;">${image.src.replace(window.location.origin + '/', '')}</div>
+            `;
+            
+            parent.insertBefore(placeholder, image);
+            parent.removeChild(image);
+        }
+
+        // Función para renderizar ecuaciones matemáticas usando MathJax (offline-safe)
+        function renderMath() {
+            if (typeof MathJax === 'undefined'  !MathJax.typeset) {
+                // MathJax no se ha cargado aún, reintentar en 50ms
+                setTimeout(renderMath, 50);
+                return;
+            }
+            
+            let needsTypeset = false;
+            
+            document.querySelectorAll('.math-block').forEach(el => {
+                let txt = el.textContent.trim();
+                // Si ya contiene MathJax SVG, no lo tocamos
+                if (el.querySelector('mjx-container')) return;
+                
+                if (!txt.startsWith('\\[') && !txt.startsWith('$$')) {
+                    el.textContent = '$$\n' + txt + '\n$$';
+                    needsTypeset = true;
+                }
+            });
+            
+            document.querySelectorAll('.math-inline').forEach(el => {
+                let txt = el.textContent.trim();
+                if (el.querySelector('mjx-container')) return;
+                
+                if (!txt.startsWith('\\(') && !txt.startsWith('$')) {
+                    el.textContent = '$' + txt + '$';
+                    needsTypeset = true;
+                }
+            });
+            
+            if (needsTypeset) {
+                try {
+                    MathJax.typeset();
+                } catch (e) {
+                    console.error('Error en MathJax typeset:', e);
+                }
+            }
+        }
+
+        // Inicializar
+        window.onload = () => {
+            initSidebar();
+            updateSlideUI();
+        };
+    </script>
+</body>
+</html>

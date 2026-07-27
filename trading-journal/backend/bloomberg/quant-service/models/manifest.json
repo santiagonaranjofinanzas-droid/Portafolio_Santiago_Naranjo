@@ -1,0 +1,23 @@
+{
+  "model_version": "v1.3.2",
+  "feature_version": "fv_1.0.3",
+  "artifacts": {
+    "scaler_params.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Bloomberg\\Modelo HMM + XGBoost\\Tesis\\src\\models\\scaler_params.pkl",
+    "xgb.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Bloomberg\\Modelo HMM + XGBoost\\Tesis\\src\\models\\xgb.pkl",
+    "hmm.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Bloomberg\\Modelo HMM + XGBoost\\Tesis\\src\\models\\hmm.pkl",
+    "hmm_prior.pkl": "C:\\Users\\YOUR_USERNAME\\Desktop\\Bloomberg\\Modelo HMM + XGBoost\\Tesis\\src\\models\\hmm_prior.pkl"
+  },
+  "feature_names": [
+    "OIL",
+    "USD",
+    "GOLD",
+    "SP500",
+    "BOND10Y"
+  ],
+  "hmm_n_states": 3,
+  "hmm_pi_0": [
+    0.31691532546000906,
+    0.37468955854446395,
+    0.30839511599552694
+  ]
+}

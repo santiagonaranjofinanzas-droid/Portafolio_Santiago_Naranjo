@@ -1,0 +1,30 @@
+# Environment & Secrets
+.env
+.env.*
+*.pem
+credentials.json
+credenciales.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.pytest_cache/
+
+# Large Datasets & Archives
+*.parquet
+*.zip
+*.tar.gz
+*.7z
+
+# Node
+node_modules/
+.next/
+dist/
+
+# OS Files
+.DS_Store
+Thumbs.db

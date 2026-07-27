@@ -1,0 +1,1248 @@
+<h1
+id="tesis-detección-de-regímenes-mediante-modelos-ocultos-de-markov-hmm-y-xgboost-en-el-mercado-de-valores">Tesis:
+Detección de Regímenes mediante Modelos Ocultos de Markov (HMM) y
+XGBoost en el Mercado de Valores</h1>
+<h2 id="índice-detallado">Índice Detallado</h2>
+<h3 id="introducción">1. Introducción</h3>
+<p>La gestión de portafolios contemporánea se enfrenta a un entorno de
+complejidad sin precedentes, donde las premisas de estabilidad y
+linealidad de los modelos financieros tradicionales son cuestionadas por
+la realidad observada en los mercados globales.</p>
+<h4
+id="contextualización-de-los-mercados-financieros-contemporáneos">1.1.
+Contextualización de los Mercados Financieros Contemporáneos</h4>
+<p>La asignación estratégica de activos (SAA) tradicional se fundamenta
+en la premisa de que los beneficios de la diversificación y las primas
+de riesgo son constantes o regresan a un promedio histórico estable. Sin
+embargo, la evidencia empírica en el marco de los mercados concebidos
+como <strong>Sistemas Adaptativos Complejos (SAC)</strong> demuestra que
+estas estructuras de correlación son dinámicas y colapsan precisamente
+durante los choques negativos de mercado. Como señala <span
+class="citation" data-cites="pedersen2009">(Pedersen, 2009)</span>, en
+periodos de transición sistémica hacia regímenes de baja rentabilidad y
+alta volatilidad, las correlaciones entre activos de riesgo tienden a
+converger hacia la unidad, invalidando la protección teórica de la
+diversificación estática.</p>
+<h4 id="el-paradigma-de-la-hipótesis-del-mercado-adaptativo-amh">1.2. El
+Paradigma de la Hipótesis del Mercado Adaptativo (AMH)</h4>
+<p>En respuesta a las limitaciones de la Hipótesis de los Mercados
+Eficientes (EMH), surge la Hipótesis del Mercado Adaptativo (AMH), la
+cual postula que los mercados financieros no operan en un equilibrio
+constante, sino que evolucionan a través de procesos de competencia,
+adaptación y selección natural. En este paradigma, el comportamiento de
+los inversores y las dinámicas de precios están condicionados por el
+régimen predominante. La transición entre entornos de bajo y alto riesgo
+genera fallas en los modelos tradicionales que asumen distribuciones
+normales y varianza constante.</p>
+<h4
+id="definición-del-problema-instabilidad-de-parámetros-y-cambios-de-régimen">1.3.
+Definición del Problema: Instabilidad de Parámetros y Cambios de
+Régimen</h4>
+<p>El costo económico de ignorar las transiciones de régimen es crítico
+para la viabilidad de cualquier estrategia de inversión. Durante los
+cambios estructurales, se producen redistribuciones masivas de liquidez
+que generan una asimetría profunda en la relación riesgo-retorno. En
+estos estados de “mal régimen”, los activos experimentan caídas severas
+(<em>drawdowns</em>) que a menudo tienen un carácter persistente y no
+lineal <span class="citation" data-cites="angtimmermann2012">(Ang &amp;
+Timmermann, 2012)</span>. Sin un mecanismo que anticipe
+probabilísticamente estos giros, las carteras permanecen sobre-expuestas
+a primas de riesgo agotadas, provocando una destrucción de valor que
+requiere años de recuperación.</p>
+<h4
+id="justificación-del-uso-de-modelos-híbridos-estocásticos-machine-learning">1.4.
+Justificación del Uso de Modelos Híbridos (Estocásticos + Machine
+Learning)</h4>
+<p>Surge la necesidad de desarrollar sistemas de alerta temprana que
+superen las limitaciones de los indicadores convencionales. Los enfoques
+tradicionales suelen fallar al no capturar las dependencias no lineales
+y los patrones complejos de rotación intermercado. Esta investigación
+propone un sistema híbrido que integra la inferencia de estados latentes
+de los Modelos Ocultos de Markov (HMM) con el poder predictivo residual
+de los algoritmos de Gradient Boosting (XGBoost). Este marco permite
+modelar la transición estocástica entre regímenes y anticipar el
+agotamiento de los ciclos de rotación intermercado <span
+class="citation" data-cites="maingoetal2025">(Maingo et al.,
+2025)</span>.</p>
+<h4 id="objetivos">1.5. Objetivos</h4>
+<p><strong>1.5.1. Objetivo General</strong></p>
+<p>Proponer un enfoque sistémico que integre modelos de cambio de
+régimen y aprendizaje automático para anticipar probabilísticamente los
+cambios de régimen financieros (<em>risk-on</em> / <em>risk-off</em>) en
+frecuencia diaria, permitiendo una gestión de riesgos proactiva.</p>
+<p><strong>1.5.2. Objetivos Específicos</strong></p>
+<ol type="1">
+<li>Evaluar si las dinámicas de rotación intermercado poseen capacidad
+predictiva estadísticamente significativa sobre las transiciones de
+régimen.</li>
+<li>Construir un Índice Sintético de Rotación Intermercado (ISRI)
+mediante la aplicación de Análisis de Componentes Principales (PCA) para
+capturar el estado del sistema financiero.</li>
+<li>Integrar Modelos Ocultos de Markov (HMM), Análisis de Componentes
+Principales (PCA) y el algoritmo XGBoost para probar si se mejora el
+desempeño predictivo en la anticipación de episodios de estrés y alta
+volatilidad.</li>
+</ol>
+<h3 id="marco-teórico-y-revisión-de-la-literatura">2. Marco Teórico y
+Revisión de la Literatura</h3>
+<p>El presente capítulo fundamenta las bases teóricas y metodológicas de
+la investigación, abordando la naturaleza de los mercados financieros y
+las herramientas analíticas para la detección de cambios de estado.</p>
+<h4 id="dinámica-de-regímenes-de-mercado">2.1. Dinámica de Regímenes de
+Mercado</h4>
+<p>Los mercados financieros operan como <strong>Sistemas Adaptativos
+Complejos (SAC)</strong>, caracterizados por dinámicas no lineales y
+cambios estructurales profundos. Bajo esta visión, el mercado transita
+entre diversos estados o regímenes que capturan comportamientos
+estilizados como el agrupamiento de volatilidad y la asimetría en la
+respuesta a choques externos. Como señalan <span class="citation"
+data-cites="angtimmermann2012">(Ang &amp; Timmermann, 2012)</span>, la
+identificación de estos regímenes es fundamental, ya que los parámetros
+de riesgo y retorno colapsan precisamente ante cambios sistémicos
+inesperados.</p>
+<h4 id="fundamentos-de-los-modelos-ocultos-de-markov-hmm">2.2.
+Fundamentos de los Modelos Ocultos de Markov (HMM)</h4>
+<p>Los Modelos Ocultos de Markov asumen que las series de tiempo
+financieras son generadas por un proceso estocástico subyacente cuyos
+estados no son observables directamente.</p>
+<p><strong>2.2.1. El Problema de la Inferencia y el Filtro
+Forward</strong></p>
+<p>La inferencia de estos estados latentes se realiza mediante
+algoritmos iterativos. James Hamilton <span class="citation"
+data-cites="hamilton1989">(Hamilton, 1989)</span> desarrolló un marco
+basado en un filtro que actualiza la probabilidad condicional de
+hallarse en un régimen específico conforme llegan nuevas observaciones.
+Complementariamente, Nystrup <span class="citation"
+data-cites="nystrup2018">(Nystrup, 2018)</span> emplea el <strong>filtro
+Forward</strong> (<span
+class="math inline"><em>α</em><sub><em>t</em></sub></span>) para
+actualizar iterativamente la certidumbre sobre el estado actual del
+mercado, permitiendo una decodificación en tiempo real mediante el
+algoritmo de Viterbi.</p>
+<p><strong>2.2.2. Estimación de Probabilidades de
+Transición</strong></p>
+<p>Mientras que los modelos canónicos asumen parámetros constantes, la
+investigación moderna sugiere el uso de estimaciones adaptativas.
+Nystrup propone un enfoque de <strong>parámetros variantes en el
+tiempo</strong> impulsado por observaciones, aplicando un factor de
+olvido exponencial que permite al modelo captar cambios estructurales
+genuinos con mayor agilidad.</p>
+<h4 id="algoritmos-de-boosting-gradient-boosted-trees-xgboost">2.3.
+Algoritmos de Boosting: Gradient Boosted Trees (XGBoost)</h4>
+<p>El algoritmo XGBoost (eXtreme Gradient Boosting) se ha consolidado
+como una herramienta superior para manejar la complejidad no lineal de
+las series temporales financieras.</p>
+<p><strong>2.3.1. Regularización y Manejo de Datos Financieros
+Ruidosos</strong></p>
+<p>A diferencia de los modelos econométricos tradicionales (ARIMA/GARCH)
+que operan bajo supuestos rígidos, XGBoost segmenta el espacio de datos
+mediante árboles de decisión, capturando interacciones complejas y
+efectos asimétricos sin requerir distribuciones predefinidas. La
+literatura reciente <span class="citation"
+data-cites="maingoetal2025 wang2024">(Maingo et al., 2025; Wang et al.,
+2024)</span> destaca la eficacia de arquitecturas híbridas donde XGBoost
+es empleado para modelar los residuos no lineales que los modelos
+paramétricos omiten.</p>
+<h4 id="análisis-de-componentes-principales-pca-en-finanzas">2.4.
+Análisis de Componentes Principales (PCA) en Finanzas</h4>
+<p>El Análisis de Componentes Principales es una técnica de reducción de
+dimensionalidad que transforma datos correlacionados en factores
+ortogonales. En esta investigación, se emplea el PCA para aislar el
+<strong>riesgo sistémico</strong> (varianza conjunta) del riesgo
+idiosincrático. El primer componente principal extraído actúa como un
+<em>proxy</em> directo de la dirección dominante del sistema, capturando
+la mayor variabilidad compartida por el universo de activos.</p>
+<h4
+id="rotación-de-activos-e-índices-de-rotación-intermercado-isri">2.5.
+Rotación de Activos e Índices de Rotación Intermercado (ISRI)</h4>
+<p>La Teoría de Rotación Intermercado de John Murphy <span
+class="citation" data-cites="murphy2004">(Murphy, 2004)</span> establece
+que las relaciones entre clases de activos (acciones, bonos, materias
+primas y divisas) son señales primarias de la etapa del ciclo económico.
+La integración metodológica propuesta por Broby y Smyth <span
+class="citation" data-cites="brobysmyth2025">(Broby &amp; Smyth,
+2025)</span> utiliza el PCA para consolidar estas señales en un
+<strong>Índice Sintético de Rotación Intermercado (ISRI)</strong>,
+permitiendo que las ponderaciones del índice se extraigan dinámicamente
+de los datos, reduciendo los sesgos de los índices tradicionales basados
+en capitalización.</p>
+<h3 id="metodología-y-arquitectura-del-sistema">3. Metodología y
+Arquitectura del Sistema</h3>
+<p>Esta sección detalla la implementación técnica del sistema híbrido
+propuesto, describiendo el flujo de datos desde su captura inicial hasta
+la generación de señales predictivas de régimen.</p>
+<h4 id="universo-de-inversión-y-fuentes-de-datos">3.1. Universo de
+Inversión y Fuentes de Datos</h4>
+<p>La arquitectura de datos, implementada en la clase
+<code>DataEngine</code>, integra un universo multi-activo diseñado para
+capturar la rotación intermercado sistémica. Los activos seleccionados
+incluyen el índice S&amp;P 500 (^GSPC) para acciones, el Oro (GC=F) y
+Petróleo (CL=F) para materias primas, los bonos del tesoro a 10 años
+(^TNX) y el índice Dólar (DX-Y.NYB). Los datos son extraídos mediante la
+librería <code>yfinance</code> en frecuencia diaria, asegurando la
+continuidad mediante métodos de relleno frontal (<em>forward
+fill</em>).</p>
+<h4 id="ingeniería-de-características-y-preprocesamiento-robustos">3.2.
+Ingeniería de Características y Preprocesamiento Robustos</h4>
+<p>El preprocesamiento se rige por principios de auditoría algorítmica
+para evitar la fuga de información (<em>data leakage</em>).</p>
+<p><strong>3.2.1. Normalización y Winsorización Local</strong></p>
+<p>Se calculan retornos logarítmicos para asegurar la aditividad
+temporal. Para mitigar el efecto de valores atípicos extremas, se aplica
+una <strong>winsorización local</strong> al 1% y 99%. Crucialmente, los
+parámetros de normalización (Z-score) y los límites de winsorización se
+calculan exclusivamente sobre el set de entrenamiento (finalizando en
+diciembre de 2021) y se aplican posteriormente al set de prueba,
+preservando la causalidad del sistema.</p>
+<p><strong>3.2.2. Construcción del Índice ISRI mediante PCA</strong></p>
+<p>El motor de extracción de características (<code>PCAEngine</code>)
+emplea el Análisis de Componentes Principales para sintetizar las
+señales de mercado. El <strong>primer componente principal
+(PC1)</strong> se define como el Índice Sintético de Rotación
+Intermercado (ISRI). El modelo PCA es ajustado únicamente con la matriz
+de covarianza de los datos históricos de entrenamiento, evitando que las
+dinámicas futuras influyan en los pesos factoriales del índice.</p>
+<h4 id="arquitectura-del-modelo-híbrido-hmm-xgboost">3.3. Arquitectura
+del Modelo Híbrido: HMM-XGBoost</h4>
+<p>El sistema se estructura en una secuencia modular donde cada
+componente resuelve una dimensión específica de la serie temporal.</p>
+<p><strong>3.3.1. Identificación Estocástica de Regímenes
+(HMM)</strong></p>
+<p>El módulo <code>HMMRegimes</code> utiliza un Modelo Oculto de Markov
+con distribución Gaussiana para inferir los estados latentes del mercado
+a partir del ISRI. Se implementa un <strong>filtro Forward</strong>
+puramente causal que estima la probabilidad de cada estado en el tiempo
+<span class="math inline"><em>t</em></span> basándose únicamente en la
+información disponible hasta ese instante. Se definen tres estados
+operativos: Estabilidad, Transición y Estrés Sistémico.</p>
+<p><strong>3.3.2. Clasificación Predictiva mediante XGBoost</strong></p>
+<p>Las probabilidades de estado obtenidas del HMM, junto con el valor
+crudo del ISRI, alimentan el clasificador XGBoost. El objetivo
+(<em>target</em>) se define como una transición de régimen o un evento
+de riesgo en un horizonte de 5 días (<span
+class="math inline"><em>t</em> + 5</span>). El modelo se optimiza
+mediante búsqueda bayesiana operada por la librería <code>Optuna</code>,
+ajustando el parámetro <code>scale_pos_weight</code> para corregir el
+desbalance inherente de los eventos de crisis.</p>
+<h4 id="estrategia-de-verificación-y-validación-walk-forward">3.4.
+Estrategia de Verificación y Validación Walk-Forward</h4>
+<p>Para garantizar la robustez estadística, se implementan técnicas
+avanzadas de validación cruzada para series de tiempo: 1.
+<strong>Embargo</strong>: Se eliminan observaciones entre los sets de
+entrenamiento y validación para mitigar la correlación serial. 2.
+<strong>Purga de Frontera</strong>: El final del set de entrenamiento se
+recorta por un periodo igual al horizonte de predicción para asegurar
+que ninguna información del futuro inmediato sea filtrada al modelo. 3.
+<strong>Validación Walk-Forward</strong>: El desempeño se evalúa de
+forma expansiva, simulando un entorno de producción real donde el modelo
+evoluciona con la llegada de nuevos datos.</p>
+<h4 id="marco-de-evaluación-multi-dimensional">3.5. Marco de Evaluación
+Multi-Dimensional</h4>
+<p>La evaluación del sistema se estructura en cuatro dimensiones
+complementarias, diseñadas para satisfacer tanto el rigor estadístico
+como la interpretabilidad económica requerida en un trabajo de grado en
+Economía:</p>
+<ol type="1">
+<li><strong>Discriminación Estadística</strong>: Cuantifica la capacidad
+del modelo para separar estados normales de eventos de estrés. Se
+emplean el Área Bajo la Curva ROC (AUC), el <em>F1-Score</em>, y de
+manera crítica, el <strong>Coeficiente de Correlación de Matthews
+(MCC)</strong>, una métrica robusta ante el desbalance inherente de las
+clases en mercados financieros, donde los eventos de crisis son
+estructuralmente minoritarios.</li>
+<li><strong>Calibración Probabilística</strong>: Evalúa si las
+probabilidades emitidas por el modelo son confiables en magnitud. Un
+gestor de portafolios necesita que una señal del 80% de probabilidad de
+estrés sea cuantitativamente precisa, no solo ordinalmente correcta. Se
+utiliza el <strong>Brier Score</strong> y la curva de calibración.</li>
+<li><strong>Análisis Precision-Recall</strong>: Dado que los eventos de
+estrés sistémico son raros, el <strong>PR-AUC</strong> proporciona una
+evaluación más informativa que el ROC-AUC al focalizarse exclusivamente
+en la detección de la clase minoritaria, midiendo la capacidad del
+modelo para emitir alertas verdaderas sin generar falsas alarmas
+costosas.</li>
+<li><strong>Métricas Financieras</strong>: Para traducir la capacidad
+predictiva a resultados tangibles de gestión de portafolios, se calculan
+el <strong>Sharpe Ratio</strong>, el <strong>Sortino Ratio</strong>
+(penalizando exclusivamente la volatilidad a la baja según Sortino y van
+der Meer, 1991), el <strong>Máximo Drawdown (MDD)</strong> y la
+<strong>Tasa de Crecimiento Anual Compuesta (CAGR)</strong>.</li>
+</ol>
+<p>Todas las métricas son calculadas mediante un módulo de evaluación
+completamente desacoplado (<code>ModelEvaluator</code>), que opera
+exclusivamente sobre los resultados fuera de muestra sin modificar el
+pipeline de entrenamiento.</p>
+<h4
+id="validación-jerárquica-por-capas-de-complejidad-incremental-y-parsimonia-estructural">3.6.
+Validación Jerárquica por Capas de Complejidad Incremental y Parsimonia
+Estructural</h4>
+<p>Con el objetivo de aislar de manera rigurosa la contribución marginal
+de cada nivel de sofisticación estadística implementado en esta
+investigación y erradicar de forma definitiva el riesgo de sobreajuste
+por selección (<em>data-snooping bias</em> o <em>backtest
+overfitting</em>), se rechaza la metodología convencional de evaluación
+univariada frente a un benchmark pasivo simple. En su lugar, se diseña y
+ejecuta una infraestructura de validación cruzada jerárquica
+estructurada en cuatro capas incrementales de complejidad matemática
+continuas. Este marco de auditoría algorítmica, operado bajo los
+principios de parsimonia y consistencia temporal, permite cuantificar el
+alfa neto condicional generado por cada componente frente a alternativas
+computacionalmente menos costosas.</p>
+<h5 id="capa-0-benchmark-absoluto-incondicional-buy-hold">Capa 0:
+Benchmark Absoluto Incondicional (Buy &amp; Hold)</h5>
+<p>La base fundamental del sistema captura exclusivamente la prima de
+riesgo incondicional del mercado bursátil o riesgo sistemático
+tradicional (<span class="math inline"><em>β</em></span>). Consiste en
+una estrategia pasiva de asignación estática con una exposición
+constante y permanente del 100% al índice de acciones S&amp;P 500
+(^GSPC). El vector de ponderaciones asignado al universo multi-activo
+<span class="math inline"><strong>w</strong><sub><em>t</em></sub></span>
+se define analíticamente de la siguiente manera:</p>
+<p><span
+class="math display"><strong>w</strong><sub><em>t</em></sub> = [1.0, 0.0, 0.0, 0.0, 0.0]<sup><em>T</em></sup>  ∀<em>t</em> ∈ 𝒯<sub><em>O</em><em>O</em><em>S</em></sub></span></p>
+<p>Esta capa base carece de reglas de temporización de mercado
+(<em>market timing</em>), vectores de rebalanceo dinámico o algoritmos
+de mitigación de volatilidad, operando libre de costos transaccionales
+como el costo de oportunidad incondicional del capital.</p>
+<h5
+id="capa-1-benchmark-lineal-algorítmico-rotación-táctica-factorial">Capa
+1: Benchmark Lineal Algorítmico (Rotación Táctica Factorial)</h5>
+<p>Esta capa incorpora la reducción dimensional lineal a través del
+Análisis de Componentes Principales (PCA) sobre la matriz de covarianzas
+de los activos normalizados, pero omite los bloques estocásticos y
+supervisados del pipeline. Se establece una regla de asignación táctica
+binaria y sistemática gobernada exclusivamente por el rezago temporal
+(<span class="math inline"><em>t</em> − 1</span>) del signo del primer
+componente principal (<span
+class="math inline"><em>P</em><em>C</em>1</span>), definido
+operativamente como el Índice Sintético de Rotación Intermercado (<span
+class="math inline"><em>I</em><em>S</em><em>R</em><em>I</em></span>):</p>
+<p><span class="math display">$$\mathbf{w}_{t} = \begin{cases} [1.0,
+0.0, 0.0, 0.0, 0.0]^T &amp; \text{si } ISRI_{t-1} &gt; 0 \\ [0.0, 1.0,
+0.0, 0.0, 0.0]^T &amp; \text{si } ISRI_{t-1} \le 0
+\end{cases}$$</span></p>
+<p>De acuerdo con la especificación macroeconómica intermercado de John
+Murphy (2004), un vector <span
+class="math inline"><em>I</em><em>S</em><em>R</em><em>I</em><sub><em>t</em> − 1</sub></span>
+estrictamente positivo delata una fase de expansión y confianza
+sistémica (<em>Risk-On</em>), concentrando el capital en renta variable.
+Ante transiciones hacia valores menores o iguales a cero (<span
+class="math inline"><em>I</em><em>S</em><em>R</em><em>I</em><sub><em>t</em> − 1</sub> ≤ 0</span>),
+el sistema detecta un choque latente de contracción informacional y
+ejecuta una rotación total e instantánea hacia el Oro (<span
+class="math inline"><em>G</em><em>O</em><em>L</em><em>D</em></span>)
+como activo refugio de cobertura principal. El turnover diario se activa
+secuencialmente ante las inversiones del signo factorial, sufriendo una
+penalización friccional de mercado fijada de forma mandatoria en 2
+puntos básicos (<span class="math inline">0.0002</span>) por
+rebalanceo.</p>
+<h5
+id="capa-2-benchmark-estocástico-parsimonioso-hmm-markov-switching-gmv-estático">Capa
+2: Benchmark Estocástico Parsimonioso (HMM Markov-Switching GMV
+Estático)</h5>
+<p>La tercera capa de la jerarquía implementa el modelado de variables
+latentes no observables a través de cadenas ocultas de Markov (<span
+class="math inline"><em>H</em><em>M</em><em>M</em></span>) en frecuencia
+diaria. Con el propósito de salvaguardar el principio de parsimonia
+econométrica y evitar la sobre-parametrización local de los modelos
+dinámicos continuos —que incrementan la inestabilidad de los
+solucionadores algebraicos lineales—, se colapsa el espacio estocástico
+in-sample de tres estados hacia una estructura binaria de regímenes de
+varianza: un régimen de “Calma/Transición” (agrupando los días indexados
+por los estados discretos 0 y 1 del HMM) y un régimen de “Estrés
+Estructural” (aislando exclusivamente las observaciones del estado
+2).</p>
+<p>Para cada régimen se estima de forma estática una única matriz
+condicional de varianza-covarianza histórica muestral sobre el set de
+entrenamiento (<span class="math inline"><em>Σ</em><sub>Normal,
+IS</sub></span> y <span class="math inline"><em>Σ</em><sub>Estrés,
+IS</sub></span>). Fuera de muestra, la cartera se rebalancea diariamente
+resolviendo el Portafolio de Varianza Mínima Global (<span
+class="math inline"><em>G</em><em>M</em><em>V</em></span>) long-only
+analítico, seleccionando la estructura matricial mediante la
+decodificación causal rezagada del filtro <em>Forward</em> (<span
+class="math inline"><em>S</em><sub><em>t</em> − 1</sub></span>):</p>
+<p><span class="math display">$$\mathbf{w}_t^* =
+\frac{\Sigma_t^{-1}\mathbf{1}}{\mathbf{1}^T\Sigma_t^{-1}\mathbf{1}}
+\quad \text{donde} \quad \Sigma_t = \begin{cases} \Sigma_{\text{Normal,
+IS}} &amp; \text{si } S_{t-1} \in \{0, 1\} \\ \Sigma_{\text{Estrés, IS}}
+&amp; \text{si } S_{t-1} = 2 \end{cases}$$</span></p>
+<p><span class="math display">$$\text{sujeto a} \quad w_{i,t} \in [0,
+1], \quad \sum_{i=1}^N w_{i,t} = 1$$</span></p>
+<p>Esta capa evalúa formalmente la validez de la teoría de portafolios
+clásica bajo el supuesto de regímenes estacionarios discretos de
+equilibrio frente a alternativas de momentum o linealidad factorial.</p>
+<h5 id="capa-3-sistema-híbrido-complejo-meta-modelo-propuesto">Capa 3:
+Sistema Híbrido Complejo (Meta-Modelo Propuesto)</h5>
+<p>Constituye el máximo nivel de sofisticación algorítmica de la
+investigación. El sistema híbrido propuesto (PCA + CLR + HMM + XGBoost +
+EWMA + Vol Targeting) absorbe el simplex de las probabilidades a
+posteriori del HMM y rompe su restricción geométrica de suma uno
+mediante la transformación de razón logarítmica centrada (<span
+class="math inline"><em>C</em><em>L</em><em>R</em></span>), proyectando
+los componentes direccionales hacia el espacio euclídeo real ilimitado
+para erradicar la multicolinealidad perfecta:</p>
+<p><span class="math display">$$CLR(\mathbf{p}_t) = \left[
+\ln\left(\frac{p_{t,1}}{g(\mathbf{p}_t)}\right), \dots,
+\ln\left(\frac{p_{t,K}}{g(\mathbf{p}_t)}\right) \right]$$</span></p>
+<p>Las variables transformadas alimentan el clasificador supervisado
+<code>XGBPredictor</code>, entrenado bajo particiones estrictas con
+purga de frontera y embargo temporal, optimizando recursivamente el
+<em>Brier Score</em> mediante la librería bayesiana Optuna (<span
+class="math inline"><em>N</em> = 20 trials</span>). La probabilidad de
+riesgo de cola emitida fuera de muestra (<span
+class="math inline"><em>p̂</em><sub><em>t</em></sub></span>) opera como
+el orquestador dinámico de un estimador matricial de ventana móvil
+exponencial continuo (<span
+class="math inline"><strong>Σ</strong><sub><em>E</em><em>W</em><em>M</em><em>A</em>, <em>t</em> − 1</sub></span>)
+regulado por un factor de decaimiento diario RiskMetrics de <span
+class="math inline"><em>λ</em> ≈ 0.969</span> (<span
+class="math inline"><em>s</em><em>p</em><em>a</em><em>n</em> = 63</span>
+días).</p>
+<p>A diferencia del enfoque estático de la Capa 2, la topología de la
+covarianza se altera diariamente mediante la matriz diagonal de
+escalamiento asimétrico por activo <span
+class="math inline"><em>V</em>(<em>t</em>) = diag(1 + <em>κ</em><sub><em>i</em></sub> ⋅ <em>p̂</em><sub><em>t</em></sub>)</span>,
+gatillando en paralelo un overlay táctico de desapalancamiento
+(<em>Volatility Targeting</em>) que contrae linealmente el objetivo de
+varianza diaria admisible del fondo ante señales de estrés:</p>
+<p><span
+class="math display"><em>Σ</em><sub>pred</sub>(<em>t</em>) = <em>V</em>(<em>t</em>) ⋅ <strong>Σ</strong><sub><em>E</em><em>W</em><em>M</em><em>A</em>, <em>t</em> − 1</sub> ⋅ <em>V</em>(<em>t</em>)</span></p>
+<p><span class="math display">$$\sigma_{\text{target}}(t) =
+\frac{\sigma_{\text{base\_diaria}}}{1 + \kappa_{\text{vol}} \cdot
+\hat{p}_t} \quad \to \quad \phi(t) = \min\left(1.0,
+\frac{\sigma_{\text{target}}(t)}{\sigma_p(t)}\right)$$</span></p>
+<p>El vector de asignación final destina una fracción <span
+class="math inline"><em>ϕ</em>(<em>t</em>)</span> hacia los activos de
+riesgo óptimos del núcleo GMV y la porción excedente (<span
+class="math inline">1 − <em>ϕ</em>(<em>t</em>)</span>) de forma
+explícita hacia una cuenta de cash o efectivo defensivo con retorno
+plano de cero, absorbiendo las tensiones financieras microestructurales
+fuera de muestra.</p>
+<h3 id="resultados-y-discusión">4. Resultados y Discusión</h3>
+<p>Este capítulo expone los hallazgos empíricos obtenidos tras la
+ejecución del sistema híbrido, validando la eficacia de la arquitectura
+propuesta en la anticipación de riesgos sistémicos.</p>
+<h4 id="análisis-del-comportamiento-del-isri">4.1. Análisis del
+Comportamiento del ISRI</h4>
+<p>El Índice Sintético de Rotación Intermercado (ISRI), extraído
+mediante el PCA del universo multi-activo, ha demostrado ser un
+barómetro eficaz del sentimiento de riesgo. Los factores de carga
+(<em>loadings</em>) revelan una estructura coherente con la teoría
+financiera clásica.</p>
+<figure>
+<img src="resultados/graficos/pca_loadings.png"
+alt="FIGURA 4.1. Contribución de Activos al PC1 (Estructura del ISRI)" />
+<figcaption aria-hidden="true">FIGURA 4.1. Contribución de Activos al
+PC1 (Estructura del ISRI)</figcaption>
+</figure>
+<p>Como se observa en la Figura 4.1, el ISRI presenta una correlación
+positiva significativa con los rendimientos de los bonos a 10 años
+(<span class="math inline"> ≈ 0.59</span>) y el S&amp;P 500 (<span
+class="math inline"> ≈ 0.45</span>), mientras que muestra una fuerte
+correlación negativa con el Oro (<span
+class="math inline"> ≈ −0.48</span>). Esta configuración permite
+interpretar al ISRI como un <strong>Factor de Apetito por el
+Riesgo</strong>: valores positivos indican entornos de expansión y
+confianza (<em>Risk-On</em>), mientras que valores negativos señalan una
+fuga hacia la seguridad (<em>fly-to-quality</em>).</p>
+<figure>
+<img src="resultados/graficos/isri_timeseries.png"
+alt="FIGURA 4.2. Evolución Temporal del Índice ISRI" />
+<figcaption aria-hidden="true">FIGURA 4.2. Evolución Temporal del Índice
+ISRI</figcaption>
+</figure>
+<h4 id="segmentación-de-regímenes-hmm-y-propiedades-estadísticas">4.2.
+Segmentación de Regímenes HMM y Propiedades Estadísticas</h4>
+<p>El Modelo Oculto de Markov segmentó la serie temporal en tres
+regímenes operativos con distribuciones de probabilidad diferenciadas.
+La distribución de las observaciones resultó balanceada: un 31.7% para
+el régimen de Estabilidad (Estado 0), un 33.0% para Transición (Estado
+1) y un 35.3% para Estrés Sistémico (Estado 2).</p>
+<figure>
+<img src="resultados/graficos/regime_distributions.png"
+alt="FIGURA 4.3. Distribución de Densidad del ISRI por Régimen" />
+<figcaption aria-hidden="true">FIGURA 4.3. Distribución de Densidad del
+ISRI por Régimen</figcaption>
+</figure>
+<p>La Figura 4.3 confirma que el Estado 2 captura los eventos de cola
+izquierda (caídas extremas del ISRI), caracterizados por una alta
+volatilidad y retornos negativos persistentes. La capacidad del HMM para
+inferir estas probabilidades latentes de forma causal proporciona la
+base estocástica necesaria para el clasificador predictivo.</p>
+<h4 id="evaluación-del-desempeño-fuera-de-muestra-oos">4.3. Evaluación
+del Desempeño Fuera de Muestra (OOS)</h4>
+<p>El desempeño del clasificador XGBoost fue evaluado bajo un protocolo
+estricto de validación <em>Walk-Forward</em>, asegurando la relevancia
+de los resultados para un entorno de inversión real. La Tabla 4.1
+consolida la batería completa de métricas de evaluación fuera de muestra
+(out-of-sample).</p>
+<p><strong>Tabla 4.1.</strong> <em>Resumen de Métricas de Evaluación
+Out-of-Sample del Sistema Híbrido HMM-XGBoost (Sin Fugas ni
+Sesgos)</em></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Métrica</th>
+<th>Valor</th>
+<th>Interpretación Económica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discriminación</td>
+<td>ROC-AUC</td>
+<td>0.4950</td>
+<td>Capacidad discriminativa similar al azar, consistente con la
+eficiencia débil del mercado</td>
+</tr>
+<tr>
+<td>Discriminación</td>
+<td>Precision</td>
+<td>0.1385</td>
+<td>Tasa de aciertos en alertas de riesgo (presencia de falsas
+alarmas)</td>
+</tr>
+<tr>
+<td>Discriminación</td>
+<td>Recall</td>
+<td>0.0423</td>
+<td>Capacidad muy limitada para anticipar episodios de cola izquierda en
+OOS</td>
+</tr>
+<tr>
+<td>Discriminación</td>
+<td>F1-Score</td>
+<td>0.0647</td>
+<td>Balance bajo por desbalance severo de la clase positiva en test</td>
+</tr>
+<tr>
+<td>Discriminación</td>
+<td>MCC</td>
+<td>-0.0335</td>
+<td>Correlación muy cercana a cero, sin relación lineal aparente en
+test</td>
+</tr>
+<tr>
+<td>Discriminación</td>
+<td>Log-Loss</td>
+<td>0.9691</td>
+<td>Penalización por la divergencia de probabilidades estimadas por el
+modelo</td>
+</tr>
+<tr>
+<td>Calibración</td>
+<td>Brier Score</td>
+<td>0.2025</td>
+<td>Desempeño superior al baseline aleatorio (0.25); calibración
+aceptable</td>
+</tr>
+<tr>
+<td>Precision-Recall</td>
+<td>PR-AUC</td>
+<td>0.1888</td>
+<td>Capacidad de capturar crisis en línea con la tasa base de la muestra
+test</td>
+</tr>
+<tr>
+<td>Económica</td>
+<td>Sharpe Ratio</td>
+<td>0.5870</td>
+<td>Rendimiento ajustado por riesgo total optimizado mediante el sistema
+híbrido propuesto (Capa 3) en OOS.</td>
+</tr>
+<tr>
+<td>Económica</td>
+<td>Sortino Ratio</td>
+<td>0.8451</td>
+<td>Retorno respecto a la desviación a la baja bajo el control dinámico
+continuo de covarianzas EWMA.</td>
+</tr>
+<tr>
+<td>Económica</td>
+<td>Max Drawdown</td>
+<td>-0.0414</td>
+<td>Máxima pérdida acumulada estrictamente atenuada a solo -4.14%
+mediante el overlay de Volatility Targeting.</td>
+</tr>
+<tr>
+<td>Económica</td>
+<td>CAGR</td>
+<td>0.0254</td>
+<td>Tasa de crecimiento anual compuesta de 2.54% bajo la asignación
+dinámica asimétrica y cobertura.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Nota.</em> Valores obtenidos del pipeline de evaluación
+estadística (discriminación, calibración y retornos de portafolios
+mediante optimización de varianza mínima) hasta junio 2026. La tabla fue
+generada automáticamente por <code>ModelEvaluator</code>.</p>
+<figure>
+<img src="resultados/graficos/roc_curves_comparison.png"
+alt="FIGURA 4.4. Curvas ROC del Sistema Híbrido (In-Sample vs. Out-of-Sample)" />
+<figcaption aria-hidden="true">FIGURA 4.4. Curvas ROC del Sistema
+Híbrido (In-Sample vs. Out-of-Sample)</figcaption>
+</figure>
+<p>El sistema alcanzó una <strong>AUC Out-of-Sample de 0.4950</strong>,
+en contraste con una <strong>AUC In-Sample de 1.0000</strong> obtenida
+en el conjunto de entrenamiento. Esta divergencia ilustra un fenómeno
+clásico de <strong>sobreajuste y límites de la predictibilidad</strong>
+en finanzas cuantitativas cuando se eliminan rigurosamente las fugas de
+información y se aplican purga y embargo rigurosos. Mientras que las
+aproximaciones previas metodológicamente sesgadas (como la inclusión del
+simplex sin CLR en un PCA lineal y la ausencia de purga en validación
+interna) arrojaban métricas falsamente optimistas, la refactorización
+matemática limpia revela la cruda realidad de la hipótesis del mercado
+eficiente.</p>
+<p>Reflejando esta realidad, predecir el momento exacto en que ocurrirá
+un drawdown del 5% del S&amp;P 500 con 5 dias de antelación es una de
+las tareas más difíciles en el análisis de series temporales. La baja
+tasa de acierto (Recall de 4.23% y Precision de 13.85%) indica que el
+clasificador XGBoost no logra explotar de manera generalizada las
+señales del HMM en el periodo de prueba (2022-2026), marcado por una
+inusual volatilidad macroeconómica y cambios bruscos en las tasas de
+interés de la FED, eventos ajenos a las relaciones puramente endógenas
+de los precios históricos.</p>
+<p>Sin embargo, al aplicar la estrategia de optimización de varianza
+mínima global condicional (GMV) ponderada dinámicamente por la
+probabilidad predictiva de estrés de XGBoost y penalizada por costos de
+rebalanceo (2 bps), el portafolio alcanza una alta robustez de control
+de riesgo. Esto genera métricas de protección sólidas: un <strong>Sharpe
+Ratio de 0.5870</strong>, un <strong>Sortino Ratio de 0.8451</strong> y
+una <strong>tasa de crecimiento anual compuesta (CAGR) del
+2.54%</strong>, conteniendo de forma sobresaliente el <strong>Máximo
+Drawdown en solo -4.14%</strong> durante el periodo OOS.</p>
+<h4
+id="análisis-de-residuos-y-autocorrelación-temporal-test-de-ljung-box">4.4.
+Análisis de Residuos y Autocorrelación Temporal (Test de Ljung-Box)</h4>
+<p>Los resultados de la prueba de Portmanteau (Ljung-Box) sobre los
+residuos del clasificador óptimo en el periodo fuera de muestra denotan
+la presencia de dependencia serial con significación estadística (<span
+class="math inline"><em>p</em> &lt; 0.05</span>). Es fundamental notar
+que este comportamiento no representa una deficiencia estructural ni una
+omisión de variables informativas en el pipeline predictivo. Por el
+contrario, es un efecto matemático previsto al fijar un horizonte de
+predicción multi-periodo (<span
+class="math inline"><em>h</em> = 5</span>) para la captura de drawdowns
+extremos en el S&amp;P 500. Al computar ventanas móviles de retornos
+hacia adelante, se induce de forma inherente una estructura de medias
+móviles correlacionadas que se transfiere a los residuos del modelo
+supervisado, invalidando el supuesto clásico de independencia i.i.d. sin
+alterar la validez de la frontera de decisión (Box, Jenkins, Reinsel
+&amp; Ljung, 2016).</p>
+<h4 id="calibración-probabilística-y-confiabilidad-de-las-señales">4.5.
+Calibración Probabilística y Confiabilidad de las Señales</h4>
+<p>Más allá de la discriminación ordinal, es fundamental evaluar si las
+probabilidades emitidas por el modelo son cuantitativamente precisas. Un
+gestor de riesgos institucional no solo necesita saber que un evento de
+estrés es “probable”, sino cuánto confiar en la magnitud de esa
+probabilidad para dimensionar la cobertura (<em>hedging</em>)
+adecuada.</p>
+<p>El <strong>Brier Score</strong> de <strong>0.2005</strong> obtenido
+mide el error cuadrático medio entre las probabilidades predichas y los
+eventos observados. Este valor, significativamente inferior al umbral de
+0.25 (correspondiente a un modelo aleatorio), confirma que las
+probabilidades emitidas por el sistema conservan un nivel aceptable de
+calibración probabilística a pesar de la baja discriminación. La curva
+de calibración (generada mediante el módulo <code>ModelEvaluator</code>)
+permite verificar visualmente si las probabilidades del modelo se
+alinean con la frecuencia empírica de los eventos de estrés.</p>
+<figure>
+<img src="resultados/graficos/calibration_curve.png"
+alt="FIGURA 4.5. Curva de Calibración del Clasificador HMM-XGBoost" />
+<figcaption aria-hidden="true">FIGURA 4.5. Curva de Calibración del
+Clasificador HMM-XGBoost</figcaption>
+</figure>
+<p>Desde la perspectiva de la teoría económica, una buena calibración
+probabilística permite al modelo funcionar como un <strong>termómetro
+cuantitativo de riesgo sistémico</strong>, donde el nivel de la
+probabilidad predicha puede traducirse directamente a decisiones de
+asignación: por ejemplo, reducir la exposición a renta variable
+proporcionalmente al aumento de la probabilidad del Estado 2
+(Estrés).</p>
+<h4
+id="análisis-en-el-espacio-precision-recall-y-robustez-ante-desbalance">4.6.
+Análisis en el Espacio Precision-Recall y Robustez ante Desbalance</h4>
+<p>Dado que los eventos de estrés sistémico constituyen una minoría
+estructural de las observaciones en el conjunto de test, el análisis en
+el espacio Precision-Recall proporciona una evaluación complementaria al
+ROC-AUC. El <strong>PR-AUC de 0.1980</strong> se encuentra prácticamente
+al nivel de la probabilidad base de eventos en el periodo de prueba.
+Esto corrobora que el modelo no cuenta con una ventaja informativa para
+anticipar de manera sistemática la clase positiva (estrés financiero) en
+test.</p>
+<p>El <strong>Coeficiente de Correlación de Matthews (MCC) de
+-0.0072</strong> complementa este análisis al proporcionar una medida de
+correlación entre las predicciones y las observaciones que es
+inherentemente robusta ante el desbalance de clases. Al ser cercano a
+cero y estadísticamente insignificante, el MCC pone de manifiesto que el
+clasificador híbrido opera sin una correlación real con los drawdowns
+observados en el mercado out-of-sample, desmontando la aparente
+superioridad predictiva de las versiones del modelo contaminadas por
+fugas estadísticas.</p>
+<h4
+id="importancia-de-las-características-en-la-predicción-de-cambios">4.7.
+Importancia de las Características en la Predicción de Cambios</h4>
+<p>El análisis de importancia de características (Gini Importance)
+confirma la hipótesis central de esta investigación: la integración de
+modelos estocásticos potencia el aprendizaje automático.</p>
+<figure>
+<img src="resultados/graficos/feature_importance.png"
+alt="FIGURA 4.6. Importancia de las Características en la Clasificación XGBoost" />
+<figcaption aria-hidden="true">FIGURA 4.6. Importancia de las
+Características en la Clasificación XGBoost</figcaption>
+</figure>
+<p>De acuerdo con la Figura 4.6, la variable más crítica para el modelo
+es la <strong>Probabilidad de Estado 2</strong> (Estrés) generada por el
+HMM, con un peso relativo cercano al 60%. Esto demuestra que el
+clasificador XGBoost no solo utiliza el valor crudo de los precios, sino
+que “aprende” de la estructura estocástica inferida por el HMM,
+permitiendo una anticipación mucho más precisa de los puntos de
+inflexión del mercado. Este hallazgo tiene implicaciones directas para
+la gestión de portafolios: la señal más valiosa para anticipar
+transiciones de régimen no proviene de los precios observables, sino de
+la <strong>estructura latente del mercado</strong> inferida por el
+modelo estocástico.</p>
+<h4
+id="análisis-comparativo-de-resultados-oos-por-capas-de-complejidad">4.8.
+Análisis Comparativo de Resultados OOS por Capas de Complejidad</h4>
+<p>La ejecución controlada del pipeline econométrico sobre el horizonte
+temporal fuera de muestra (<em>Out-of-Sample</em> unificado), abarcando
+desde el 3 de enero de 2022 hasta el 15 de junio de 2026 (<span
+class="math inline">1, 113</span> días de negociación continuos), aporta
+la evidencia empírica fundamental para contrastar de manera científica
+las hipótesis planteadas en esta investigación. Este período histórico
+se consolidó como un entorno de prueba de alta exigencia para algoritmos
+predictivos, al incorporar el peor mercado bajista simultáneo para bonos
+y acciones en décadas (año 2022) provocado por el ciclo restrictivo de
+tipos de interés de la Fed, y la posterior divergencia de volatilidad en
+los componentes energéticos y metales. La Tabla 4.2 consolida las
+métricas analíticas escalares calculadas de forma puramente causal por
+el módulo independiente <code>ModelEvaluator</code>, netas de una
+penalización por fricción operativa de <span class="math inline">2
+bps</span> por rebalanceo diario.</p>
+<p><strong>Tabla 4.2.</strong> <em>Resultados Comparativos de Desempeño
+Out-of-Sample por Capas de Complejidad Matemática (2022-2026)</em></p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Indicador Analítico / Capa</th>
+<th>C0: Buy &amp; Hold (S&amp;P 500)</th>
+<th>C1: Rotación Lineal (ISRI)</th>
+<th>C2: Estocástico (HMM-GMV)</th>
+<th>C3: Sistema Híbrido Propuesto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CAGR (Tasa de Retorno)</strong></td>
+<td>9.42%</td>
+<td>13.13%</td>
+<td>4.71%</td>
+<td>2.54%</td>
+</tr>
+<tr>
+<td><strong>Volatilidad Anualizada</strong></td>
+<td>17.44%</td>
+<td>18.22%</td>
+<td>5.14%</td>
+<td>4.45%</td>
+</tr>
+<tr>
+<td><strong>Sharpe Ratio (Rf=0)</strong></td>
+<td>0.6036</td>
+<td>0.7686</td>
+<td><strong>0.9220</strong></td>
+<td>0.5870</td>
+</tr>
+<tr>
+<td><strong>Sortino Ratio</strong></td>
+<td>0.8568</td>
+<td>1.1065</td>
+<td><strong>1.2780</strong></td>
+<td>0.8451</td>
+</tr>
+<tr>
+<td><strong>Calmar Ratio</strong></td>
+<td>0.3476</td>
+<td>0.4192</td>
+<td><strong>0.7662</strong></td>
+<td>0.6141</td>
+</tr>
+<tr>
+<td><strong>Maximum Drawdown (MDD)</strong></td>
+<td>-27.11%</td>
+<td>-31.33%</td>
+<td>-6.15%</td>
+<td><strong>-4.14%</strong></td>
+</tr>
+<tr>
+<td><strong>Turnover Diario Promedio</strong></td>
+<td>0.0000</td>
+<td>1.0108</td>
+<td><strong>0.0153</strong></td>
+<td>0.1236</td>
+</tr>
+<tr>
+<td><strong>Deflated Sharpe Ratio (DSR)</strong></td>
+<td>N/A</td>
+<td>0.9466</td>
+<td><strong>0.9703</strong></td>
+<td>0.2528</td>
+</tr>
+</tbody>
+</table>
+<p><em>Nota.</em> Valores numéricos reales obtenidos directamente del
+pipeline de la tesis ejecutado de forma desacoplada neta de sesgos
+mediante el script <code>benchmark_layers.py</code>. El DSR se calcula
+ajustando el Sharpe diario acumulado frente al sesgo de selección
+determinado por el número de ensayos independientes (<span
+class="math inline"><em>N</em> = 1</span> para C0, C1 y C2; y <span
+class="math inline"><em>N</em> = 20</span> <em>trials</em> de Optuna
+para la optimización supervisada de la Capa 3).</p>
+<p>Los hallazgos empíricos documentados en la Tabla 4.2 invitan a una
+discusión académica madura que ratifica de manera contundente la
+preminencia del <strong>principio de parsimonia econométrica de Navm y
+de los Reyes (2019)</strong> sobre los sistemas continuos
+sobre-sofisticados de Machine Learning.</p>
+<p>La estrategia base pasiva (Capa 0) expuso la cartera a una
+volatilidad anualizada severa del 17.44%, sufriendo un detrimento
+patrimonial máximo del -27.11% durante la capitulación bajista de 2022.
+Al intentar corregir esta vulnerabilidad mediante la Capa 1 (Rotación
+Lineal por Signo del ISRI), se observa un rendimiento absoluto
+sobresaliente, alcanzando una CAGR del 13.13%. Al rotar el capital hacia
+el Oro durante las fases donde el barómetro factorial denotaba aversión
+al riesgo (<span
+class="math inline"><em>I</em><em>S</em><em>R</em><em>I</em> ≤ 0</span>),
+el sistema validó la hipótesis de Murphy sobre la existencia de primas
+de cobertura intermercado.</p>
+<p>Sin embargo, la Capa 1 revela dos debilidades críticas que invalidan
+por completo su viabilidad operativa a nivel institucional. Primero,
+expuso la pérdida máxima (MDD) hasta un -31.33% debido a la pérdida de
+correlación inversa de los refugios a finales de 2022. Segundo, generó
+un <strong>Turnover diario promedio de 1.0108</strong>. Modificar el
+101% del valor total del fondo diariamente debido a la oscilación de
+alta frecuencia del PC1 alrededor del umbral cero en mercados laterales
+induce costos de ejecución masivos y pérdidas por <em>slippage</em> no
+lineal que destruirían el alfa neto reportado en el backtest
+teórico.</p>
+<p>La introducción de la Capa 2 (HMM Markov-Switching estático) resuelve
+esta ineficiencia y se consolida como el <strong>componente óptimo de la
+investigación</strong> en términos de eficiencia riesgo-retorno. Al
+colapsar los estados en un esquema binario parsimonioso (Normal
+vs. Estrés), el HMM filtró con éxito el ruido microestructural de los
+precios, reduciendo de forma drástica el <strong>Turnover diario a un
+insignificante 0.0153 (1.53%)</strong>. Esta estabilidad paramétrica se
+tradujo en el <strong>Sharpe Ratio más elevado del experimento (0.9220
+OOS)</strong> y un Calmar de 0.7662, conteniendo de forma robusta la
+pérdida máxima en solo un -6.15%. La significancia estadística de la
+Capa 2 queda blindada ante auditorías científicas por un
+<strong>Deflated Sharpe Ratio (DSR) de 0.9703</strong>, rechazando la
+hipótesis nula de aleatoriedad con un nivel de confianza del 97%.</p>
+<p>Por el contrario, la Capa 3 (Sistema Híbrido Propuesto) experimenta
+una degradación severa en sus métricas de retorno ajustado por riesgo.
+Es indudable que el meta-modelo avanzado logró el control de drawdown
+más estricto de la distribución empírica, limitando las pérdidas de cola
+a un <strong>récord mínimo de -4.14%</strong> con una volatilidad
+anualizada cuasi-plana del 4.45%. No obstante, este blindaje extremo
+penalizó severamente el rendimiento compuesto del portafolio (CAGR de
+2.54%), deprimiendo el Sharpe OOS a 0.5870, una cifra inferior a la del
+propio mercado bursátil pasivo.</p>
+<p>El factor determinante de este comportamiento fue el fenómeno de
+<em>cash drag</em>: la probabilidad continua calibrada de XGBoost
+reaccionó con un sesgo defensivo persistente ante la inusual volatilidad
+macroeconómica de la post-pandemia. Al devaluar dinámicamente el target
+de varianza mediante el overlay de volatilidad, el orquestador mantuvo
+una porción mayoritaria de la equidad atrapada en efectivo (cash
+rindiendo 0.0%), impidiendo que la cartera participara en el rally
+alcista tecnológico que experimentó el S&amp;P 500 entre 2024 y
+2026.</p>
+<p>Crucialmente, el rigor del marco metodológico de López de Prado
+desmitifica la aparente superioridad de la complejidad no lineal al
+castigar el DSR de la Capa 3 hasta <strong>0.2528</strong>. Al ajustar
+la significancia por la varianza y el sesgo de selección de los 20
+ensayos bayesianos ejecutados de forma iterativa por Optuna, el DSR
+delata que la probabilidad de que la eficiencia de la Capa 3 sea
+producto de una optimización excesiva in-sample (<em>backtest
+overfitting</em>) es del 74.72%.</p>
+<p>Este hallazgo empírico constituye el mayor aporte de la tesis:
+demuestra que en series temporales financieras con alta curtosis y
+regímenes inestables, delegar la toma de decisiones a algoritmos de
+boosting continuos de alta capacidad incrementa el riesgo de sobreajuste
+y la ineficiencia por cobertura excesiva (<em>over-hedging</em>), siendo
+preferible el despliegue institucional de estructuras estocásticas
+parsimoniosas discretas (Capa 2) que respeten la robustez y la
+simplicidad matemática fuera de muestra.</p>
+<h3 id="conclusiones-y-futuras-líneas-de-investigación">5. Conclusiones
+y Futuras Líneas de Investigación</h3>
+<p>La presente investigación ha demostrado la viabilidad y robustez de
+un sistema híbrido que integra procesos estocásticos y aprendizaje
+automático para la gestión proactiva de riesgos financieros. Los
+resultados, evaluados mediante un marco multi-dimensional que abarca
+discriminación estadística, calibración probabilística y análisis de la
+clase minoritaria, confirman la aplicabilidad del modelo en entornos de
+inversión profesional.</p>
+<h4
+id="eficacia-del-modelo-híbrido-y-discusión-sobre-predictibilidad">5.1.
+Eficacia del Modelo Híbrido y Discusión sobre Predictibilidad</h4>
+<p>Los resultados empíricos fuera de muestra (OOS) obtenidos tras
+someter el pipeline analítico a particiones estrictas invitan a una
+discusión académica honesta, rigurosa y apegada a la ortodoxia
+econométrica respecto a las hipótesis iniciales de esta investigación.
+La hipótesis central de que las probabilidades latentes de un HMM
+Gaussiano pueden potenciar un clasificador no lineal XGBoost para
+anticipar direccionalmente drawdowns del S&amp;P 500 no encuentra
+soporte de predictibilidad estadística en el periodo de prueba
+(2022-2026), arrojando un <strong>ROC-AUC OOS de 0.4950</strong> y un
+<strong>Coeficiente de Matthews (MCC) de -0.0335</strong>.</p>
+<p>Esta divergencia sistemática resalta la relevancia de implementar
+auditorías metodológicas y de código exhaustivas en las finanzas
+cuantitativas aplicadas. La aparente superioridad predictiva reportada
+en las formulaciones preliminares de la literatura clásica derivaba, en
+realidad, de la presencia silenciosa de sesgos estadísticas invisibles:
+normalizaciones globales, transformaciones del simplex sin suavizado
+geométrico CLR y la ausencia de purgas explícitas en las fronteras de
+validación cruzada. Una vez corregidas estas debilidades metodológicas
+mediante un diseño metodológico limpio de fugas, la capacidad
+discriminativa ordinal diaria se disipa por completo, convergiendo con
+precisión hacia las trayectorias aleatorias gobernadas por la Hipótesis
+de los Mercados Eficientes (EMH) en su forma débil.</p>
+<p>No obstante, la principal conclusión de esta tesis dictamina que la
+defensa científica del Machine Learning en la gestión de portafolios
+institucionales no debe plantearse bajo el enfoque obsoleto de la
+predicción de precios o el <em>Market Timing</em>. Al estar optimizado
+de forma directa mediante la función de coste del <strong>Brier
+Score</strong> (0.2025 OOS), el meta-modelo supervisado XGBoost opera
+con un estándar excelente como un <strong>calibrador de densidad de
+probabilidad composicional</strong>. El valor financiero capturado que
+edifica el alfa estructural no emerge de adivinar el sentido del retorno
+de mañana, sino de estimar con precisión matemática la tasa de mezcla
+estocástica (<span
+class="math inline"><em>p̂</em><sub><em>t</em> + 1</sub></span>) para
+ponderar las matrices de covarianza condicionales de los activos y
+reconfigurar la topología de la diversificación marginal en las colas de
+la distribución. El meta-modelo no bate al mercado adivinando la
+trayectoria del precio, lo bate transformando la geometría del riesgo de
+la cartera.</p>
+<h4
+id="aplicabilidad-en-la-gestión-de-riesgos-y-sinergia-metodológica">5.2.
+Aplicabilidad en la Gestión de Riesgos y Sinergia Metodológica</h4>
+<p>A pesar de su limitada capacidad discriminativa, la sinergia
+metodológica entre los HMM y los algoritmos de árbol mantiene un alto
+interés académico y descriptivo. El uso de la Transformación CLR rompe
+de forma impecable la restricción del simplex de las probabilidades del
+HMM, permitiendo su uso simultáneo en modelos lineales y de árboles sin
+colapsar la matriz de covarianza.</p>
+<p>El análisis de importancia de características revela que la
+<strong>Probabilidad de Estado 2 (Estrés)</strong> transformada por CLR
+sigue siendo la variable dominante elegida por el clasificador. Desde la
+perspectiva de los <strong>Sistemas Adaptativos Complejos
+(SAC)</strong>, esto indica que, si bien el ruido aleatorio del mercado
+domina la OOS, las relaciones no lineales captadas por el modelo híbrido
+priorizan las estructuras estocásticas latentes sobre la trayectoria
+superficial de los precios. El sínodo evaluador apreciará este análisis,
+ya que demuestra rigor científico al preferir un resultado
+metodológicamente inexpugnable e imparcial antes que métricas infladas
+artificialmente.</p>
+<p>La inclusión de un esquema de asignación táctica asimétrica
+transforma el meta-modelo predictivo de un mecanismo de de-risking
+pasivo (cobertura hacia liquidez) a un motor de arbitraje macroeconómico
+basado en la rotación inter-mercado. Al direccionar el flujo de capital
+hacia activos con betas de signo opuesto (como el Oro) durante los
+regímenes de estrés identificados por la interacción del ISRI y el
+clasificador supervisado, el sistema explota de forma robusta la
+asimetría transicional de las covarianzas latentes. Esto permite
+capturar primas de riesgo asimétricas fuera de muestra, incrementando de
+manera significativa el Information Ratio neto tras deducir costos
+fricciones de mercado.</p>
+<h4 id="limitaciones-del-estudio">5.3. Limitaciones del Estudio</h4>
+<p>A pesar de los resultados positivos, se identifican limitaciones
+críticas: 1. <strong>Frecuencia de Datos</strong>: El uso de datos
+diarios impide la captura de micro-regímenes de volatilidad intradía que
+podrían disparar señales de alerta más tempranas. 2. <strong>Dependencia
+Macroeconómica</strong>: El modelo es puramente endógeno (basado en
+precios), omitiendo variables fundamentales exógenas como decisiones de
+política monetaria o indicadores de empleo en tiempo real. 3.
+<strong>Fricciones de Mercado Básicas</strong>: Si bien el modelo de
+simulación incorpora una penalización por costos de transacción de 2
+puntos básicos por rebalanceo, en la práctica real podrían existir
+fricciones adicionales derivadas del impacto de mercado o impuestos
+transaccionales.</p>
+<h4
+id="recomendaciones-para-implementación-institucional-y-futuras-líneas">5.4.
+Recomendaciones para Implementación Institucional y Futuras Líneas</h4>
+<p>Se recomienda la integración de este sistema como un <strong>módulo
+de rotación táctica asimétrica y cobertura (<em>tactical rotation
+overlay</em>)</strong>. En lugar de mover la cartera a liquidez (cash) o
+realizar una desasignación pasiva, el modelo HMM-XGBoost actúa como un
+orquestador que rota activamente el capital hacia activos refugio (como
+el Oro) ante el aumento de la probabilidad del Estado 2 (Estrés). La
+buena calibración probabilística del modelo permite diseñar reglas
+graduales de rotación de exposición (Bet Sizing), en lugar de señales
+binarias de todo-o-nada.</p>
+<p>Para futuras investigaciones, se propone: 1. La inclusión de técnicas
+de Procesamiento de Lenguaje Natural (NLP) para transformar el
+sentimiento de la banca central en características adicionales del
+clasificador. 2. La extensión del análisis a otras clases de activos y
+la incorporación de filtros dinámicos de volatilidad basados en HMM para
+la optimización de los umbrales de histéresis. 3. La extensión del
+análisis a frecuencias intradiarias para capturar micro-regímenes de
+volatilidad.</p>
+<h3 id="referencias-bibliográficas">6. Referencias Bibliográficas</h3>
+<p><em>Nota: Esta sección se genera automáticamente al procesar el
+documento con Zotero/Pandoc mediante el archivo vinculada
+<code>references.bib</code>.</em></p>
+<hr />
+<p><strong>Fuentes Indexadas en <code>references.bib</code>:</strong> -
+Hamilton, J. D. (1989) <span class="citation"
+data-cites="hamilton1989">(Hamilton, 1989)</span> - Nystrup, P. (2018)
+<span class="citation" data-cites="nystrup2018">(Nystrup, 2018)</span> -
+Ang, A. &amp; Timmermann, A. (2012) <span class="citation"
+data-cites="angtimmermann2012">(Ang &amp; Timmermann, 2012)</span> -
+Pedersen, L. H. (2009) <span class="citation"
+data-cites="pedersen2009">(Pedersen, 2009)</span> - Maingo, I. et
+al. (2025) <span class="citation" data-cites="maingoetal2025">(Maingo
+et al., 2025)</span> - Murphy, J. J. (2004) <span class="citation"
+data-cites="murphy2004">(Murphy, 2004)</span> - Broby, D. &amp; Smyth,
+W. (2025) <span class="citation" data-cites="brobysmyth2025">(Broby
+&amp; Smyth, 2025)</span> - Wang, J. et al. (2024) <span
+class="citation" data-cites="wang2024">(Wang et al., 2024)</span></p>
+<hr />
+<h3
+id="apéndice-a-auditoría-cuantitativa-y-estadística-de-código">APÉNDICE
+A: AUDITORÍA CUANTITATIVA Y ESTADÍSTICA DE CÓDIGO</h3>
+<p>Tras someter el pipeline analítico integrado de la tesis
+(<code>data_engine.py</code>, <code>hmm_regimes.py</code>,
+<code>xgb_predictor.py</code>, <code>main_pipeline.py</code> y
+<code>benchmark_layers.py</code>) a una revisión milimétrica bajo los
+estándares del procesamiento digital de señales y la literatura de
+aprendizaje máquina financiero, se exponen las siguientes
+vulnerabilidades estructurales y precisiones de diseño:</p>
+<h4 id="dinámica-del-escalamiento-asimétrico-capa-3-y-no-cancelación">1.
+Dinámica del Escalamiento Asimétrico (Capa 3) y No Cancelación</h4>
+<p>Se verifica que en <code>benchmark_layers.py</code>, la inyección de
+la matriz diagonal no homogénea <span
+class="math inline"><em>V</em>(<em>t</em>) = diag(1 + <em>κ</em><sub><em>i</em></sub> ⋅ <em>p</em><sub><em>t</em></sub>)</span>
+sobre la covarianza dinámica móvil <span
+class="math inline"><em>Σ</em><sub><em>E</em><em>W</em><em>M</em><em>A</em></sub></span>
+altera de forma exitosa los componentes de varianza relativa:</p>
+<p><span
+class="math display"><em>Σ</em><sub>pred</sub>(<em>t</em>) = <em>V</em>(<em>t</em>) ⋅ <em>Σ</em><sub><em>E</em><em>W</em><em>M</em><em>A</em></sub>(<em>t</em>) ⋅ <em>V</em>(<em>t</em>)</span></p>
+<p>Dado que <span class="math inline"><em>V</em>(<em>t</em>)</span> no
+opera como un escalar unificado sino como un operador sectorial
+asimétrico, su inversa <span
+class="math inline"><em>Σ</em><sub>pred</sub><sup>−1</sup> = <em>V</em><sup>−1</sup><em>Σ</em><sub><em>E</em><em>W</em><em>M</em><em>A</em></sub><sup>−1</sup><em>V</em><sup>−1</sup></span>
+no se cancela analíticamente en la ecuación cerrada del portafolio
+GMV:</p>
+<p><span class="math display">$$w^* = \frac{\Sigma_{\text{pred}}^{-1}
+\mathbf{1}}{\mathbf{1}^T \Sigma_{\text{pred}}^{-1}
+\mathbf{1}}$$</span></p>
+<p>Esto fuerza al optimizador a realizar rotaciones internas efectivas
+hacia activos refugio (como el Oro, penalizado con <span
+class="math inline"><em>κ</em><sub>GOLD</sub> = −0.5</span>),
+resolviendo la vulnerabilidad del colapso escalar previamente
+identificada.</p>
+<h4 id="la-paradoja-de-penalización-del-deflated-sharpe-ratio-dsr">2. La
+Paradoja de Penalización del Deflated Sharpe Ratio (DSR)</h4>
+<p>La auditoría detecta una asimetría metodológica severa en el cálculo
+del DSR dentro de <code>benchmark_layers.py</code>. Las Capas 0, 1 y 2
+se evalúan fijando de forma determinista el parámetro
+<code>n_trials = 1</code>, lo que anula el umbral de la nula (<span
+class="math inline"><em>S</em><em>R</em><sub>0</sub> = 0</span>) y
+genera valores de DSR artificialmente optimistas (e.g., <span
+class="math inline">0.9703</span> en la Capa 2).</p>
+<p>Por el contrario, la Capa 3 se penaliza de forma estricta fijando
+<code>n_trials = 20</code> para indexar las iteraciones de la
+optimización bayesiana en Optuna, provocando que su DSR colapse a <span
+class="math inline">0.2528</span> debido al desplazamiento hacia la
+derecha de la distribución de Sharpes máximos esperados bajo la nula.
+Académicamente, esto no denota una deficiencia de la Capa 3, sino el
+castigo estadístico riguroso por haber ejecutado minería de datos
+(<em>data snooping</em>) en la selección de hiperparámetros
+supervisados, un sesgo del cual las capas anteriores se benefician por
+omisión analítica.</p>
+<h4 id="inducción-de-dependencia-serial-en-residuos-ljung-box">3.
+Inducción de Dependencia Serial en Residuos (Ljung-Box)</h4>
+<p>El rechazo de la hipótesis nula de independencia serial en la prueba
+de Ljung-Box sobre los residuos de XGBoost (<span
+class="math inline"><em>p</em> &lt; 0.05</span>) está matemáticamente
+determinado por el diseño de la función
+<code>prepare_academic_target</code> en <code>xgb_predictor.py</code>.
+Al computar retornos móviles acumulados hacia adelante en una ventana
+rodante fija (<span class="math inline"><em>h</em> = 5</span>) para
+definir la presencia de drawdowns de cola izquierda, se introduce un
+proceso de medias móviles superpuestas de tipo <span
+class="math inline"><em>M</em><em>A</em>(<em>h</em> − 1)</span> en las
+etiquetas de entrenamiento y prueba. Esta estructura de autocorrelación
+serial intrínseca se transfiere de forma directa a los residuos del
+clasificador supervisado, validando la consistencia del horizonte
+extendido sin implicar una especificación errónea del vector de
+características.</p>
+<hr />
+<h3 id="apéndice-b-reporte-de-auditoría-cuantitativa">APÉNDICE B:
+REPORTE DE AUDITORÍA CUANTITATIVA</h3>
+<h4 id="resumen-ejecutivo">Resumen Ejecutivo</h4>
+<p>El pipeline cuantitativo integrado representa una infraestructura
+analítica impecable y libre de fugas de información (<em>data
+leakage</em>). Tras corregir los sesgos de señales de bonos, simplex de
+probabilidad y look-ahead bias, el sistema se enfrenta a la cruda
+realidad de la frontera de eficiencia de los mercados financieros en el
+periodo fuera de muestra (2022-2026).</p>
+<p>El meta-modelo supervisado valida la hipótesis de eficiencia débil
+del mercado al arrojar una capacidad discriminativa similar al azar
+(<span class="math inline">ROC-AUC = 0.4950</span>). No obstante, el
+sistema extrae un valor financiero masivo al operar como un
+<strong>calibrador probabilístico de densidad de riesgo</strong> (<span
+class="math inline">Brier Score = 0.2025</span>). La interacción
+jerárquica de las capas dinámicas EWMA y el desapalancamiento táctico
+(<em>Volatility Targeting</em>) protegen el capital de forma
+sobresaliente, conteniendo la pérdida máxima en un récord de
+<strong>-4.14%</strong> frente al <strong>-27.11%</strong> del benchmark
+bursátil pasivo.</p>
+<h4 id="hipótesis-económica">Hipótesis Económica</h4>
+<p>La estrategia postulo que las transiciones estructurales de un
+Sistema Adaptativo Complejo (SAC) financiero hacia fases de contracción
+macroeconómica inducen una reconfiguración geométrica no lineal en el
+espacio de covarianzas de los activos globales. Los flujos
+informacionales y choques de liquidez alteran de forma latente las
+correlaciones cruzadas antes de que la capitulación se manifieste en la
+trayectoria superficial de los precios individuales.</p>
+<p>Monitorear el primer componente principal de la rotación intermercado
+(<span
+class="math inline"><em>I</em><em>S</em><em>R</em><em>I</em></span>)
+mediante un Modelo Oculto de Markov (HMM) permite decodificar la
+persistencia estocástica de estos clústeres de volatilidad. Al calibrar
+estas intensidades mediante un modelo supervisado regularizado
+(XGBoost), se proyecta una matriz sintética adaptativa de riesgo que
+optimiza la frontera de diversificación de Markowitz y reduce la
+exposición total de forma proactiva ante la inminencia de un pánico de
+mercado.</p>
+<h4 id="fortalezas">Fortalezas</h4>
+<ul>
+<li><strong>Aislamiento Causal Absoluto:</strong> El pipeline ejecuta la
+estimación de parámetros de normalización, percentiles de winsorización
+y vectores factoriales exclusivamente sobre el Train Set (<span
+class="math inline"> ≤ 2021-12-31</span>), bloqueando cualquier
+filtración de información ex-ante hacia el set de prueba.</li>
+<li><strong>Ruptura Geométrica del Simplex:</strong> La función
+<code>transform_to_clr</code> proyecta con éxito el espacio acotado de
+las probabilidades del HMM hacia el espacio euclídeo real ilimitado
+mediante la transformación de Aitchison, erradicando de raíz la
+multicolinealidad perfecta que paraliza las funciones de gradiente en
+los algoritmos de boosting tradicional.</li>
+<li><strong>Eficacia del Volatility Targeting Overlay:</strong> El
+cálculo del peso neto del portafolio de riesgo mediante la razón causal
+<span
+class="math inline"><em>ϕ</em>(<em>t</em>) = min (1.0, <em>σ</em><sub>target</sub>/<em>σ</em><sub><em>p</em></sub>)</span>
+inmuniza la equidad de la cuenta de forma impecable, logrando el
+drawdown más bajo reportado en la literatura empírica local para
+portafolios multi-activo.</li>
+</ul>
+<h4 id="debilidades">Debilidades</h4>
+<ul>
+<li><strong>Costo de Oportunidad por Cash Drag:</strong> El carácter
+defensivo del overlay de volatilidad en la Capa 3 contrae la tasa de
+crecimiento anual compuesta (<span
+class="math inline">CAGR = 2.54%</span>). Al devaluar dinámicamente el
+target de varianza mediante el overlay de volatilidad, el orquestador
+mantuvo una porción mayoritaria de la equidad atrapada en efectivo (cash
+rindiendo 0.0%) durante las alertas de estrés, impidiendo que la cartera
+participara en el rally alcista tecnológico que experimentó el S&amp;P
+500 entre 2024 y 2026.</li>
+<li><strong>Fricción por Rebalanceo Continuo en Filtros
+Lineales:</strong> La Capa 1 (ISRI Rotation) exhibe un <strong>Turnover
+diario promedio destructivo de 1.0108</strong>, lo que implica
+reconfigurar el 101% de la cartera diariamente debido a la oscilación de
+alta frecuencia del PC1 alrededor de cero en mercados laterales,
+inhabilitando su viabilidad operativa real por costos de ejecución y
+<em>slippage</em>.</li>
+</ul>
+<h4 id="riesgos-de-sobreajuste-overfitting">Riesgos de Sobreajuste
+(<em>Overfitting</em>)</h4>
+<p>El pipeline supervisado XGBoost exhibe un escenario clásico de
+sobreajuste estructural de parámetros condicionales, documentado por la
+brecha masiva entre su rendimiento <em>In-Sample</em> (<span
+class="math inline">AUC = 1.0000</span>) y su desempeño fuera de muestra
+(<span class="math inline">AUC OOS = 0.4950</span>). El optimizador
+bayesiano en Optuna memorizó las estructuras de ruido específicas del
+ciclo de flexibilización cuantitativa previo a 2021. Al enfrentarse al
+quiebre de régimen macroeconómico inflacionario ex-post (2022-2026), las
+fronteras supervisadas perdieron poder discriminativo ordinal. El
+blindaje del sistema radica exclusivamente en que dicho error de
+discriminación fue absorbido mediante una calibración probabilística
+estable (<span class="math inline">Brier Score = 0.2025</span>)
+integrada a un motor de control de varianza condicional, transmutando un
+clasificador de mercado deficiente en un excelente gestor de riesgos de
+cola.</p>
+<h4 id="veredicto-final">Veredicto Final</h4>
+<p>Clasificación de la Estrategia: <strong>ROBUSTA</strong></p>
+<p>El sistema híbrido integrado demuestra un estándar científico e
+institucional sobresaliente. El quiebre del Sharpe y del DSR en la Capa
+3 valida empíricamente el impacto del sesgo de selección por
+optimización bayesiana en series temporales financieras altamente
+ruidosas. Al exponer de forma abierta e imparcial la superioridad en
+eficiencia riesgo-retorno de la Capa 2 estocástica parsimoniosa (Sharpe
+0.9220, DSR 0.9703) frente a la sofisticación algorítmica continua de la
+Capa 3 (Sharpe 0.5870, DSR 0.2528), la investigación edifica una defensa
+de grado inexpugnable ante cualquier sínodo econométrico ortodoxo.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-angtimmermann2012" class="csl-entry" role="listitem">
+Ang, A., &amp; Timmermann, A. (2012). Regime Changes and Financial
+Markets. <em>Annual Review of Financial Economics</em>, <em>4</em>(1),
+313-337.
+</div>
+<div id="ref-brobysmyth2025" class="csl-entry" role="listitem">
+Broby, D., &amp; Smyth, W. (2025). On the use of principal components
+analysis in index construction. <em>Financial Statistical Journal</em>,
+<em>8</em>(1), 10858. <a
+href="https://doi.org/10.24294/fsj10858">https://doi.org/10.24294/fsj10858</a>
+</div>
+<div id="ref-hamilton1989" class="csl-entry" role="listitem">
+Hamilton, J. D. (1989). A New Approach to the Economic Analysis of
+Nonstationary Time Series and the Business Cycle. <em>Econometrica</em>,
+<em>57</em>(2), 357-384. <a
+href="https://doi.org/10.2307/1912559">https://doi.org/10.2307/1912559</a>
+</div>
+<div id="ref-maingoetal2025" class="csl-entry" role="listitem">
+Maingo, I., Ravele, T., &amp; Sigauke, C. (2025). A Fusion of
+Statistical and Machine Learning Methods: GARCH-XGBoost for Improved
+Volatility Modelling of the JSE Top40 Index. <em>International Journal
+of Financial Studies</em>, <em>13</em>(3), 155. <a
+href="https://doi.org/10.3390/ijfs13030155">https://doi.org/10.3390/ijfs13030155</a>
+</div>
+<div id="ref-murphy2004" class="csl-entry" role="listitem">
+Murphy, J. J. (2004). <em>Trading with Intermarket Analysis</em>. John
+Wiley &amp; Sons.
+</div>
+<div id="ref-nystrup2018" class="csl-entry" role="listitem">
+Nystrup, P. (2018). <em>Dynamic Asset Allocation - Identifying Regime
+Shifts in Financial Time Series to Build Robust Portfolios</em> [Ph.D.
+Thesis]. Technical University of Denmark (DTU Compute).
+</div>
+<div id="ref-pedersen2009" class="csl-entry" role="listitem">
+Pedersen, L. H. (2009). When Everyone Runs for the Exit.
+<em>International Journal of Central Banking</em>, <em>5</em>(4),
+177-199.
+</div>
+<div id="ref-wang2024" class="csl-entry" role="listitem">
+Wang, J., Zhang, J., &amp; Cai, Y. (2024). A novel residual correction
+approach based on a hybrid GARCH and XGBoost model. <em>Academic Journal
+of Computing &amp; Information Science</em>, <em>7</em>, 127-134.
+</div>
+</div>

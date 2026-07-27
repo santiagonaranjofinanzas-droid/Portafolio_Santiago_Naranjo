@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: black-knight-backend
+    runtime: python
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: NVIDIA_API_KEY
+        sync: false
+      - key: NVIDIA_MODEL
+        value: "meta/llama-3.1-405b-instruct"
+      - key: BK_INGEST_REQUIRE_HMAC
+        value: "False"
+      - key: BK_DEFAULT_ORG_ID
+        value: "1"
+      - key: BK_ENABLE_EMBEDDED_ORCHESTRATOR
+        value: "False"
+      - key: PORT
+        value: "10000"
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+
+  - type: worker
+    name: bloomberg-sentinel
+    runtime: python
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "python backend/bloomberg/cloud_orchestrator.py"
+    envVars:
+      - key: BK_API_URL
+        value: "https://black-knight-backend.onrender.com" # Should be the internal/external URL
+      - key: DATABASE_URL
+        sync: false
+      - key: NVIDIA_API_KEY
+        sync: false
+      - key: REDIS_HOST
+        value: "localhost" # Mock will handle if missing
+      - key: REDIS_PORT
+        value: "6380"

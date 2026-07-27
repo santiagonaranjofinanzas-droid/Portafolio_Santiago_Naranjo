@@ -1,0 +1,14 @@
+metric,value
+total_oos_pnl,13430.500045449615
+top_5_trades_pnl,2562.617952778053
+top_5_trades_share_of_total_pct,19.080584818927075
+top_10pct_trades_count,48.0
+top_10pct_trades_pnl,17428.14139762939
+top_10pct_trades_share_of_total_pct,129.76539472582195
+bottom_5_trades_pnl,-1321.3537901584923
+profitable_months,17.0
+total_months,25.0
+profitable_month_rate_pct,68.0
+profitable_quarters,8.0
+total_quarters,9.0
+profitable_quarter_rate_pct,88.88888888888889

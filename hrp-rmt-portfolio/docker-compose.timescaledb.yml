@@ -1,0 +1,21 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: hrp_rmt_timescaledb
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-hrp_rmt}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "${POSTGRES_PORT:-5435}:5432"
+    volumes:
+      - hrp_rmt_timescaledb_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-hrp_rmt}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  hrp_rmt_timescaledb_data:

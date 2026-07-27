@@ -1,0 +1,23 @@
+{
+  "status": "PAUSE_AND_RETRAIN",
+  "reasons": [
+    "PF reciente bajo el umbral de vigilancia",
+    "Tramo reciente con edge negativo o PF defensivo",
+    "Riesgo alto de cambio de regimen: pausar nuevas entradas y reentrenar"
+  ],
+  "last_quarter_profit_factor": 0.6604478042897101,
+  "last_quarter_net_pnl": -1590.7722219969257,
+  "rolling_4q_profit_factor": 1.131522884023992,
+  "recent_window_trades": 60,
+  "recent_window_profit_factor": 0.7750706857375389,
+  "recent_window_loss_streak": 10,
+  "current_trade_streak_positive_negative": -1,
+  "full_oos_max_drawdown_pct": -16.51981959655749,
+  "action": {
+    "risk_multiplier": 0.0,
+    "threshold_delta": 0.05,
+    "min_strength_delta": 0.05,
+    "allow_new_entries": false,
+    "retrain_required": true
+  }
+}

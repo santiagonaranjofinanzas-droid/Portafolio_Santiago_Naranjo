@@ -1,0 +1,26 @@
+{
+  "policy_id": "H18_RISK_V1_20260714",
+  "status": "PREREGISTERED_IMPLEMENTATION_CANDIDATE_LIVE_LOCKED",
+  "scope": {"symbol": "NAS100.fs", "magics": [6001, 6002], "direction": "long_only"},
+  "signal_contract": "H18 frozen; risk overlay may not alter score, entry_signal or exit_signal",
+  "risk": {
+    "risk_fraction_per_sleeve": 0.0025,
+    "aggregate_risk_fraction": 0.005,
+    "portfolio_target_annual_volatility": 0.10,
+    "executive_stop_atr": 6.0,
+    "disaster_stop_atr": 8.0,
+    "daily_entry_lock_fraction": 0.01,
+    "drawdown_throttle_fraction": 0.05,
+    "drawdown_entry_lock_fraction": 0.075,
+    "drawdown_emergency_fraction": 0.10,
+    "throttle_multiplier": 0.50,
+    "max_margin_fraction": 0.20,
+    "minimum_margin_level_pct": 300.0
+  },
+  "anti_overfit": {
+    "selection_rule": "no parameter is selected by post-implementation PnL",
+    "historical_reuse": "diagnostic_non_approving_only",
+    "holdout_read_once_after_code_and_hash_freeze": true,
+    "parameter_neighbors_are_falsification_not_selection": true
+  }
+}

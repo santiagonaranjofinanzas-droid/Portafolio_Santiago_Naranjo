@@ -1,0 +1,68 @@
+# Plan de Corrección de Macro Intel, Sentinel Intelligence y Contraste de Tema Claro
+
+Este documento detalla el diagnóstico y el plan de ejecución para solucionar el mal funcionamiento de los servicios **Macro Intel** y **Sentinel Intelligence**, corregir el error crítico de legibilidad y contraste en el **Modo Claro (Daylight)**, y asegurar una visualización premium y comercial (SaaS-First) en todo el dashboard.
+
+---
+
+## 🔍 Auditoría y Diagnóstico de los Problemas
+
+### 1. Fallos en el Backend y Orquestación (Macro Intel / Sentinel)
+- **Error Dimensional en Black-Litterman**: El motor de toma de decisiones arrojaba un error de dimensiones al alinear la matriz de visiones con el universo de activos. Esto hacía que el orquestador principal (`master_orchestrator.py`) fallara silenciosamente y no insertara registros en la tabla `BloombergSnapshot` de la base de datos.
+- **Rutas FastAPI Duplicadas**: En `backend/app/main.py` existen dos definiciones idénticas del endpoint `@app.post("/api/v1/bloomberg/update")`. Esto hace que FastAPI ignore la segunda definición (la cual maneja marcas de tiempo con UTC sin zona horaria) y cause inconsistencias al persistir datos.
+- **MockRedis Gap**: La clase simuladora de caché no cumplía con toda la API esperada (`.exists()`), provocando fallas cuando el motor validaba bloqueos de recalibración rápida.
+
+### 2. Bugs del Frente y Contraste en Modo Claro (Daylight Theme)
+- **Variables CSS Corrompidas por el Compilador**: En `globals.css`, las declaraciones de variables del tema claro (`[data-theme='light']`) y oro (`[data-theme='gold']`) están agrupadas en una sola línea (ej. `--text-primary: #0f172a; --text-secondary: #334155;`). El preprocesador de Tailwind v4 no procesa correctamente estas declaraciones agrupadas en una misma línea y descarta las variables de color de texto. Como consecuencia, el texto de los paneles y widgets permanece blanco en modo claro, volviéndose invisible sobre fondos claros.
+- **Hardcoding de Estilos en Tarjetas**: Componentes como `AIAnalystPanel.tsx`, `DataJournal.tsx`, `ControlCenter.tsx` y `TradeDetailDrawer.tsx` utilizan clases fijas de Tailwind como `text-white` o tonos claros fijos como `text-slate-100`/`text-slate-300` en lugar de variables del tema, lo que rompe la visualización en modo claro.
+- **Widgets Oscuros Inconsistentes**: Los widgets del "Centro de Control" y del panel de "Macro Intel" no cambian de fondo en modo claro debido a reglas CSS rígidas y el uso de opacidades inválidas en Tailwind (`bg-[var(--bg-surface)]/20`), resultando en una estética mixta poco profesional.
+
+---
+
+## 🛠️ Cambios Propuestos
+
+### 1. Saneamiento de Base de Datos y Endpoints (Backend)
+#### [MODIFY] [main.py](file:///c:/Users/NuevoAdmin/Desktop/Trading/Proyecto%20Jorunal/Journal_py_original/backend/app/main.py)
+- Consolidar las dos definiciones del endpoint de actualización de Bloomberg (`@app.post("/api/v1/bloomberg/update")`) en una sola función unificada. Esta función debe:
+  - Manejar el guardado correcto de `organization_id` (0 por defecto para snapshots globales).
+  - Configurar explícitamente `updated_at` con `datetime.now(timezone.utc).replace(tzinfo=None)` para evitar fallos de zonas de tiempo en SQLite.
+  - Asegurar la deserialización segura del JSON de pesos.
+
+### 2. Corrección del Sistema de Estilos y Temas (CSS)
+#### [MODIFY] [globals.css](file:///c:/Users/NuevoAdmin/Desktop/Trading/Proyecto%20Jorunal/Journal_py_original/frontend/src/app/globals.css)
+- Separar cada declaración de variable CSS del bloque `[data-theme='light']` y `[data-theme='gold']` en su propia línea individual para asegurar que el compilador de Tailwind v4 las procese correctamente.
+- Asegurar que `.widget` se pinte de fondo blanco puro (`#ffffff`) o el color base de la tarjeta (`var(--bg-elevated)`) sin estilos heredados que provoquen manchas oscuras.
+- Definir un color de texto explícito y legible para `.widget` y sus hijos directos.
+
+### 3. Ajuste de Contraste y Adaptabilidad de Componentes (Frontend)
+#### [MODIFY] [ControlCenter.tsx](file:///c:/Users/NuevoAdmin/Desktop/Trading/Proyecto%20Jorunal/Journal_py_original/frontend/src/components/ControlCenter.tsx)
+- Reemplazar cualquier fondo rígido y texto claro fijo (`text-white`, `text-slate-X00`) con variables CSS del tema.
+- Rediseñar el fondo y texto de las tarjetas de "Prioridades de Hoy" (insights) para usar tonos de alto contraste legibles tanto en fondos oscuros como claros.
+- Asegurar que el widget de `BloombergSentinel` se integre limpiamente en la columna derecha adaptándose a su ancho.
+
+#### [MODIFY] [BloombergSentinel.tsx](file:///c:/Users/NuevoAdmin/Desktop/Trading/Proyecto%20Jorunal/Journal_py_original/frontend/src/components/BloombergSentinel.tsx)
+- Eliminar cualquier clase Tailwind de opacidad arbitraria que rompa el renderizado (ej: `border-[var(--c-neutral)]/20` si la variable no contiene valores RGB crudos) y reemplazarlas con variables de color directo o border tokens del sistema.
+- Garantizar que el título "Sentinel Intelligence" y el badge del modelo de asignación sean perfectamente legibles en modo claro.
+
+#### [MODIFY] [MacroNewsPanel.tsx](file:///c:/Users/NuevoAdmin/Desktop/Trading/Proyecto%20Jorunal/Journal_py_original/frontend/src/components/MacroNewsPanel.tsx)
+- Corregir el panel de noticias para que el contraste en modo claro sea total.
+- Formatear el feed de análisis de IA de manera elegante e intuitiva.
+
+#### [MODIFY] [DataJournal.tsx](file:///c:/Users/NuevoAdmin/Desktop/Trading/Proyecto%20Jorunal/Journal_py_original/frontend/src/components/DataJournal.tsx) y [TradeDetailDrawer.tsx](file:///c:/Users/NuevoAdmin/Desktop/Trading/Proyecto%20Jorunal/Journal_py_original/frontend/src/components/TradeDetailDrawer.tsx)
+- Reemplazar clases fijas `text-white` y `text-slate-100`/`text-slate-300` con `text-[var(--text-primary)]` y `text-[var(--text-secondary)]`.
+
+---
+
+## 🔬 Plan de Verificación
+
+### 1. Pruebas Automáticas y Backend
+- Ejecutar el servidor uvicorn localmente.
+- Verificar que al llamar a `/api/v1/bloomberg/latest` se devuelvan los últimos pesos calculados del ciclo de optimización con código de estado `200 OK`.
+
+### 2. Verificación Visual de Interfaz y Modo Claro
+- Navegar a `http://localhost:3000` en el navegador.
+- Cambiar activamente entre el tema Oscuro, Claro (Daylight) y Oro.
+- Validar visualmente:
+  - Legibilidad del 100% de los textos en las tarjetas del Centro de Control.
+  - El título de "Sentinel Intelligence" y los textos de "Narrative Swarm" deben contrastar adecuadamente en el fondo del widget.
+  - La tabla del "Data Journal" y el drawer de detalles no deben mostrar textos oscuros sobre fondo oscuro ni textos claros sobre fondo claro.
+que el contraste y los colores se adapten perfectamente a las nuevas variables CSS.

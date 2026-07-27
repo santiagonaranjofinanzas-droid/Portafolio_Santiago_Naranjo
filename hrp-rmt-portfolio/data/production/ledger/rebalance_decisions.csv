@@ -1,0 +1,5 @@
+timestamp_utc,date,decision,turnover,is_month_end,message
+2026-06-23T17:33:53.995796+00:00,2026-06-22,NO_TRADE,0.0,False,daily_calc_monthly_execution
+2026-06-23T18:12:34.157966+00:00,2026-06-22,NO_TRADE,0.0,False,daily_calc_monthly_execution
+2026-06-23T18:21:09.029142+00:00,2026-06-22,NO_TRADE,0.0,False,daily_calc_monthly_execution
+2026-06-24T23:30:23.225876+00:00,2026-06-24,NO_TRADE,0.002411192537739859,False,daily_calc_monthly_execution

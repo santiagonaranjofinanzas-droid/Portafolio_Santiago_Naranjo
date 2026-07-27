@@ -1,0 +1,6 @@
+fold,policy,min_hold_bars,max_hold_bars,weak_strength_cutoff,weak_tp_capture,be_mae_ratio
+1,time_24_96,24,96,0.0,1.0,10.0
+2,time_12_96,12,96,0.0,1.0,10.0
+3,time_12_96,12,96,0.0,1.0,10.0
+4,time_12_96,12,96,0.0,1.0,10.0
+5,time_12_96,12,96,0.0,1.0,10.0

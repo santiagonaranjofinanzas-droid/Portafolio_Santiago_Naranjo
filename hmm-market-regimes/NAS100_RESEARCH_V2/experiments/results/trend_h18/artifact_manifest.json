@@ -1,0 +1,115 @@
+{
+  "created_utc": "2026-07-13T19:21:18.859489Z",
+  "files": [
+    {
+      "path": "candidate_TREND_01_MOM_LONG_outer_oos_trades.csv",
+      "sha256": "8e9904ba4691f573019d30bfbf330b54e48158f4c83fa450da8ecd54bbe2dcf6"
+    },
+    {
+      "path": "candidate_TREND_02_MOM_SHORT_outer_oos_trades.csv",
+      "sha256": "1fd70d17fea00e5f7ac94cdab3661a621b3e5918451332990d68864178d0b194"
+    },
+    {
+      "path": "candidate_TREND_03_LONG_P55_outer_oos_trades.csv",
+      "sha256": "93bf92b0fb2693c27a7761452051e85321c29166591324dc7f02fea1579b13dc"
+    },
+    {
+      "path": "candidate_TREND_04_LONG_P65_outer_oos_trades.csv",
+      "sha256": "93bf92b0fb2693c27a7761452051e85321c29166591324dc7f02fea1579b13dc"
+    },
+    {
+      "path": "candidate_TREND_05_LONG_T10_outer_oos_trades.csv",
+      "sha256": "93bf92b0fb2693c27a7761452051e85321c29166591324dc7f02fea1579b13dc"
+    },
+    {
+      "path": "candidate_TREND_06_LONG_T30_outer_oos_trades.csv",
+      "sha256": "93bf92b0fb2693c27a7761452051e85321c29166591324dc7f02fea1579b13dc"
+    },
+    {
+      "path": "candidate_TREND_07_SHORT_P55_outer_oos_trades.csv",
+      "sha256": "93bf92b0fb2693c27a7761452051e85321c29166591324dc7f02fea1579b13dc"
+    },
+    {
+      "path": "candidate_TREND_08_SHORT_P65_outer_oos_trades.csv",
+      "sha256": "93bf92b0fb2693c27a7761452051e85321c29166591324dc7f02fea1579b13dc"
+    },
+    {
+      "path": "candidate_TREND_09_SLOW_LONG_outer_oos_trades.csv",
+      "sha256": "e7b0e38de4f230dde55ff9fda90e22b7527494a9d93baf96fd1319a401a7fbc6"
+    },
+    {
+      "path": "candidate_TREND_10_MEDIUM_LONG_outer_oos_trades.csv",
+      "sha256": "8d9ff9f6a1933b5e4a65e6452f225d3a76b34e4aa6c509e0fe5e726f3671c803"
+    },
+    {
+      "path": "candidate_TREND_11_ULTRASLOW_LONG_outer_oos_trades.csv",
+      "sha256": "5fbc8656fc4d1f12b645f8da6e74f3586e5edd1e217698d7b99e833459c11bb7"
+    },
+    {
+      "path": "candidate_TREND_12_STOP_CONTROL_outer_oos_trades.csv",
+      "sha256": "dbe3a022c22797da969d4ab423d0c0bc9e7ed48feada7d58f6f8d8ff5a483f26"
+    },
+    {
+      "path": "diagnostics.json",
+      "sha256": "f948ef38c7e8fe0dbe32db8293e1d66f21dc116a509fb1dd2487c63a4ee6b3d7"
+    },
+    {
+      "path": "inner_cpcv_fold_0.csv",
+      "sha256": "31d25bcc066863d0f90a52e6d442e330a901b2b87d22209c166795cfedc2c98b"
+    },
+    {
+      "path": "inner_cpcv_fold_1.csv",
+      "sha256": "342d820b5ce5d2df32f161842dc10e30402f13fa1b8f8a4e8589899c2eae6435"
+    },
+    {
+      "path": "inner_cpcv_fold_2.csv",
+      "sha256": "5569dae886e802c9602f364292562e2c2990c77851bdf27eeafed5fe19271c92"
+    },
+    {
+      "path": "inner_cpcv_fold_3.csv",
+      "sha256": "a418d8818b15a5349617a7b89756fa8cdccc079d50db2283ed1c93a3e05ab02a"
+    },
+    {
+      "path": "inner_cpcv_fold_4.csv",
+      "sha256": "512f84da2ccb393356fd2bec87543c46334366462485cc2e0ed3bc3afd8af911"
+    },
+    {
+      "path": "inner_cpcv_fold_5.csv",
+      "sha256": "cdbd7438c367317ab7da0eb53daf3238956f9cc47db297e022062a56fc4974db"
+    },
+    {
+      "path": "inner_cpcv_fold_6.csv",
+      "sha256": "0741f95db334fc6d60b48f4af9aa44d375c336e6ddbcf2e39e96c0802db4d6be"
+    },
+    {
+      "path": "nested_adverse_trades.csv",
+      "sha256": "bf9ec1a4de1bd7edea25f629059fbb2e153409e4cdbc53bccf059995b05b40f2"
+    },
+    {
+      "path": "nested_crisis_trades.csv",
+      "sha256": "5e30ea67d38e7f020ba30411267d92563a38444cb2dde599db5db945e1b5e8fa"
+    },
+    {
+      "path": "nested_decision.json",
+      "sha256": "9920753fc8a6c0b23737b2f7498f8ebdadc82d9fd8f3e7288a98daae955e3ec4"
+    },
+    {
+      "path": "nested_fold_metrics.csv",
+      "sha256": "2c4cebab7a0bb1a059673703f8868b57b9f8b9dc1af9636faa6eccff8c8a5f1f"
+    },
+    {
+      "path": "nested_outer_oos_trades.csv",
+      "sha256": "e0b7b3fe746510865b742ab2290ccda25a430cb1370ce5505768f2fbc983110f"
+    },
+    {
+      "path": "outer_folds.csv",
+      "sha256": "0b781fd2fbcc67cd74af53dca063355088c4e731e005e4115b2ea8ee3f4c0ef7"
+    },
+    {
+      "path": "outer_selections.csv",
+      "sha256": "9120f8373a4745333a0e5df12ce1b063ce55c1c7052ccd61d9355d642cfb9b4d"
+    }
+  ],
+  "manifest_sha256": "1dd9136111f6882d7f87c23e4302e55b9375169797182ba72ab7217b0a5fe692",
+  "schema_version": 1
+}

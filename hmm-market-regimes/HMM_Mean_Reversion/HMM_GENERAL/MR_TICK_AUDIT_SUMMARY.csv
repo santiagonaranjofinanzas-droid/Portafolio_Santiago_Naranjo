@@ -1,0 +1,4 @@
+asset,status,trades_ohlc,trades_ohlc_total_available,trades_tick_replayed,missing_or_failed,ohlc_pnl,tick_pnl,pnl_delta_tick_minus_ohlc,ohlc_win_rate_pct,tick_win_rate_pct,tick_audit_path
+NSXUSD,OK,106,106,106,0,1895.3596582605933,1363.1310000000274,-532.2286582605659,32.075471698113205,29.245283018867923,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\SUB_RAMA_MEAN_REVERSION\resultados\NSXUSD\NSXUSD_mr_tick_audit_OOS.csv
+XAGUSD,OK,31,31,31,0,41.71031937377766,-582.3499999999976,-624.0603193737753,64.51612903225806,48.38709677419355,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\SUB_RAMA_MEAN_REVERSION\resultados\XAGUSD\XAGUSD_mr_tick_audit_OOS.csv
+XAUUSD,OK,48,48,48,0,-262.9827597825415,-334.9080000000155,-71.92524021747397,66.66666666666666,60.416666666666664,C:\Users\YOUR_USERNAME\Desktop\Trading\1_#####HMM#####\SUB_RAMA_MEAN_REVERSION\resultados\XAUUSD\XAUUSD_mr_tick_audit_OOS.csv

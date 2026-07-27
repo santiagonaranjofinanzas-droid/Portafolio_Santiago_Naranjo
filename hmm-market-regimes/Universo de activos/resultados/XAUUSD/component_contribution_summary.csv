@@ -1,0 +1,6 @@
+Componente,Diagnostico
+HMM puro,debil
+Kalman,componente direccional principal
+HMA/ML Strength,no vinculantes bajo esta configuracion
+SELL,destructivo
+BUY,candidato a validacion

@@ -1,0 +1,7 @@
+scenario: base
+commission_per_share_usd: 0.005
+slippage_fraction_of_spread: 0.50
+spread_source: simulated_or_proxy
+market_impact: linear_by_adv
+selection_uses_scenario: base
+low_and_stress_are_sensitivity_only: true

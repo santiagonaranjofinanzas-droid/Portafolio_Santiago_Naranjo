@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "registered_utc": "2026-07-14T00:00:00Z",
+  "family": "MEAN_REVERSION_V4_TREND_PULLBACK_LONG",
+  "purpose": "ONE_SHOT_BUY_THE_DIP_FALSIFICATION_BEFORE_MT5_PORT",
+  "canonical_data_manifest_sha256": "ea233b124abb58a1516f55479bc8896968ee969a860ba1f95c07549a053f050e",
+  "dataset_classification": "DEVELOPMENT_CONSUMED_NOT_RELEASE_EVIDENCE",
+  "historical_trials_before_v4": 142,
+  "candidate": {
+    "candidate_id": "MR_V4_01_TREND_PULLBACK_LONG",
+    "symbol": "NAS100.fs",
+    "timeframe": "M15",
+    "sides": ["LONG"],
+    "parameters": {
+      "return_scale_window": 96,
+      "atr_window": 32,
+      "session_lower_quantile": 0.02,
+      "maximum_shock_z_threshold": -1.5,
+      "minimum_range_atr": 1.25,
+      "trend_score_floor": 0.35,
+      "require_both_h18_positions": true,
+      "maximum_confirmation_bars": 4,
+      "stop_atr": 0.75,
+      "maximum_holding_bars": 16,
+      "minimum_reward_risk": 0.75,
+      "event_horizons_bars": [4, 8, 16, 32],
+      "event_cooldown_bars": 32,
+      "risk_fraction": 0.001
+    },
+    "training_rule": "shock threshold is the fixed 2% lower quantile of causal z-returns within each UTC session, estimated only on the purged training slice; it may not be selected by OOS PnL"
+  },
+  "execution": {
+    "decision": "M15 close",
+    "entry": "next M15 open after first bullish close above shock close",
+    "target": "pre-shock close",
+    "intrabar_collision": "stop_before_target_pessimistic"
+  },
+  "coexistence": {
+    "magic": 6003,
+    "same_direction_as_magic": [6001, 6002],
+    "aggregate_risk_required_before_demo": true,
+    "live_authorized": false
+  },
+  "gate": {
+    "minimum_trades": 100,
+    "minimum_profit_factor": 1.2,
+    "minimum_positive_outer_folds": 5,
+    "minimum_fold_trades": 10,
+    "minimum_dsr": 0.95,
+    "maximum_drawdown_pct": 15.0,
+    "minimum_bootstrap_pf_p05": 1.0,
+    "minimum_bootstrap_probability_positive": 0.95,
+    "minimum_adverse_cost_pf": 1.05,
+    "minimum_crisis_cost_pf": 1.0,
+    "event_study_required_horizon_bars": 16,
+    "event_study_minimum_events": 100,
+    "event_study_minimum_probability_positive": 0.95,
+    "event_study_minimum_positive_folds": 5
+  },
+  "bias_controls": {
+    "prefix_invariance": true,
+    "purge_bars": 500,
+    "outer_train_months": 36,
+    "outer_test_months": 6,
+    "survivorship_boundary": "single continuous named instrument NAS100.fs; no constituent universe selection",
+    "parameter_mutation_rule": "ANY_PARAMETER_CHANGE_CREATES_A_NEW_HYPOTHESIS_AND_TRIAL"
+  }
+}

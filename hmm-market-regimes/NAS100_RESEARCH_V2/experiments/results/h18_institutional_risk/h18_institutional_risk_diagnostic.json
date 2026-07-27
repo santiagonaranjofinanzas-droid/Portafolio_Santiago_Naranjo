@@ -1,0 +1,72 @@
+{
+  "policy": {
+    "policy_id": "H18_RISK_V1_20260714",
+    "allowed_magics": [
+      6001,
+      6002
+    ],
+    "expected_symbol": "NAS100.fs",
+    "risk_fraction_per_sleeve": 0.0025,
+    "aggregate_risk_fraction": 0.005,
+    "portfolio_target_annual_volatility": 0.1,
+    "executive_stop_atr": 6.0,
+    "disaster_stop_atr": 8.0,
+    "daily_entry_lock_fraction": 0.01,
+    "drawdown_throttle_fraction": 0.05,
+    "drawdown_entry_lock_fraction": 0.075,
+    "drawdown_emergency_fraction": 0.1,
+    "throttle_multiplier": 0.5,
+    "max_margin_fraction": 0.2,
+    "minimum_margin_level_pct": 300.0,
+    "periods_per_year": 6552
+  },
+  "scope": "CONSUMED_DEVELOPMENT_HISTORY_DIAGNOSTIC_ONLY",
+  "live_approval_allowed": false,
+  "metrics": {
+    "initial_cash": 100000.0,
+    "final_equity": 108384.80165000274,
+    "net_profit": 8384.801650002744,
+    "return_pct": 8.38480165000275,
+    "closed_trades": 906,
+    "profit_factor": 1.261629905783855,
+    "average_trade": 9.254747958057738,
+    "max_drawdown_pct": -2.9362909454001107,
+    "daily_sharpe": 0.5927669342061562,
+    "risk_rejections": 11,
+    "disaster_stop_exits": 8,
+    "executive_stop_exits": 20,
+    "emergency_exits": 0
+  },
+  "bootstrap": {
+    "samples": 10000,
+    "pf_p05": 1.0101005528622307,
+    "expectancy_p05": 0.24621269941347934,
+    "probability_positive": 0.9619
+  },
+  "deflated_sharpe": {
+    "trials": 142,
+    "probability": 0.2068087559572423,
+    "z_stat": -0.8175441807193743
+  },
+  "chronological_trade_block_pf": [
+    1.6034722786560647,
+    1.1476164149266823,
+    1.0512667176664872,
+    1.5035846956790346,
+    1.4736099873422122,
+    1.0657689260440935,
+    1.0347897377104567
+  ],
+  "diagnostic_gates": {
+    "profit_factor_ge_1_20": true,
+    "drawdown_le_15pct": true,
+    "daily_sharpe_ge_1": false,
+    "dsr_ge_0_95": false,
+    "bootstrap_pf_p05_gt_1": true,
+    "bootstrap_expectancy_p05_gt_0": true,
+    "bootstrap_probability_positive_ge_95pct": true,
+    "all_diagnostic_fold_pf_ge_1": true
+  },
+  "all_diagnostic_gates_passed": false,
+  "status": "FUTURE_EVIDENCE_REQUIRED_LIVE_LOCKED"
+}

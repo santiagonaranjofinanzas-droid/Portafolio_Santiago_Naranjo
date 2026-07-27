@@ -1,0 +1,16 @@
+{
+  "bar_rows": 144518,
+  "classification": "DEVELOPMENT_CONSUMED",
+  "excluded_ambiguous_october_bars": 24,
+  "first_bar_utc": "2020-01-01T23:15:00+00:00",
+  "last_bar_utc": "2026-06-19T17:45:00+00:00",
+  "legacy_parquet_sha256": "6707935f1e552a899457fb20c4ab92cb06469e1ed1844dbb21a172e0bce5538b",
+  "quality_passed": true,
+  "raw_zip_files": 78,
+  "release_evidence_eligible": false,
+  "schema_version": 1,
+  "source_vendor": "HistData",
+  "tick_count_policy": "NEUTRAL_PLACEHOLDER_FOR_LEGACY_BARS",
+  "timezone_policy": "VENDOR_DOCUMENTED_FIXED_EST_PLUS_5H_TO_UTC",
+  "timezone_warning": "Empirical October rollback contradicts fixed-EST documentation; ambiguous hour excluded"
+}

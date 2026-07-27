@@ -1,0 +1,7 @@
+Label,Trades,Win Rate %,Avg Win,Avg Loss,Profit Factor,Expectancy,Max DD %,Sharpe Ratio,DSR Prob,Exposure %,Avg Bars Held
+Base (Con todo),306,38.89%,$184.54,$-113.40,1.04,$2.47,-26.26%,0.30,2.14%,11.27%,18.1
+Sin HMM (Kalman/HMA + ML),2132,38.37%,$129.83,$-79.67,1.01,$0.71,-45.67%,0.38,2.77%,92.44%,21.3
+Sin Kalman (HMM + HMA + ML),347,36.89%,$160.11,$-99.38,0.94,$-3.66,-33.29%,-0.31,0.19%,12.73%,18.0
+Sin HMA (HMM + Kalman + ML s/ HMA),306,38.89%,$184.54,$-113.40,1.04,$2.47,-26.26%,0.30,2.14%,11.27%,18.1
+Sin ML Strength (HMM + Kalman puros),306,38.89%,$184.54,$-113.40,1.04,$2.47,-26.26%,0.30,2.14%,11.27%,18.1
+Solo Régimen HMM (Sin validación),347,36.89%,$160.11,$-99.38,0.94,$-3.66,-33.29%,-0.31,0.19%,12.73%,18.0

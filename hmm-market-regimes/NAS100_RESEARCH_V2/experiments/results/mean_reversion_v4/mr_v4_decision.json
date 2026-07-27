@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "candidate_id": "MR_V4_01_TREND_PULLBACK_LONG",
+  "magic_reserved": 6003,
+  "status": "REJECTED_RESEARCH_ONLY_NO_EA",
+  "approved": false,
+  "live_authorized": false,
+  "release_evidence_eligible": false,
+  "data_manifest_sha256": "ea233b124abb58a1516f55479bc8896968ee969a860ba1f95c07549a053f050e",
+  "preregistration_sha256": "cd643348cd1c58e0e1c3c7bb9733c5e24ffca096f4a02ee57473b9185f2bd8a1",
+  "config": {
+    "return_scale_window": 96,
+    "atr_window": 32,
+    "session_lower_quantile": 0.02,
+    "maximum_shock_z_threshold": -1.5,
+    "minimum_range_atr": 1.25,
+    "trend_score_floor": 0.35,
+    "maximum_confirmation_bars": 4,
+    "stop_atr": 0.75,
+    "maximum_holding_bars": 16,
+    "minimum_reward_risk": 0.75,
+    "event_horizons_bars": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "event_cooldown_bars": 32,
+    "risk_fraction": 0.001,
+    "initial_balance": 100000.0,
+    "min_lot": 0.01,
+    "max_lot": 10.0,
+    "lot_step": 0.01,
+    "costs": {
+      "spread_price": 2.5,
+      "slippage_price_per_side": 0.1,
+      "commission_per_lot_per_side": 3.0,
+      "bar_price_basis": "bid",
+      "tick_size": 0.01,
+      "tick_value": 0.2,
+      "point": 0.01,
+      "min_lot": 0.01,
+      "max_lot": 10.0,
+      "lot_step": 0.01
+    }
+  },
+  "outer_folds": 7,
+  "historical_trials_in_dsr": 143,
+  "metrics": {
+    "closed_trades": 102,
+    "net_profit": -496.047974999341,
+    "return_pct": -0.49604797499934106,
+    "profit_factor": 0.9136811179459987,
+    "expectancy": -4.86321544117001,
+    "win_rate_pct": 44.11764705882353,
+    "daily_sharpe": -0.1859305292115464,
+    "dsr_probability": 0.0010760328003441883,
+    "dsr_z": -3.068402474311792,
+    "max_drawdown_money": -944.1905734372267,
+    "max_drawdown_pct": -0.9434163537651283,
+    "worst_quarter_profit_factor": 0.0,
+    "top5_winner_share_pct": 24.63526660370769
+  },
+  "adverse_metrics": {
+    "closed_trades": 102,
+    "net_profit": -866.0879750006849,
+    "return_pct": -0.8660879750006848,
+    "profit_factor": 0.8548515436932177,
+    "expectancy": -8.491058578438087,
+    "win_rate_pct": 44.11764705882353,
+    "daily_sharpe": -0.3253825380513749,
+    "dsr_probability": 0.00036644579130003496,
+    "dsr_z": -3.3769695676979867,
+    "max_drawdown_money": -1254.462759375645,
+    "max_drawdown_pct": -1.2536669259695383,
+    "worst_quarter_profit_factor": 0.0,
+    "top5_winner_share_pct": 24.707579564507203
+  },
+  "crisis_metrics": {
+    "closed_trades": 102,
+    "net_profit": -1542.7632531255022,
+    "return_pct": -1.542763253125502,
+    "profit_factor": 0.7575593927252744,
+    "expectancy": -15.125129932602963,
+    "win_rate_pct": 44.11764705882353,
+    "daily_sharpe": -0.5764587644468122,
+    "dsr_probability": 4.093454691521036e-05,
+    "dsr_z": -3.9388617247603146,
+    "max_drawdown_money": -1883.9380375004694,
+    "max_drawdown_pct": -1.8831568955459912,
+    "worst_quarter_profit_factor": 0.0,
+    "top5_winner_share_pct": 24.89033970462741
+  },
+  "bootstrap": {
+    "samples": 10000,
+    "pf_p05": 0.6165085302686272,
+    "expectancy_p05": -1.8237709638062112,
+    "probability_positive": 0.328
+  },
+  "event_study": {
+    "4": {
+      "events": 209,
+      "mean_net_bps": -4.4742087778717305,
+      "median_net_bps": -0.5323276529238485,
+      "win_rate_pct": 49.282296650717704,
+      "bootstrap_mean_p05_bps": -8.49081325169386,
+      "bootstrap_probability_positive": 0.0297,
+      "positive_folds": 1,
+      "folds_with_events": 7
+    },
+    "8": {
+      "events": 209,
+      "mean_net_bps": -6.843670027911875,
+      "median_net_bps": -2.6359534282976607,
+      "win_rate_pct": 45.45454545454545,
+      "bootstrap_mean_p05_bps": -11.812612686352255,
+      "bootstrap_probability_positive": 0.0106,
+      "positive_folds": 1,
+      "folds_with_events": 7
+    },
+    "16": {
+      "events": 209,
+      "mean_net_bps": -7.9444719072560135,
+      "median_net_bps": -2.745096235982121,
+      "win_rate_pct": 44.97607655502392,
+      "bootstrap_mean_p05_bps": -14.714663591137615,
+      "bootstrap_probability_positive": 0.0258,
+      "positive_folds": 1,
+      "folds_with_events": 7
+    },
+    "32": {
+      "events": 209,
+      "mean_net_bps": -0.900736189518477,
+      "median_net_bps": 0.5217371428661607,
+      "win_rate_pct": 50.717703349282296,
+      "bootstrap_mean_p05_bps": -9.7815293813294,
+      "bootstrap_probability_positive": 0.4359,
+      "positive_folds": 3,
+      "folds_with_events": 7
+    }
+  },
+  "positive_outer_folds": 2,
+  "minimum_fold_trades": 11,
+  "checks": [
+    {
+      "name": "minimum_trades",
+      "value": 102,
+      "required": 100,
+      "passed": true
+    },
+    {
+      "name": "profit_factor",
+      "value": 0.9136811179459987,
+      "required": 1.2,
+      "passed": false
+    },
+    {
+      "name": "positive_outer_folds",
+      "value": 2,
+      "required": 5,
+      "passed": false
+    },
+    {
+      "name": "minimum_fold_trades",
+      "value": 11,
+      "required": 10,
+      "passed": true
+    },
+    {
+      "name": "dsr",
+      "value": 0.0010760328003441883,
+      "required": 0.95,
+      "passed": false
+    },
+    {
+      "name": "drawdown",
+      "value": 0.9434163537651283,
+      "required_max": 15.0,
+      "passed": true
+    },
+    {
+      "name": "bootstrap_pf_p05",
+      "value": 0.6165085302686272,
+      "required": 1.0,
+      "passed": false
+    },
+    {
+      "name": "bootstrap_probability_positive",
+      "value": 0.328,
+      "required": 0.95,
+      "passed": false
+    },
+    {
+      "name": "adverse_cost_pf",
+      "value": 0.8548515436932177,
+      "required": 1.05,
+      "passed": false
+    },
+    {
+      "name": "crisis_cost_pf",
+      "value": 0.7575593927252744,
+      "required": 1.0,
+      "passed": false
+    },
+    {
+      "name": "event_study_events",
+      "value": 209,
+      "required": 100,
+      "passed": true
+    },
+    {
+      "name": "event_study_probability_positive",
+      "value": 0.0258,
+      "required": 0.95,
+      "passed": false
+    },
+    {
+      "name": "event_study_positive_folds",
+      "value": 1,
+      "required": 5,
+      "passed": false
+    }
+  ],
+  "pbo": "NOT_APPLICABLE_SINGLE_PREREGISTERED_CANDIDATE",
+  "prefix_invariance": "PASSED",
+  "survivorship_bias": "NOT_APPLICABLE_SINGLE_CONTINUOUS_INSTRUMENT_NO_CONSTITUENT_SELECTION",
+  "warning": "development dataset was consumed by prior research; approval can only authorize demo observation, never live deployment"
+}

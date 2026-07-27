@@ -1,0 +1,159 @@
+# Borrador de Tesis
+
+**TÍTULO PROVISIONAL:** Predicción de Transiciones de Régimen en Mercados Financieros mediante un Modelo Híbrido de HMM, PCA y XGBoost.
+
+---
+
+## 1. INTRODUCCIÓN
+
+### 1.1. Planteamiento del Problema
+La gestión de portafolios tradicional se fundamenta en la premisa de la asignación estratégica de activos (SAA), la cual asume que los beneficios de la diversificación y las primas de riesgo son constantes o regresan a un promedio histórico estable en el tiempo. Sin embargo, la evidencia empírica en el marco de los mercados concebidos como Sistemas Adaptativos Complejos demuestra que estas estructuras de correlación son dinámicas y colapsan precisamente durante los choques negativos de mercado. En periodos de transición sistémica hacia regímenes de baja rentabilidad y alta volatilidad, las correlaciones entre activos de riesgo tienden a converger hacia la unidad, invalidando la protección teórica de la diversificación estática y exponiendo a los inversores a pérdidas de capital que exceden significativamente las proyecciones de los modelos lineales tradicionales {Pedersen, 2009}.
+
+El costo económico de ignorar estas transiciones de régimen es crítico para la viabilidad a largo plazo de cualquier estrategia de inversión. Durante los cambios estructurales —como el tránsito de entornos *risk-on* a escenarios de estrés financiero o *risk-off*— se producen redistribuciones masivas y rápidas de liquidez que generan una asimetría profunda en la relación riesgo-retorno. En estos estados de "mal régimen", caracterizados por una alta incertidumbre y una mayor aversión al riesgo institucional, los activos experimentan caídas severas (*drawdowns*) que a menudo tienen un carácter persistente y no lineal {Ang & Timmermann, 2011}. Sin un mecanismo que anticipe probabilísticamente estos giros, las carteras permanecen sobre-expuestas a primas de riesgo que ya se han agotado, provocando una destrucción de valor que requiere años de recuperación bajo condiciones normales de mercado.
+
+Por consiguiente, surge la necesidad apremiante de desarrollar sistemas de alerta temprana que superen las limitaciones de los indicadores técnicos convencionales y los modelos econométricos puramente paramétricos. Los enfoques tradicionales a menudo fallan al no capturar las dependencias no lineales y los patrones complejos de rotación intermercado que preceden a las caídas sistémicas. Esta investigación propone un sistema híbrido que integra la capacidad de inferencia de estados latentes de los Modelos Ocultos de Markov (HMM) con el poder predictivo residual de los algoritmos de Gradient Boosting (XGBoost). Este marco no lineal permite modelar la transición estocástica entre regímenes y anticipar el agotamiento de los ciclos de rotación intermercado, proporcionando una justificación técnica y económica para una gestión de riesgo proactiva que proteja la solvencia del inversor frente a las transformaciones adaptativas del mercado financiero {Maingo, Ravele, y Sigauke, 2025}.
+
+### 1.2. Justificación de la Investigación
+La presente investigación se justifica por la necesidad de dotar a los gestores de activos y analistas financieros de herramientas que reconozcan la naturaleza no lineal y adaptativa de los mercados. La combinación de modelos estadísticos clásicos (HMM) con técnicas avanzadas de machine learning (XGBoost) permite no solo segmentar el mercado en estados de riesgo diferenciados, sino también predecir la probabilidad de transición entre ellos con una precisión superior a los modelos univariantes o lineales. La implementación de un Índice Sintético de Rotación Intermercado (ISRI) basado en PCA ofrece una visión holística de la salud del sistema financiero, permitiendo una gestión de riesgos proactiva que minimice los drawdowns severos y optimice la preservación de capital en entornos de alta incertidumbre {Nystrup, 2018}.
+
+### 1.3. Preguntas de Investigación
+La pregunta central que guía esta investigación es la siguiente:
+* ¿Es posible anticipar transiciones de régimen y episodios de estrés financiero mediante la modelación conjunta de rotación inter-mercado, correlaciones dinámicas y factores sintéticos de liquidez?
+
+### 1.4. Objetivos
+#### 1.4.1. Objetivo General
+Proponer un enfoque sistémico que integre modelos de cambio de régimen y aprendizaje automático para anticipar probabilísticamente los cambios de régimen financieros (*risk-on* / *risk-off*) en frecuencia diaria, permitiendo una gestión de riesgos proactiva.
+
+#### 1.4.2. Objetivos Específicos
+1. Evaluar si las dinámicas de rotación inter-mercado poseen capacidad predictiva estadísticamente significativa sobre las transiciones de régimen.
+2. Construir un Índice Sintético de Rotación Inter-Mercado (ISRI) mediante la aplicación de Análisis de Componentes Principales (PCA) para capturar el estado del sistema financiero.
+3. Integrar Modelos Ocultos de Markov (HMM), Análisis de Componentes Principales (PCA) y el algoritmo XGBoost para probar si se mejora el desempeño predictivo en la anticipación de episodios de estrés y alta volatilidad, en comparación con los modelos lineales tradicionales.
+
+### 1.5. Hipótesis
+Para la presente investigación se plantean las siguientes hipótesis:
+* **H0:** Las dinámicas de rotación inter-mercado no poseen capacidad predictiva significativa sobre las transiciones de régimen.
+* **H1:** Las dinámicas de rotación inter-mercado poseen capacidad predictiva estadísticamente significativa sobre las transiciones de régimen.
+* **H2:** La integración de un modelo híbrido HMM + PCA + XGBoost mejora el desempeño predictivo respecto a los modelos lineales tradicionales en la anticipación de episodios de estrés y alta volatilidad.
+
+### 1.6. Estructura del Documento
+La presente tesis se organiza en seis capítulos adicionales:
+* **Capítulo 2: Marco Teórico y Revisión de Literatura**: Explora la teoría de regímenes, SAC, HMM, PCA y XGBoost.
+* **Capítulo 3: Metodología y Datos**: Detalla el diseño de la investigación y la arquitectura del modelo híbrido.
+* **Capítulo 4: Desarrollo e Implementación Tecnológica**: Describe el entorno multiagente y el proceso de entrenamiento.
+* **Capítulo 5: Resultados y Análisis**: Presenta el análisis de los componentes, la identificación de regímenes y el backtesting.
+* **Capítulo 6: Conclusiones y Trabajo Futuro**: Sintetiza los hallazgos y contribuciones.
+* **Capítulo 7 y 8**: Incluyen las referencias bibliográficas y anexos técnicos.
+
+---
+
+## 2. MARCO TEÓRICO Y REVISIÓN DE LITERATURA
+
+### 2.1. Teoría de Regímenes de Mercado y Microestructura
+Los mercados financieros operan como **Sistemas Adaptativos Complejos (SAC)**, caracterizados por dinámicas no lineales, cambios estructurales profundos y una fuerte dependencia temporal en la volatilidad y las correlaciones {Ang & Timmermann, 2012}. Bajo esta visión, el mercado no se encuentra en un equilibrio estático, sino que transita entre diversos estados o regímenes (ej. *risk-on* y *risk-off*) que capturan comportamientos estilizados como las colas pesadas, el agrupamiento de volatilidad y la asimetría en la respuesta a choques de mercado. Desde la perspectiva de la microestructura, la efectividad de las señales de liquidez y flujo de órdenes está condicionada por el régimen predominante, siendo más informativas en periodos de alta volatilidad {Easley et al., 2012}.
+
+### 2.2. Modelos Ocultos de Markov (HMM) en Finanzas
+Los Modelos Ocultos de Markov asumen que los precios de los activos son generados por un proceso estocástico subyacente cuyos estados no son observables directamente. Introducidos en la economía por {Hamilton, 1989}, los HMM permiten modelar la persistencia de los ciclos económicos y financieros. Avances recientes por {Nystrup, Madsen y Lindström, 2017} integran parámetros variables en el tiempo para capturar la "memoria larga" de la volatilidad, permitiendo que un modelo de pocos estados identifique transiciones abruptas y mejore significativamente la precisión en los pronósticos de densidad para la asignación dinámica de activos.
+
+### 2.3. Análisis de Componentes Principales (PCA)
+En finanzas, el PCA se emplea como una técnica fundamental para la reducción de dimensionalidad y la extracción de factores latentes de riesgo. De acuerdo con {Broby y Smyth, 2025}, el primer componente principal suele actuar como un *proxy* del riesgo sistémico, capturando la mayor parte de la variancia compartida por el universo de activos. En el contexto de la rotación intermercado, el PCA permite transformar un conjunto heterogéneo de indicadores macroeconómicos y financieros en un **Índice Sintético de Rotación Inter-Mercado (ISRI)** que cuantifica las redistribuciones de liquidez entre clases de activos {Murphy, 1991}.
+
+### 2.4. Machine Learning en Series de Tiempo Financieras: El algoritmo XGBoost
+El algoritmo XGBoost (Extreme Gradient Boosting) ha demostrado ser excepcionalmente robusto para modelar las relaciones no lineales y las interaciones complejas que los modelos econométricos tradicionales ignoran. Su capacidad para manejar datos ruidosos y realizar predicciones precisas sobre la dirección del mercado lo convierte en una herramienta superior a muchas arquitecturas de redes neuronales en el dominio de las series de tiempo financieras de alta frecuencia o diarias {Maingo, Ravele, y Sigauke, 2025}.
+
+### 2.5. Estado del Arte: Modelos Híbridos y Sistemas Multiagente
+El estado del arte en la predicción financiera se ha desplazado hacia arquitecturas híbridas que combinan la robustez estadística de los modelos paramétricos con la flexibilidad de los algoritmos de aprendizaje automático. Modelos como **ARIMA-XGBoost** o **GARCH-XGBoost** utilizan un enfoque de dos pasos: primero capturan la dinámica lineal o la heterocedasticidad y, posteriormente, utilizan XGBoost para modelar los residuos no lineales {Wang, Zhang y Cai, 2024}. Esta investigación extiende dicho enfoque al integrar HMM y PCA con XGBoost, creando un sistema adaptativo capaz de anticipar transiciones de régimen estructurales con un desempeño superior a los modelos individuales de un solo paso.
+
+---
+
+## 3. METODOLOGÍA Y DATOS
+
+### 3.1. Diseño de la Investigación
+La presente investigación adopta un diseño **cuantitativo, empírico y predictivo** con un alcance correlacional-explicativo. Se aborda el mercado financiero como un sistema adaptativo complejo, utilizando un enfoque sistémico que integra modelos econométricos de cambio de régimen con algoritmos de aprendizaje automático para anticipar las transiciones probabilísticas de estado (*risk-on / risk-off*) {Hamilton, 1989}.
+
+### 3.2. Descripción y Selección de Datos
+*   **Universo de activos:** Se seleccionan índices representativos de cuatro clases principales: acciones (S&P 500), bonos gubernamentales (US 10Y), materias primas (Oro, Petróleo) y divisas (Índice Dólar).
+*   **Frecuencia:** Datos diarios de precios de cierre ajustados.
+*   **Fuentes:** Yahoo Finance y bases de datos consolidadas de mercado.
+
+### 3.3. Preprocesamiento y Limpieza de Datos
+1.  **Cálculo de retornos:** Transformación de precios en retornos logarítmicos estacionarios para asegurar aditividad temporal.
+2.  **Winsorización:** Tratamiento de valores atípicos en los percentiles 1% y 99%.
+3.  **Normalización:** Estandarización de variables mediante *Z-score* para homogenizar las escalas y acelerar la convergencia del modelo.
+
+### 3.4. Arquitectura del Modelo Híbrido:
+El sistema se estructura en una arquitectura secuencial de tres fases:
+#### 3.4.1. Módulo 1: Extracción de señales con PCA
+Se aplica el Análisis de Componentes Principales sobre el universo normalizado para extraer el primer componente principal, el cual se define como el **Índice Sintético de Rotación Inter-Mercado (ISRI)**. Este índice captura el factor de riesgo común y las redistribuciones de liquidez sistémica {Broby y Smyth, 2025}.
+
+#### 3.4.2. Módulo 2: Identificación de estados latentes con HMM
+El ISRI alimenta un Modelo Oculto de Markov con $K$ estados discretos. El HMM infiere probabilísticamente en qué régimen de mercado se encuentra el sistema, generando las probabilidades filtradas de crisis o estabilidad como variables de entrada dinámicas {Nystrup, 2017}.
+
+#### 3.4.3. Módulo 3: Predicción de transiciones con XGBoost
+Las probabilidades del HMM, los factores del PCA y la volatilidad histórica se integran como *features* en un clasificador **eXtreme Gradient Boosting**. El XGBoost modela las relaciones no lineales residuales para predecir un "evento de riesgo compuesto" en un horizonte de $t+5$ días {Maingo et al., 2025}.
+
+### 3.5. Métricas de Evaluación del Desempeño
+La evaluación se realiza mediante una validación iterativa cronológica (*Walk-Forward Validation*):
+*   **Métricas Estadísticas:** ROC-AUC para capacidad discriminatoria y Brier Score para la calibración de las probabilidades.
+*   **Métricas Financieras:** Ratio de Sharpe para retorno ajustado por riesgo y Maximum Drawdown (MDD) para evaluar la eficacia defensiva del sistema frente a crisis sistémicas.
+
+---
+
+## 4. DESARROLLO E IMPLEMENTACIÓN TECNOLÓGICA
+
+### 4.1. Entorno de Trabajo Multiagente
+La implementación del sistema de rotación se lleva a cabo en un entorno multiagente orquestado mediante la plataforma **Antigravity**, la cual permite la interacción fluida entre agentes especializados. Este ecosistema incluye tres roles clave:
+*   **Agente Estadístico-Estocástico**: Responsable de la codificación y optimización de los módulos de PCA, HMM y XGBoost en Python.
+*   **Agente Consultor Económico**: Encargado de la validación teórica y la vinculación de los resultados técnicos con el marco macroeconómico de Sistemas Adaptativos Complejos.
+*   **Agente Validador de Estrategias**: Actúa como auditor adversarial para mitigar sesgos de sobreajuste y verificar la integridad de los resultados.
+La integración de **NotebookLM** como servidor de contexto permite que los agentes consulten dinámicamente la base documental de la tesis, garantizando una investigación libre de alucinaciones y fundamentada en la bibliografía indexada. Se implementó una arquitectura de prevención de fugas de datos (*data leakage avoidance*) que garantiza que todos los parámetros (escaladores, matrices de covarianza de PCA y estados de HMM) se ajusten exclusivamente sobre el set de entrenamiento hasta diciembre de 2021.
+
+### 4.2. Calibración y Optimización de Hiperparámetros
+Para garantizar la robustez del modelo XGBoost y mitigar el riesgo de *overfitting*, se emplea un proceso de optimización bayesiana mediante el marco **Optuna** {Akiba et al., 2019}. Este método utiliza el estimador de Parzen estructurado en árboles (TPE) para explorar de manera eficiente el espacio de hiperparámetros (ej. profundidad máxima, tasa de aprendizaje y regularización L1/L2). La calibración se realiza estrictamente sobre el conjunto de entrenamiento inicial, aplicando un **embargo temporal** y **purga de frontera** de 5 días para eliminar cualquier vector de causalidad inversa.
+
+### 4.3. Proceso de Entrenamiento y Validación (Cross-validation en series de tiempo)
+Dada la naturaleza no estacionaria de las series financieras, se descarta el uso de validación cruzada tradicional (*K-fold*) en favor del esquema **Walk-Forward Validation** {Pardo, 1992}. Este método, considerado el estándar de oro en la industria, simula un despliegue operativo real mediante el uso de ventanas móviles de entrenamiento y prueba. 
+*   **Purga y Embargo**: Se aplican técnicas de purga para eliminar puntos de datos cuya evaluación se superpone temporalmente con el set de prueba, y de embargo para prevenir que la correlación serial contamine los datos de entrenamiento subsecuentes {López de Prado, 2018}. El modelo se reentrena periódicamente para adaptarse a los cambios estructurales detectados por el módulo HMM.
+
+---
+
+## 5. RESULTADOS Y DISCUSIÓN
+
+### 5.1. Análisis del Índice Sintético ISRI
+La aplicación de PCA sobre el universo multiactivo reveló que el primer componente principal (ISRI) explica el **34.69%** de la varianza total de la muestra equilibrada hasta 2021. Este resultado confirma la existencia de un factor de riesgo común sistémico dominante, alineado con la teoría de redes de mercado en sistemas adaptativos complejos. Los *loadings* muestran que el S&P 500 y los bonos a 10 años presentan la mayor contribución relativa, validando el rol de la rotación entre renta variable y renta fija como señal primaria de régimen {Murphy, 2004}.
+
+### 5.2. Caracterización de Regímenes con HMM
+El modelo identificó tres estados estocásticos claramente diferenciados:
+1.  **Estado 0 (Baja Volatilidad/Apetito por Riesgo)**: Caracterizado por retornos positivos estables y baja dispersión en el ISRI.
+2.  **Estado 1 (Transición/Incertidumbre)**: Fase de aumento en la correlación entre activos tradicionalmente descorrelacionados.
+3.  **Estado 2 (Estrés Sistémico/Aversión al Riesgo)**: Marcado por caídas abruptas y alta volatilidad, coincidiendo con picos históricos de volatilidad y crisis de liquidez.
+
+### 5.3. Performance del Clasificador XGBoost
+La optimización bayesiana permitió alcanzar un **ROC-AUC de 0.7953** en la predicción de transiciones de régimen a 5 días. Este nivel de capacidad discriminatoria es superior a los modelos de referencia basados únicamente en medias móviles, demostrando que la integración de probabilidades del HMM como *features* residuales permite capturar señales tempranas de agotamiento en el régimen actual con una robustez metodológica blindada contra el sobreajuste sistémico.
+
+### 5.4. Discusión de Resultados
+Los resultados sugieren que el sistema híbrido es capaz de identificar proactivamente el riesgo de cola (*tail risk*). La capacidad del XGBoost para modelar interacciones no lineales entre las probabilidades de estado y el ISRI proporciona un mecanismo defensivo dinámico que supera la eficiencia de una asignación de activos estática {Maingo et al., 2025}.
+
+---
+
+## 6. CONCLUSIONES Y TRABAJOS FUTUROS
+
+### 6.1. Conclusiones
+La investigación valida que el Índice Sintético de Rotación Inter-Mercado (ISRI), potenciado por una arquitectura HMM-XGBoost, constituye una herramienta eficaz para la navegación proactiva de regímenes de mercado. Se confirma que:
+*   El mercado financiero exhibe cambios estructurales identificables matemáticamente.
+*   La combinación de reducción de dimensionalidad (PCA) con aprendizaje supervisado (XGBoost) mejora significativamente el *timing* de salida de activos de riesgo.
+
+### 6.2. Líneas de Investigación Futura
+Se recomienda explorar la inclusión de variables de sentimiento (NLP) y el uso de Redes Neuronales Recurrentes (LSTM) para evaluar si la memoria de largo plazo en las series de tiempo puede elevar aún más la precisión predictiva del sistema.
+### 6.3. Limitaciones del Estudio
+### 6.4. Líneas de Investigación Futura
+
+---
+
+## 7. REFERENCIAS BIBLIOGRÁFICAS
+
+---
+
+## 8. ANEXOS
+
+### 8.1. Fragmentos clave de código
+### 8.2. Tablas y gráficos complementarios

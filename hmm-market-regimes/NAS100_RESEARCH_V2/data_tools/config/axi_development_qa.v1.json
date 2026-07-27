@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "dataset_id": "AXI_NAS100_FS_FORWARD_20260620_20260710_CANONICAL_V2",
+  "symbol": "NAS100.fs",
+  "broker": "Axi-US51-Live",
+  "source_timezone": "UTC",
+  "source_root": "NAS100_INSTITUTIONAL/forward_axi/ticks",
+  "source_glob": "year=*/month=*/ticks_NAS100_fs_*.parquet",
+  "reference_bar_path": "NAS100_INSTITUTIONAL/forward_axi/NAS100_fs_M15_FORWARD.parquet",
+  "audit_start_utc": "2026-06-20T00:00:00Z",
+  "audit_end_exclusive_utc": "2026-07-10T08:11:42Z",
+  "development_cutoff_exclusive_utc": "2026-07-11T00:00:00Z",
+  "bar_frequency": "15min",
+  "tick_size": 0.01,
+  "expected_file_count": 15,
+  "session_calendar": {
+    "timezone": "UTC",
+    "weekdays": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "regular_start": "01:00",
+    "regular_end": "24:00",
+    "exceptions": {
+      "2026-07-03": {
+        "start": "01:00",
+        "end": "20:00",
+        "reason": "Observed US Independence Day early close"
+      }
+    }
+  },
+  "quality_gates": {
+    "minimum_complete_bar_coverage": 0.995,
+    "maximum_active_tick_gap_seconds": 30.0,
+    "maximum_active_gap_count": 0,
+    "maximum_stale_quote_seconds": 30.0,
+    "maximum_stale_run_count": 0,
+    "maximum_spread_price": 20.0,
+    "maximum_crossed_rows": 0,
+    "maximum_locked_rows": 0,
+    "maximum_duplicate_timestamps": 0,
+    "maximum_out_of_order_rows": 0,
+    "maximum_invalid_price_rows": 0,
+    "maximum_off_grid_rows": 0
+  },
+  "canonical_bar_filename": "NAS100_fs_M15_DEVELOPMENT_CANONICAL.parquet"
+}

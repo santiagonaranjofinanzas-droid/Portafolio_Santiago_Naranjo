@@ -1,0 +1,10 @@
+{
+  "threshold": 0.6,
+  "min_strength": 0.3,
+  "vol_multiplier": 2.5,
+  "reward_risk": 1.5,
+  "kalman_gate": true,
+  "score": 3.904543809644709,
+  "recent_start": "2025-01-01 00:00:00",
+  "note": "Candidato adaptativo reciente; validar en forward/paper antes de pasar a real."
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "registered_utc": "2026-07-14T00:00:00Z",
+  "family": "MEAN_REVERSION_V3_SHOCK_REJECTION",
+  "purpose": "ONE_SHOT_FALSIFICATION_BEFORE_MT5_PORT",
+  "canonical_data_manifest_sha256": "ea233b124abb58a1516f55479bc8896968ee969a860ba1f95c07549a053f050e",
+  "historical_trials_before_v3": 141,
+  "candidate": {
+    "candidate_id": "MR_V3_01_SHOCK_REJECTION",
+    "symbol": "NAS100.fs",
+    "timeframe": "M15",
+    "sides": ["LONG", "SHORT"],
+    "parameters": {
+      "return_scale_window": 96,
+      "atr_window": 32,
+      "shock_z": 3.0,
+      "minimum_range_atr": 1.5,
+      "maximum_rejection_bars": 4,
+      "trend_score_veto": 0.35,
+      "stop_atr": 1.0,
+      "maximum_holding_bars": 16,
+      "minimum_reward_risk": 1.0,
+      "risk_fraction": 0.001
+    }
+  },
+  "coexistence": {
+    "magic": 6003,
+    "blocked_while_magic_active": [6001, 6002],
+    "requires_hedging_demo": true,
+    "live_authorized": false
+  },
+  "gate": {
+    "minimum_trades": 200,
+    "minimum_profit_factor": 1.2,
+    "minimum_positive_outer_folds": 5,
+    "minimum_fold_trades": 20,
+    "minimum_dsr": 0.95,
+    "maximum_drawdown_pct": 15.0,
+    "minimum_bootstrap_pf_p05": 1.0,
+    "minimum_bootstrap_probability_positive": 0.95,
+    "minimum_adverse_cost_pf": 1.05,
+    "minimum_crisis_cost_pf": 1.0
+  },
+  "mutation_rule": "ANY_PARAMETER_CHANGE_CREATES_A_NEW_HYPOTHESIS_AND_TRIAL"
+}

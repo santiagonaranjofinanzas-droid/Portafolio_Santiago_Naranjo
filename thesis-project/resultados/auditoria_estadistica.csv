@@ -1,0 +1,5 @@
+Serie,ADF_Statistic,ADF_pvalue,Estacionaria (ADF),KPSS_Statistic,KPSS_pvalue,Estacionaria (KPSS),LjungBox_pvalue,No_Autocorrelacion,DM_Statistic,DM_pvalue,Modelo_Propuesto_Mejor,Granger_pvalue,Rechaza_H0 (Causa)
+ISRI (PC1),-55.554874853912274,0.0,True,0.08662958457149367,0.1,True,,,,,,,
+Residuos_XGB,,,,,,,1.3269661875267857e-100,False,,,,,
+XGB vs Naive,,,,,,,,,1.315643066396057,0.18829387161554756,False,,
+ISRI -> Target,,,,,,,,,,,,0.1180806083166643,False

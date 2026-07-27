@@ -1,0 +1,13 @@
+Categoría,Métrica,Valor
+Discriminación,roc_auc,0.5017
+Discriminación,precision,0.1882
+Discriminación,recall,0.0751
+Discriminación,f1_score,0.1074
+Discriminación,mcc,-0.0022
+Discriminación,log_loss,0.8002
+Calibración,brier_score,0.1992
+Precision-Recall,pr_auc,0.1965
+Económica,sharpe_ratio,0.6103
+Económica,sortino_ratio,0.8783
+Económica,max_drawdown,-0.0352
+Económica,cagr,0.0253

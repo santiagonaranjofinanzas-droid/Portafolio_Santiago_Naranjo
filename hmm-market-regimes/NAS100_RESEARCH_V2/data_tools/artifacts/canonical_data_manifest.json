@@ -1,0 +1,33 @@
+{
+  "artifact_files": {
+    "canonical_bars": {
+      "path": "NAS100_fs_M15_DEVELOPMENT_CANONICAL.parquet",
+      "sha256": "2068b5f881c95a25ad0abb4b969c9a9b9d7bd13713e5ad8562b709adbc94c767"
+    },
+    "qa_report": {
+      "path": "axi_tick_bar_qa_report.json",
+      "sha256": "c18e4e82c179b7e8e31818a766a349a608ad0d29f3ef2a5f857867262c99de24"
+    },
+    "source_file_manifest": {
+      "path": "source_file_manifest.jsonl",
+      "sha256": "580ec1e4605c1253697aadf45bd6cf85cf07ac1ecc2888210640c2fe3d380d0f"
+    }
+  },
+  "audit_end_exclusive_utc": "2026-07-10T08:11:42Z",
+  "audit_start_utc": "2026-06-20T00:00:00Z",
+  "broker": "Axi-US51-Live",
+  "canonical_bar_rows": 1300,
+  "classification": "DEVELOPMENT_CONSUMED",
+  "config_sha256": "9ee7a3628006364d71b20b2d445abac81a790f1cac2e220c4adce7597c45bf6a",
+  "created_utc": "2026-07-10T12:48:50.160776Z",
+  "dataset_id": "AXI_NAS100_FS_FORWARD_20260620_20260710_CANONICAL_V2",
+  "manifest_sha256": "77c9320b9fc92d7f336f0f283201500c795ed00c6b10cf5be7eaf8fccee1c9da",
+  "program": "NAS100_EDGE_RECOVERY_V2",
+  "quality_passed": true,
+  "schema_version": 1,
+  "source_dataset_sha256": "38c10cc1b9ae75fb1e42d017d84ed17433b85c5eae3881254f167d069325e00f",
+  "source_file_count": 15,
+  "source_root": "NAS100_INSTITUTIONAL/forward_axi/ticks",
+  "source_rows": 7814606,
+  "symbol": "NAS100.fs"
+}

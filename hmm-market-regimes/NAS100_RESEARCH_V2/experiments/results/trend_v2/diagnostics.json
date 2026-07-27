@@ -1,0 +1,1409 @@
+[
+  {
+    "fold_id": 0,
+    "candidate_id": "TREND_03_LONG_P55",
+    "candidate_signal_config": {
+      "confirmation_bars": 2,
+      "direction_mode": "long",
+      "exit_on_momentum_flip": true,
+      "maximum_shock_probability": 0.35,
+      "momentum_threshold": 0.2,
+      "trend_probability": 0.55
+    },
+    "causal_inference": true,
+    "component": "TrendV2Model",
+    "configuration": {
+      "features": {
+        "activity_baseline_min_observations": 3,
+        "activity_baseline_observations": 20,
+        "atr_window": 32,
+        "efficiency_window": 32,
+        "epsilon": 1e-12,
+        "fast_vol_window": 16,
+        "momentum_horizons": [
+          16,
+          32,
+          64
+        ],
+        "range_baseline_min_observations": 3,
+        "range_baseline_observations": 20,
+        "slow_vol_window": 96,
+        "trend_horizon": 16,
+        "volume_columns": [
+          "tick_count",
+          "tick_volume",
+          "volume",
+          "real_volume"
+        ]
+      },
+      "regime": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "signals": {
+        "confirmation_bars": 2,
+        "direction_mode": "long",
+        "exit_on_momentum_flip": true,
+        "maximum_shock_probability": 0.35,
+        "momentum_threshold": 0.2,
+        "trend_probability": 0.55
+      }
+    },
+    "oos_probabilities": "filtered_not_smoothed",
+    "regime": {
+      "average_log_likelihood": -5.746167702295449,
+      "config": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "converged": true,
+      "expected_duration_bars": {
+        "RANGE": 17.604455793927173,
+        "SHOCK": 24.612647742499632,
+        "TRENDABLE": 12.925871500087743
+      },
+      "feature_order": [
+        "trend_strength_16",
+        "efficiency_ratio_32",
+        "log_vol_ratio_16_96",
+        "jump_score_96",
+        "hour_range_log_ratio",
+        "hour_activity_log_ratio"
+      ],
+      "filtered_calibration_ece": 0.27899948074507114,
+      "filtered_pseudo_label_brier": 0.19601579486653345,
+      "filtered_pseudo_label_log_score": -1.4911230511870133,
+      "identified": true,
+      "iterations": 25,
+      "log_likelihood": -389613.1548864406,
+      "minimum_state_separation": 1.020229342556462,
+      "model": "sticky_diagonal_student_t_hmm",
+      "pairwise_state_separation": {
+        "RANGE__SHOCK": 1.2631938634250957,
+        "TRENDABLE__RANGE": 1.020229342556462,
+        "TRENDABLE__SHOCK": 1.1969034759785957
+      },
+      "pnl_used_for_regime_selection": false,
+      "state_feature_means": {
+        "RANGE": {
+          "efficiency_ratio_32": 0.10398627129314265,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.09147698759113265,
+          "jump_score_96": 0.42059105265842434,
+          "log_vol_ratio_16_96": -0.5350174224620386,
+          "trend_strength_16": 0.3135485614985134
+        },
+        "SHOCK": {
+          "efficiency_ratio_32": 0.1945864183552705,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": 0.11802755785044988,
+          "jump_score_96": 0.9048504668635622,
+          "log_vol_ratio_16_96": 0.2451840570318707,
+          "trend_strength_16": 1.0776506275316877
+        },
+        "TRENDABLE": {
+          "efficiency_ratio_32": 0.32421666225361934,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.10197220728298423,
+          "jump_score_96": 0.438656071449903,
+          "log_vol_ratio_16_96": -0.46497783313730356,
+          "trend_strength_16": 0.6755884490845467
+        }
+      },
+      "state_occupancy": {
+        "RANGE": 0.37744092658964856,
+        "SHOCK": 0.38005221242050047,
+        "TRENDABLE": 0.2425068609898542
+      },
+      "state_order": [
+        "TRENDABLE",
+        "RANGE",
+        "SHOCK"
+      ],
+      "transition_matrix": [
+        [
+          0.922635777402459,
+          0.05616404296598089,
+          0.021200179631560095
+        ],
+        [
+          0.02961541704053183,
+          0.9431961992062851,
+          0.027188383753183186
+        ],
+        [
+          0.01993842242145566,
+          0.02069109499016605,
+          0.9593704825883783
+        ]
+      ],
+      "warnings": [
+        "one or more emission variances reached the variance floor"
+      ]
+    },
+    "regime_controls_direction": false,
+    "regime_features": [
+      "trend_strength_16",
+      "efficiency_ratio_32",
+      "log_vol_ratio_16_96",
+      "jump_score_96",
+      "hour_range_log_ratio",
+      "hour_activity_log_ratio"
+    ],
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 0.3496637266305646,
+      "bar_sharpe_annualized": 0.02321051301967458,
+      "closed_trades": 107,
+      "commission_cost": 223.08,
+      "final_equity": 100037.41401874938,
+      "gross_loss": 8900.177981250295,
+      "gross_profit": 8937.591999999764,
+      "initial_cash": 100000.0,
+      "long_trades": 107,
+      "max_drawdown_pct": -2.1722852063656872,
+      "net_profit": 37.41401874937583,
+      "profit_factor": 1.0042037382654918,
+      "return_pct": 0.037414018749371,
+      "short_trades": 0,
+      "spread_slippage_cost": 2007.7200000005405,
+      "total_transaction_cost": 2230.8000000005413,
+      "win_rate": 0.35514018691588783
+    }
+  },
+  {
+    "fold_id": 1,
+    "candidate_id": "TREND_08_SHORT_P65",
+    "candidate_signal_config": {
+      "confirmation_bars": 2,
+      "direction_mode": "short",
+      "exit_on_momentum_flip": true,
+      "maximum_shock_probability": 0.25,
+      "momentum_threshold": 0.2,
+      "trend_probability": 0.65
+    },
+    "causal_inference": true,
+    "component": "TrendV2Model",
+    "configuration": {
+      "features": {
+        "activity_baseline_min_observations": 3,
+        "activity_baseline_observations": 20,
+        "atr_window": 32,
+        "efficiency_window": 32,
+        "epsilon": 1e-12,
+        "fast_vol_window": 16,
+        "momentum_horizons": [
+          16,
+          32,
+          64
+        ],
+        "range_baseline_min_observations": 3,
+        "range_baseline_observations": 20,
+        "slow_vol_window": 96,
+        "trend_horizon": 16,
+        "volume_columns": [
+          "tick_count",
+          "tick_volume",
+          "volume",
+          "real_volume"
+        ]
+      },
+      "regime": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "signals": {
+        "confirmation_bars": 2,
+        "direction_mode": "long",
+        "exit_on_momentum_flip": true,
+        "maximum_shock_probability": 0.35,
+        "momentum_threshold": 0.2,
+        "trend_probability": 0.55
+      }
+    },
+    "oos_probabilities": "filtered_not_smoothed",
+    "regime": {
+      "average_log_likelihood": -5.748582272288534,
+      "config": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "converged": true,
+      "expected_duration_bars": {
+        "RANGE": 17.45151799824521,
+        "SHOCK": 24.624804782717632,
+        "TRENDABLE": 12.328191084622054
+      },
+      "feature_order": [
+        "trend_strength_16",
+        "efficiency_ratio_32",
+        "log_vol_ratio_16_96",
+        "jump_score_96",
+        "hour_range_log_ratio",
+        "hour_activity_log_ratio"
+      ],
+      "filtered_calibration_ece": 0.2792456154917593,
+      "filtered_pseudo_label_brier": 0.19548827576441663,
+      "filtered_pseudo_label_log_score": -1.523312766742267,
+      "identified": true,
+      "iterations": 23,
+      "log_likelihood": -377308.1974416579,
+      "minimum_state_separation": 1.0147338626391242,
+      "model": "sticky_diagonal_student_t_hmm",
+      "pairwise_state_separation": {
+        "RANGE__SHOCK": 1.298846470165238,
+        "TRENDABLE__RANGE": 1.0147338626391242,
+        "TRENDABLE__SHOCK": 1.198725519961088
+      },
+      "pnl_used_for_regime_selection": false,
+      "state_feature_means": {
+        "RANGE": {
+          "efficiency_ratio_32": 0.10439615757133376,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.09184494456730666,
+          "jump_score_96": 0.39752668314799045,
+          "log_vol_ratio_16_96": -0.5943831622781379,
+          "trend_strength_16": 0.29671310320534994
+        },
+        "SHOCK": {
+          "efficiency_ratio_32": 0.19942403838544157,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": 0.1062817668502099,
+          "jump_score_96": 0.8956872616351144,
+          "log_vol_ratio_16_96": 0.2488320619859962,
+          "trend_strength_16": 1.0854094792859392
+        },
+        "TRENDABLE": {
+          "efficiency_ratio_32": 0.32631972715666485,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.08527450031604561,
+          "jump_score_96": 0.41262697079931354,
+          "log_vol_ratio_16_96": -0.5155940800841929,
+          "trend_strength_16": 0.6390355226556654
+        }
+      },
+      "state_occupancy": {
+        "RANGE": 0.3783378029332979,
+        "SHOCK": 0.3819818090923768,
+        "TRENDABLE": 0.2396803879743273
+      },
+      "state_order": [
+        "TRENDABLE",
+        "RANGE",
+        "SHOCK"
+      ],
+      "transition_matrix": [
+        [
+          0.9188850989463182,
+          0.058687795985567656,
+          0.022427105068114128
+        ],
+        [
+          0.030592864756087683,
+          0.942698394483474,
+          0.02670874076043828
+        ],
+        [
+          0.0206260006373356,
+          0.019983458354267347,
+          0.959390541008397
+        ]
+      ],
+      "warnings": [
+        "one or more emission variances reached the variance floor"
+      ]
+    },
+    "regime_controls_direction": false,
+    "regime_features": [
+      "trend_strength_16",
+      "efficiency_ratio_32",
+      "log_vol_ratio_16_96",
+      "jump_score_96",
+      "hour_range_log_ratio",
+      "hour_activity_log_ratio"
+    ],
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": -38.04927540761436,
+      "bar_sharpe_annualized": -1.0789461926711605,
+      "closed_trades": 92,
+      "commission_cost": 224.1,
+      "final_equity": 96499.46666249959,
+      "gross_loss": 10258.656137500351,
+      "gross_profit": 6758.1227999998255,
+      "initial_cash": 100000.0,
+      "long_trades": 0,
+      "max_drawdown_pct": -4.142634279219337,
+      "net_profit": -3500.533337500412,
+      "profit_factor": 0.6587727192936721,
+      "return_pct": -3.500533337500411,
+      "short_trades": 92,
+      "spread_slippage_cost": 2016.9000000004426,
+      "total_transaction_cost": 2241.0000000004425,
+      "win_rate": 0.2391304347826087
+    }
+  },
+  {
+    "fold_id": 2,
+    "candidate_id": "TREND_04_LONG_P65",
+    "candidate_signal_config": {
+      "confirmation_bars": 2,
+      "direction_mode": "long",
+      "exit_on_momentum_flip": true,
+      "maximum_shock_probability": 0.25,
+      "momentum_threshold": 0.2,
+      "trend_probability": 0.65
+    },
+    "causal_inference": true,
+    "component": "TrendV2Model",
+    "configuration": {
+      "features": {
+        "activity_baseline_min_observations": 3,
+        "activity_baseline_observations": 20,
+        "atr_window": 32,
+        "efficiency_window": 32,
+        "epsilon": 1e-12,
+        "fast_vol_window": 16,
+        "momentum_horizons": [
+          16,
+          32,
+          64
+        ],
+        "range_baseline_min_observations": 3,
+        "range_baseline_observations": 20,
+        "slow_vol_window": 96,
+        "trend_horizon": 16,
+        "volume_columns": [
+          "tick_count",
+          "tick_volume",
+          "volume",
+          "real_volume"
+        ]
+      },
+      "regime": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "signals": {
+        "confirmation_bars": 2,
+        "direction_mode": "long",
+        "exit_on_momentum_flip": true,
+        "maximum_shock_probability": 0.35,
+        "momentum_threshold": 0.2,
+        "trend_probability": 0.55
+      }
+    },
+    "oos_probabilities": "filtered_not_smoothed",
+    "regime": {
+      "average_log_likelihood": -5.6639081083255,
+      "config": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "converged": true,
+      "expected_duration_bars": {
+        "RANGE": 22.7946004408443,
+        "SHOCK": 25.115050988914064,
+        "TRENDABLE": 13.862586914752669
+      },
+      "feature_order": [
+        "trend_strength_16",
+        "efficiency_ratio_32",
+        "log_vol_ratio_16_96",
+        "jump_score_96",
+        "hour_range_log_ratio",
+        "hour_activity_log_ratio"
+      ],
+      "filtered_calibration_ece": 0.4497498309400602,
+      "filtered_pseudo_label_brier": 0.3072215213113739,
+      "filtered_pseudo_label_log_score": -3.1453911072474656,
+      "identified": true,
+      "iterations": 37,
+      "log_likelihood": -368550.50060874026,
+      "minimum_state_separation": 1.1156253766223718,
+      "model": "sticky_diagonal_student_t_hmm",
+      "pairwise_state_separation": {
+        "RANGE__SHOCK": 2.0537108713217247,
+        "TRENDABLE__RANGE": 1.1156253766223718,
+        "TRENDABLE__SHOCK": 1.217153445659243
+      },
+      "pnl_used_for_regime_selection": false,
+      "state_feature_means": {
+        "RANGE": {
+          "efficiency_ratio_32": 0.17349058523927477,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.10946724996937886,
+          "jump_score_96": 0.3076745651283605,
+          "log_vol_ratio_16_96": -0.8877878851840164,
+          "trend_strength_16": 0.26572426123034937
+        },
+        "SHOCK": {
+          "efficiency_ratio_32": 0.2051960470066544,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": 0.08491811799555855,
+          "jump_score_96": 0.8941893079320058,
+          "log_vol_ratio_16_96": 0.301014863081439,
+          "trend_strength_16": 1.12986713979081
+        },
+        "TRENDABLE": {
+          "efficiency_ratio_32": 0.19103307738478548,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.02583730114920651,
+          "jump_score_96": 0.5277207720549427,
+          "log_vol_ratio_16_96": -0.27916117610475283,
+          "trend_strength_16": 0.5881336028615575
+        }
+      },
+      "state_occupancy": {
+        "RANGE": 0.3069207076230736,
+        "SHOCK": 0.34092214331672904,
+        "TRENDABLE": 0.35215714906020423
+      },
+      "state_order": [
+        "TRENDABLE",
+        "RANGE",
+        "SHOCK"
+      ],
+      "transition_matrix": [
+        [
+          0.9278633918654972,
+          0.03658760430482697,
+          0.03554900382967581
+        ],
+        [
+          0.04048495675988878,
+          0.9561299614531449,
+          0.0033850817869661935
+        ],
+        [
+          0.037973963430414065,
+          0.0018427982572849033,
+          0.960183238312301
+        ]
+      ],
+      "warnings": [
+        "one or more emission variances reached the variance floor"
+      ]
+    },
+    "regime_controls_direction": false,
+    "regime_features": [
+      "trend_strength_16",
+      "efficiency_ratio_32",
+      "log_vol_ratio_16_96",
+      "jump_score_96",
+      "hour_range_log_ratio",
+      "hour_activity_log_ratio"
+    ],
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": -53.09515440571429,
+      "bar_sharpe_annualized": -1.6343761652428577,
+      "closed_trades": 122,
+      "commission_cost": 284.46000000000004,
+      "final_equity": 93522.39116250274,
+      "gross_loss": 14979.227037498275,
+      "gross_profit": 8501.618200001132,
+      "initial_cash": 100000.0,
+      "long_trades": 122,
+      "max_drawdown_pct": -7.223706210697611,
+      "net_profit": -6477.6088374972605,
+      "profit_factor": 0.5675605409223448,
+      "return_pct": -6.477608837497262,
+      "short_trades": 0,
+      "spread_slippage_cost": 2560.1399999972414,
+      "total_transaction_cost": 2844.5999999972414,
+      "win_rate": 0.4016393442622951
+    }
+  },
+  {
+    "fold_id": 3,
+    "candidate_id": "TREND_08_SHORT_P65",
+    "candidate_signal_config": {
+      "confirmation_bars": 2,
+      "direction_mode": "short",
+      "exit_on_momentum_flip": true,
+      "maximum_shock_probability": 0.25,
+      "momentum_threshold": 0.2,
+      "trend_probability": 0.65
+    },
+    "causal_inference": true,
+    "component": "TrendV2Model",
+    "configuration": {
+      "features": {
+        "activity_baseline_min_observations": 3,
+        "activity_baseline_observations": 20,
+        "atr_window": 32,
+        "efficiency_window": 32,
+        "epsilon": 1e-12,
+        "fast_vol_window": 16,
+        "momentum_horizons": [
+          16,
+          32,
+          64
+        ],
+        "range_baseline_min_observations": 3,
+        "range_baseline_observations": 20,
+        "slow_vol_window": 96,
+        "trend_horizon": 16,
+        "volume_columns": [
+          "tick_count",
+          "tick_volume",
+          "volume",
+          "real_volume"
+        ]
+      },
+      "regime": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "signals": {
+        "confirmation_bars": 2,
+        "direction_mode": "long",
+        "exit_on_momentum_flip": true,
+        "maximum_shock_probability": 0.35,
+        "momentum_threshold": 0.2,
+        "trend_probability": 0.55
+      }
+    },
+    "oos_probabilities": "filtered_not_smoothed",
+    "regime": {
+      "average_log_likelihood": -5.646527023895443,
+      "config": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "converged": true,
+      "expected_duration_bars": {
+        "RANGE": 22.644252534122277,
+        "SHOCK": 26.092733009305608,
+        "TRENDABLE": 14.107760075253022
+      },
+      "feature_order": [
+        "trend_strength_16",
+        "efficiency_ratio_32",
+        "log_vol_ratio_16_96",
+        "jump_score_96",
+        "hour_range_log_ratio",
+        "hour_activity_log_ratio"
+      ],
+      "filtered_calibration_ece": 0.4696969522010884,
+      "filtered_pseudo_label_brier": 0.31981451619183465,
+      "filtered_pseudo_label_log_score": -3.3884277029166534,
+      "identified": true,
+      "iterations": 40,
+      "log_likelihood": -367763.9515933341,
+      "minimum_state_separation": 1.150226869826143,
+      "model": "sticky_diagonal_student_t_hmm",
+      "pairwise_state_separation": {
+        "RANGE__SHOCK": 2.1391547532083144,
+        "TRENDABLE__RANGE": 1.150226869826143,
+        "TRENDABLE__SHOCK": 1.2394651369136536
+      },
+      "pnl_used_for_regime_selection": false,
+      "state_feature_means": {
+        "RANGE": {
+          "efficiency_ratio_32": 0.18093336811586666,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.1062723348373201,
+          "jump_score_96": 0.28744196795918414,
+          "log_vol_ratio_16_96": -0.959610425832232,
+          "trend_strength_16": 0.25239538894373637
+        },
+        "SHOCK": {
+          "efficiency_ratio_32": 0.20575348874543478,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": 0.08087132470629822,
+          "jump_score_96": 0.8792149217545899,
+          "log_vol_ratio_16_96": 0.2963612736680186,
+          "trend_strength_16": 1.1397130907095128
+        },
+        "TRENDABLE": {
+          "efficiency_ratio_32": 0.18528505089116126,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.022087411833760246,
+          "jump_score_96": 0.5150469913639807,
+          "log_vol_ratio_16_96": -0.3161794153282975,
+          "trend_strength_16": 0.5476178502423956
+        }
+      },
+      "state_occupancy": {
+        "RANGE": 0.2936377740132581,
+        "SHOCK": 0.35289910032701305,
+        "TRENDABLE": 0.3534631256597401
+      },
+      "state_order": [
+        "TRENDABLE",
+        "RANGE",
+        "SHOCK"
+      ],
+      "transition_matrix": [
+        [
+          0.9291170253345788,
+          0.034834568346679674,
+          0.03604840631874147
+        ],
+        [
+          0.04158662271159868,
+          0.9558386836353677,
+          0.0025746936530334796
+        ],
+        [
+          0.036371552344363844,
+          0.0019532946405557447,
+          0.9616751530150803
+        ]
+      ],
+      "warnings": [
+        "one or more emission variances reached the variance floor"
+      ]
+    },
+    "regime_controls_direction": false,
+    "regime_features": [
+      "trend_strength_16",
+      "efficiency_ratio_32",
+      "log_vol_ratio_16_96",
+      "jump_score_96",
+      "hour_range_log_ratio",
+      "hour_activity_log_ratio"
+    ],
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 10.677508353384194,
+      "bar_sharpe_annualized": 0.2467760512204179,
+      "closed_trades": 104,
+      "commission_cost": 189.48,
+      "final_equity": 101110.46086875195,
+      "gross_loss": 12360.4373312487,
+      "gross_profit": 13470.898200000656,
+      "initial_cash": 100000.0,
+      "long_trades": 0,
+      "max_drawdown_pct": -4.961562346687787,
+      "net_profit": 1110.4608687519503,
+      "profit_factor": 1.0898399335713287,
+      "return_pct": 1.1104608687519502,
+      "short_trades": 104,
+      "spread_slippage_cost": 1705.3199999981618,
+      "total_transaction_cost": 1894.799999998162,
+      "win_rate": 0.3557692307692308
+    }
+  },
+  {
+    "fold_id": 4,
+    "candidate_id": "TREND_08_SHORT_P65",
+    "candidate_signal_config": {
+      "confirmation_bars": 2,
+      "direction_mode": "short",
+      "exit_on_momentum_flip": true,
+      "maximum_shock_probability": 0.25,
+      "momentum_threshold": 0.2,
+      "trend_probability": 0.65
+    },
+    "causal_inference": true,
+    "component": "TrendV2Model",
+    "configuration": {
+      "features": {
+        "activity_baseline_min_observations": 3,
+        "activity_baseline_observations": 20,
+        "atr_window": 32,
+        "efficiency_window": 32,
+        "epsilon": 1e-12,
+        "fast_vol_window": 16,
+        "momentum_horizons": [
+          16,
+          32,
+          64
+        ],
+        "range_baseline_min_observations": 3,
+        "range_baseline_observations": 20,
+        "slow_vol_window": 96,
+        "trend_horizon": 16,
+        "volume_columns": [
+          "tick_count",
+          "tick_volume",
+          "volume",
+          "real_volume"
+        ]
+      },
+      "regime": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "signals": {
+        "confirmation_bars": 2,
+        "direction_mode": "long",
+        "exit_on_momentum_flip": true,
+        "maximum_shock_probability": 0.35,
+        "momentum_threshold": 0.2,
+        "trend_probability": 0.55
+      }
+    },
+    "oos_probabilities": "filtered_not_smoothed",
+    "regime": {
+      "average_log_likelihood": -5.667487755347657,
+      "config": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "converged": true,
+      "expected_duration_bars": {
+        "RANGE": 22.542817725770817,
+        "SHOCK": 26.299133025324593,
+        "TRENDABLE": 14.227655916281568
+      },
+      "feature_order": [
+        "trend_strength_16",
+        "efficiency_ratio_32",
+        "log_vol_ratio_16_96",
+        "jump_score_96",
+        "hour_range_log_ratio",
+        "hour_activity_log_ratio"
+      ],
+      "filtered_calibration_ece": 0.4745958636918175,
+      "filtered_pseudo_label_brier": 0.32293195893108406,
+      "filtered_pseudo_label_log_score": -3.421892432102753,
+      "identified": true,
+      "iterations": 37,
+      "log_likelihood": -368449.0464629065,
+      "minimum_state_separation": 1.1348644956574945,
+      "model": "sticky_diagonal_student_t_hmm",
+      "pairwise_state_separation": {
+        "RANGE__SHOCK": 2.141461129452217,
+        "TRENDABLE__RANGE": 1.1348644956574945,
+        "TRENDABLE__SHOCK": 1.2405272410171764
+      },
+      "pnl_used_for_regime_selection": false,
+      "state_feature_means": {
+        "RANGE": {
+          "efficiency_ratio_32": 0.17981534914090067,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.10765319613968673,
+          "jump_score_96": 0.2873158822472146,
+          "log_vol_ratio_16_96": -0.9620540261834727,
+          "trend_strength_16": 0.25089055452321174
+        },
+        "SHOCK": {
+          "efficiency_ratio_32": 0.20570507173562463,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": 0.07521839049099777,
+          "jump_score_96": 0.8788143945422241,
+          "log_vol_ratio_16_96": 0.2952741407781062,
+          "trend_strength_16": 1.1302121387130553
+        },
+        "TRENDABLE": {
+          "efficiency_ratio_32": 0.18231300231144668,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.016322451693309717,
+          "jump_score_96": 0.5133362124797092,
+          "log_vol_ratio_16_96": -0.3245742370272333,
+          "trend_strength_16": 0.5407732372524532
+        }
+      },
+      "state_occupancy": {
+        "RANGE": 0.28898633187168327,
+        "SHOCK": 0.3546084637420615,
+        "TRENDABLE": 0.35640520438626044
+      },
+      "state_order": [
+        "TRENDABLE",
+        "RANGE",
+        "SHOCK"
+      ],
+      "transition_matrix": [
+        [
+          0.9297143530962371,
+          0.03398819822157648,
+          0.03629744868218654
+        ],
+        [
+          0.042538308745810605,
+          0.9556399731318057,
+          0.0018217181223838172
+        ],
+        [
+          0.0359388007735704,
+          0.0020852663710405994,
+          0.961975932855389
+        ]
+      ],
+      "warnings": [
+        "one or more emission variances reached the variance floor"
+      ]
+    },
+    "regime_controls_direction": false,
+    "regime_features": [
+      "trend_strength_16",
+      "efficiency_ratio_32",
+      "log_vol_ratio_16_96",
+      "jump_score_96",
+      "hour_range_log_ratio",
+      "hour_activity_log_ratio"
+    ],
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": -33.97270180618031,
+      "bar_sharpe_annualized": -0.8151423266023166,
+      "closed_trades": 109,
+      "commission_cost": 140.4,
+      "final_equity": 96296.97550312632,
+      "gross_loss": 14680.330096874093,
+      "gross_profit": 10977.305600000444,
+      "initial_cash": 100000.0,
+      "long_trades": 0,
+      "max_drawdown_pct": -4.494478000975722,
+      "net_profit": -3703.0244968736806,
+      "profit_factor": 0.7477560468710346,
+      "return_pct": -3.703024496873686,
+      "short_trades": 109,
+      "spread_slippage_cost": 1263.5999999986384,
+      "total_transaction_cost": 1403.9999999986383,
+      "win_rate": 0.3302752293577982
+    }
+  },
+  {
+    "fold_id": 5,
+    "candidate_id": "TREND_07_SHORT_P55",
+    "candidate_signal_config": {
+      "confirmation_bars": 2,
+      "direction_mode": "short",
+      "exit_on_momentum_flip": true,
+      "maximum_shock_probability": 0.35,
+      "momentum_threshold": 0.2,
+      "trend_probability": 0.55
+    },
+    "causal_inference": true,
+    "component": "TrendV2Model",
+    "configuration": {
+      "features": {
+        "activity_baseline_min_observations": 3,
+        "activity_baseline_observations": 20,
+        "atr_window": 32,
+        "efficiency_window": 32,
+        "epsilon": 1e-12,
+        "fast_vol_window": 16,
+        "momentum_horizons": [
+          16,
+          32,
+          64
+        ],
+        "range_baseline_min_observations": 3,
+        "range_baseline_observations": 20,
+        "slow_vol_window": 96,
+        "trend_horizon": 16,
+        "volume_columns": [
+          "tick_count",
+          "tick_volume",
+          "volume",
+          "real_volume"
+        ]
+      },
+      "regime": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "signals": {
+        "confirmation_bars": 2,
+        "direction_mode": "long",
+        "exit_on_momentum_flip": true,
+        "maximum_shock_probability": 0.35,
+        "momentum_threshold": 0.2,
+        "trend_probability": 0.55
+      }
+    },
+    "oos_probabilities": "filtered_not_smoothed",
+    "regime": {
+      "average_log_likelihood": -5.654690941175504,
+      "config": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "converged": true,
+      "expected_duration_bars": {
+        "RANGE": 22.589399010376074,
+        "SHOCK": 26.40933707464318,
+        "TRENDABLE": 14.287269436452055
+      },
+      "feature_order": [
+        "trend_strength_16",
+        "efficiency_ratio_32",
+        "log_vol_ratio_16_96",
+        "jump_score_96",
+        "hour_range_log_ratio",
+        "hour_activity_log_ratio"
+      ],
+      "filtered_calibration_ece": 0.4780906650565177,
+      "filtered_pseudo_label_brier": 0.325255719368886,
+      "filtered_pseudo_label_log_score": -3.46718864771864,
+      "identified": true,
+      "iterations": 34,
+      "log_likelihood": -366932.89517287846,
+      "minimum_state_separation": 1.1458859434892599,
+      "model": "sticky_diagonal_student_t_hmm",
+      "pairwise_state_separation": {
+        "RANGE__SHOCK": 2.175170241520561,
+        "TRENDABLE__RANGE": 1.1458859434892599,
+        "TRENDABLE__SHOCK": 1.2376141514303067
+      },
+      "pnl_used_for_regime_selection": false,
+      "state_feature_means": {
+        "RANGE": {
+          "efficiency_ratio_32": 0.18238127228429463,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.1050004559890484,
+          "jump_score_96": 0.28173210774365787,
+          "log_vol_ratio_16_96": -0.980623805895776,
+          "trend_strength_16": 0.24788568452209325
+        },
+        "SHOCK": {
+          "efficiency_ratio_32": 0.20435112687667084,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": 0.07639730362883992,
+          "jump_score_96": 0.882006642618601,
+          "log_vol_ratio_16_96": 0.29650360840200174,
+          "trend_strength_16": 1.124050639397822
+        },
+        "TRENDABLE": {
+          "efficiency_ratio_32": 0.17791725025886007,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.023003104937082925,
+          "jump_score_96": 0.5092192936977968,
+          "log_vol_ratio_16_96": -0.3316411554313228,
+          "trend_strength_16": 0.5265664184039378
+        }
+      },
+      "state_occupancy": {
+        "RANGE": 0.29029330395711395,
+        "SHOCK": 0.3534415172043895,
+        "TRENDABLE": 0.3562651788384971
+      },
+      "state_order": [
+        "TRENDABLE",
+        "RANGE",
+        "SHOCK"
+      ],
+      "transition_matrix": [
+        [
+          0.930007619409162,
+          0.03390287562271965,
+          0.03608950496811824
+        ],
+        [
+          0.04251210674151915,
+          0.9557314473244434,
+          0.0017564459340373834
+        ],
+        [
+          0.03569594694845785,
+          0.002169448808111482,
+          0.9621346042434308
+        ]
+      ],
+      "warnings": [
+        "one or more emission variances reached the variance floor"
+      ]
+    },
+    "regime_controls_direction": false,
+    "regime_features": [
+      "trend_strength_16",
+      "efficiency_ratio_32",
+      "log_vol_ratio_16_96",
+      "jump_score_96",
+      "hour_range_log_ratio",
+      "hour_activity_log_ratio"
+    ],
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": -29.761992222203506,
+      "bar_sharpe_annualized": -0.6138603471566613,
+      "closed_trades": 90,
+      "commission_cost": 163.44,
+      "final_equity": 97321.42070000149,
+      "gross_loss": 13302.996499998797,
+      "gross_profit": 10624.41720000048,
+      "initial_cash": 100000.0,
+      "long_trades": 0,
+      "max_drawdown_pct": -6.5871490719515595,
+      "net_profit": -2678.5792999985133,
+      "profit_factor": 0.7986484248117663,
+      "return_pct": -2.678579299998518,
+      "short_trades": 90,
+      "spread_slippage_cost": 1470.9599999984143,
+      "total_transaction_cost": 1634.3999999984148,
+      "win_rate": 0.3
+    }
+  },
+  {
+    "fold_id": 6,
+    "candidate_id": "TREND_06_LONG_T30",
+    "candidate_signal_config": {
+      "confirmation_bars": 2,
+      "direction_mode": "long",
+      "exit_on_momentum_flip": true,
+      "maximum_shock_probability": 0.35,
+      "momentum_threshold": 0.3,
+      "trend_probability": 0.55
+    },
+    "causal_inference": true,
+    "component": "TrendV2Model",
+    "configuration": {
+      "features": {
+        "activity_baseline_min_observations": 3,
+        "activity_baseline_observations": 20,
+        "atr_window": 32,
+        "efficiency_window": 32,
+        "epsilon": 1e-12,
+        "fast_vol_window": 16,
+        "momentum_horizons": [
+          16,
+          32,
+          64
+        ],
+        "range_baseline_min_observations": 3,
+        "range_baseline_observations": 20,
+        "slow_vol_window": 96,
+        "trend_horizon": 16,
+        "volume_columns": [
+          "tick_count",
+          "tick_volume",
+          "volume",
+          "real_volume"
+        ]
+      },
+      "regime": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "signals": {
+        "confirmation_bars": 2,
+        "direction_mode": "long",
+        "exit_on_momentum_flip": true,
+        "maximum_shock_probability": 0.35,
+        "momentum_threshold": 0.2,
+        "trend_probability": 0.55
+      }
+    },
+    "oos_probabilities": "filtered_not_smoothed",
+    "regime": {
+      "average_log_likelihood": -5.755762335584157,
+      "config": {
+        "degrees_of_freedom": 7.0,
+        "max_iter": 100,
+        "mean_shrinkage": 8.0,
+        "min_state_occupancy": 0.1,
+        "min_state_separation": 0.2,
+        "random_state": 1729,
+        "robust_scale_floor": 1e-06,
+        "sticky_prior": 18.0,
+        "tolerance": 1e-05,
+        "transition_floor": 1e-05,
+        "transition_prior": 1.5,
+        "variance_floor": 0.04,
+        "variance_shrinkage": 12.0
+      },
+      "converged": true,
+      "expected_duration_bars": {
+        "RANGE": 14.797364487944384,
+        "SHOCK": 26.24271680445617,
+        "TRENDABLE": 12.146427520764624
+      },
+      "feature_order": [
+        "trend_strength_16",
+        "efficiency_ratio_32",
+        "log_vol_ratio_16_96",
+        "jump_score_96",
+        "hour_range_log_ratio",
+        "hour_activity_log_ratio"
+      ],
+      "filtered_calibration_ece": 0.3151644694204524,
+      "filtered_pseudo_label_brier": 0.22007319885030763,
+      "filtered_pseudo_label_log_score": -1.9400536420192784,
+      "identified": true,
+      "iterations": 29,
+      "log_likelihood": -373618.04472743877,
+      "minimum_state_separation": 1.0164512385615396,
+      "model": "sticky_diagonal_student_t_hmm",
+      "pairwise_state_separation": {
+        "RANGE__SHOCK": 1.2599349419719643,
+        "TRENDABLE__RANGE": 1.0164512385615396,
+        "TRENDABLE__SHOCK": 1.352715670035831
+      },
+      "pnl_used_for_regime_selection": false,
+      "state_feature_means": {
+        "RANGE": {
+          "efficiency_ratio_32": 0.09410652730472015,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.08381389900680743,
+          "jump_score_96": 0.3957141555261365,
+          "log_vol_ratio_16_96": -0.6177695931661098,
+          "trend_strength_16": 0.288245857891514
+        },
+        "SHOCK": {
+          "efficiency_ratio_32": 0.2034811414712682,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": 0.08724716270137449,
+          "jump_score_96": 0.8651173119267377,
+          "log_vol_ratio_16_96": 0.23000844202015747,
+          "trend_strength_16": 1.082070871782064
+        },
+        "TRENDABLE": {
+          "efficiency_ratio_32": 0.3157410963942059,
+          "hour_activity_log_ratio": 0.0,
+          "hour_range_log_ratio": -0.07920733271053434,
+          "jump_score_96": 0.3406010427445904,
+          "log_vol_ratio_16_96": -0.7350707518877795,
+          "trend_strength_16": 0.4774586742172873
+        }
+      },
+      "state_occupancy": {
+        "RANGE": 0.3484153184138408,
+        "SHOCK": 0.40774318494140843,
+        "TRENDABLE": 0.24384149664474694
+      },
+      "state_order": [
+        "TRENDABLE",
+        "RANGE",
+        "SHOCK"
+      ],
+      "transition_matrix": [
+        [
+          0.9176712660335333,
+          0.06273765818690309,
+          0.019591075779563483
+        ],
+        [
+          0.03673378451999385,
+          0.932420398185453,
+          0.030845817294553168
+        ],
+        [
+          0.017891524028967477,
+          0.02021428671659511,
+          0.9618941892544375
+        ]
+      ],
+      "warnings": [
+        "one or more emission variances reached the variance floor"
+      ]
+    },
+    "regime_controls_direction": false,
+    "regime_features": [
+      "trend_strength_16",
+      "efficiency_ratio_32",
+      "log_vol_ratio_16_96",
+      "jump_score_96",
+      "hour_range_log_ratio",
+      "hour_activity_log_ratio"
+    ],
+    "cost_scenario": {
+      "commission_per_lot_per_side": 3.0,
+      "latency_ms": 0,
+      "name": "base",
+      "slippage_price": 0.1,
+      "spread_price": 2.5
+    },
+    "latency_modelled_at_bar_level": false,
+    "backtest_metrics": {
+      "average_trade": 2.0551144946916327,
+      "bar_sharpe_annualized": 0.07853346235977728,
+      "closed_trades": 141,
+      "commission_cost": 167.46,
+      "final_equity": 100289.77114375136,
+      "gross_loss": 13816.147856249083,
+      "gross_profit": 14105.919000000604,
+      "initial_cash": 100000.0,
+      "long_trades": 141,
+      "max_drawdown_pct": -3.330578806208373,
+      "net_profit": 289.77114375136443,
+      "profit_factor": 1.0209733673066084,
+      "return_pct": 0.2897711437513717,
+      "short_trades": 0,
+      "spread_slippage_cost": 1507.7899999983752,
+      "total_transaction_cost": 1675.2499999983756,
+      "win_rate": 0.40425531914893614
+    }
+  }
+]

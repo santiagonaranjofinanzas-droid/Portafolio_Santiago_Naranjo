@@ -1,0 +1,45 @@
+name: AI Project CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install uv and dependencies
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        export PATH="$HOME/.local/bin:$PATH"
+        if [ -f requirements.txt ]; then
+          uv pip install --system -r requirements.txt
+        fi
+        if [ -f pyproject.toml ]; then
+          uv pip install --system .
+        fi
+
+    - name: Run Ruff (Linter and Formatter)
+      run: |
+        pip install ruff
+        ruff check .
+        ruff format --check .
+
+    - name: Run Tests (Pytest)
+      run: |
+        pip install pytest
+        if [ -d tests ]; then
+          pytest
+        else
+          echo "No tests directory found, skipping tests."
+        fi

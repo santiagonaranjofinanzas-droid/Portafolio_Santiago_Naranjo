@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "C:\\Users\\YOUR_USERNAME\\.local\\bin\\serena.exe",
+      "args": [
+        "start-mcp-server",
+        "--project-from-cwd"
+      ],
+      "env": {
+        "PYTHONUTF8": "1",
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "graphify": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "graphifyy",
+        "--with",
+        "mcp",
+        "-m",
+        "graphify.serve",
+        "${workspace.path}/graphify-out/graph.json"
+      ]
+    }
+  }
+}

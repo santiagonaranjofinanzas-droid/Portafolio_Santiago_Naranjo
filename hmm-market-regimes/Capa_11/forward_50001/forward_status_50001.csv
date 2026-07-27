@@ -1,0 +1,2 @@
+bot_id,closed_trades,net_pnl,profit_factor,win_rate_pct,max_consecutive_losses,max_drawdown_money,max_drawdown_pct,avg_slippage_points,start_time,end_time,monitor_state
+50001,0,0.0,0.0,0.0,0,0.0,0.0,0.0,,,WAITING_FOR_FORWARD_DATA

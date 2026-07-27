@@ -1,0 +1,2 @@
+BotId,Symbol,Timeframe,UseRegimeGuard,GuardMinStrength,BlockNYSession,NYStartHour,NYEndHour,Source,ValidationMode,Notes
+30001,XAUUSD,M15,true,0.66,true,13,20,Capa_4/tick_oos_stability_30001,TICK_BID_ASK_OOS_202405,Demo guard: high-strength entries only and no new entries in weak NY_13_20 window.

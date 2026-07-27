@@ -1,0 +1,3 @@
+Label,Trades,Win Rate %,Avg Win,Avg Loss,Profit Factor,Expectancy,Max DD %,Sharpe Ratio,DSR Prob,Exposure %,Avg Bars Held
+Alta Volatilidad,203,38.92%,$184.12,$-111.24,1.05,$3.71,-15.97%,0.34,2.41%,8.50%,20.6
+Baja Volatilidad,108,37.96%,$161.40,$-102.51,0.96,$-2.32,-16.39%,-0.08,0.51%,2.86%,13.0

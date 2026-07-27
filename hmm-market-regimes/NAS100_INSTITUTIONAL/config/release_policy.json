@@ -1,0 +1,27 @@
+{
+  "policy_version": 1,
+  "capital_release": "FAIL_CLOSED",
+  "minimums": {
+    "closed_trades": 200,
+    "profit_factor": 1.2,
+    "daily_sharpe": 1.0,
+    "deflated_sharpe_probability": 0.8,
+    "bootstrap_pf_p05": 1.0,
+    "minimum_quarter_profit_factor": 0.9,
+    "is_median_profit_factor": 1.05,
+    "nested_minimum_fold_profit_factor": 1.0
+  },
+  "maximums": {
+    "drawdown_pct_absolute": 15.0,
+    "top_5_winner_gross_profit_share_pct": 40.0
+  },
+  "operational_requirements": {
+    "tick_bid_ask_backtest": true,
+    "broker_profile_current": true,
+    "python_mt5_signal_parity": true,
+    "mt5_every_tick_parity": true,
+    "paper_forward_closed_trades": 60,
+    "paper_forward_profit_factor": 1.1,
+    "real_account_unlocked": false
+  }
+}

@@ -1,0 +1,23 @@
+# Forzar finales de línea LF para scripts de código
+*.py text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=lf
+*.bat text eol=crlf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+
+# Clasificar binarios para evitar corrupciones en git merge
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.parquet binary
+*.pkl binary
+*.zip binary
+*.tar.gz binary

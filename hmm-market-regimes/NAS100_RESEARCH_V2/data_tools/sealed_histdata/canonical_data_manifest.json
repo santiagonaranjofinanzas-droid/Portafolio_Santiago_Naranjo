@@ -1,0 +1,26 @@
+{
+  "artifact_files": {
+    "canonical_bars": {
+      "path": "NSXUSD_M15_HISTDATA_DEVELOPMENT_UTC.parquet",
+      "sha256": "ab3e90aa6dfc0bf4591ef9a004757ed9b8390307c44a71444687dce112c7b040"
+    },
+    "qa_report": {
+      "path": "histdata_qa_report.json",
+      "sha256": "7014c8f326d397996a65be439de4caa43b7d71faf5971870334ec8b61e70b1a5"
+    },
+    "source_zip_manifest": {
+      "path": "source_zip_manifest.jsonl",
+      "sha256": "2802350c36d21b259d8caf459be208086b04ae00a01d4b484ae8aaaa18b66975"
+    }
+  },
+  "canonical_bar_rows": 144518,
+  "classification": "DEVELOPMENT_CONSUMED",
+  "created_utc": "2026-07-13T15:51:30.094834Z",
+  "dataset_id": "HISTDATA_NSXUSD_LEGACY_M15_SEALED_DEVELOPMENT_V2",
+  "manifest_sha256": "b9f08dced441755d55cabf4f5cee6f78964a318bf52a9043351eab26652cab00",
+  "program": "NAS100_EDGE_RECOVERY_V2",
+  "quality_passed": true,
+  "release_evidence_eligible": false,
+  "schema_version": 1,
+  "source_inventory_sha256": "70d9ef5bb4d5960bce3e84d7efcb8949e84fdd2c7e297c3da82dbb4a6a742c47"
+}

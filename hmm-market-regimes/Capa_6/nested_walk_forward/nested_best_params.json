@@ -1,0 +1,9 @@
+{
+  "threshold": 0.6,
+  "min_strength": 0.35,
+  "vol_multiplier": 3.0,
+  "reward_risk": 2.0,
+  "kalman_gate": true,
+  "source": "nested_walk_forward_top_stability",
+  "robust_score": 1.0906829618978735
+}

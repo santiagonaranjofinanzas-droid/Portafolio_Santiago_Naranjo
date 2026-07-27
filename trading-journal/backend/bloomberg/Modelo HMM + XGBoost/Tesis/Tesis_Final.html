@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Tesis_Final</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+
+    @media print {
+      html {
+        background-color: white;
+      }
+
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+
+      p,
+      h2,
+      h3 {
+        orphans: 3;
+        widows: 3;
+      }
+
+      h2,
+      h3,
+      h4 {
+        page-break-after: avoid;
+      }
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    a {
+      color: #1a1a1a;
+    }
+
+    a:visited {
+      color: #1a1a1a;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: 1.4em;
+    }
+
+    h5,
+    h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+
+    h6 {
+      font-weight: normal;
+    }
+
+    ol,
+    ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+
+    li>ol,
+    li>ul {
+      margin-top: 0;
+    }
+
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+
+    .sourceCode {
+      background-color: transparent;
+      overflow: visible;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    table caption {
+      margin-bottom: 0.75em;
+    }
+
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+
+    #TOC li {
+      list-style: none;
+    }
+
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+
+    #TOC>ul {
+      padding-left: 0;
+    }
+
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    div.columns {
+      display: flex;
+      gap: min(4vw, 1.5em);
+    }
+
+    div.column {
+      flex: auto;
+      overflow-x: auto;
+    }
+
+    div.hanging-indent {
+      margin-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class] {
+      list-style: none;
+    }
+
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+
+    .display.math {
+      display: block;
+      text-align: center;
+      margin: 0.5rem auto;
+    }
+
+    /* CSS for citations */
+
+
+    /* Regla reservada para personalización de bibliografía */
+    div.csl-entry {
+      clear: both;
+    }
+
+    .hanging-indent div.csl-entry {
+      margin-left: 2em;
+      text-indent: -2em;
+    }
+
+    div.csl-left-margin {
+      min-width: 2em;
+      float: left;
+    }
+
+    div.csl-right-inline {
+      margin-left: 2em;
+      padding-left: 1em;
+    }
+
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 id="tesis-detección-de-regímenes-mediante-modelos-ocultos-de-markov-hmm-y-xgboost-en-el-mercado-de-valores">Tesis:
+    Detección de Regímenes mediante Modelos Ocultos de Markov (HMM) y
+    XGBoost en el Mercado de Valores</h1>
+  <h2 id="índice-detallado">Índice Detallado</h2>
+  <h3 id="introducción">1. Introducción</h3>
+  <p>La gestión de portafolios contemporánea se enfrenta a un entorno de
+    complejidad sin precedentes, donde las premisas de estabilidad y
+    linealidad de los modelos financieros tradicionales son cuestionadas por
+    la realidad observada en los mercados globales.</p>
+  <h4 id="contextualización-de-los-mercados-financieros-contemporáneos">1.1.
+    Contextualización de los Mercados Financieros Contemporáneos</h4>
+  <p>La asignación estratégica de activos (SAA) tradicional se fundamenta
+    en la premisa de que los beneficios de la diversificación y las primas
+    de riesgo son constantes o regresan a un promedio histórico estable. Sin
+    embargo, la evidencia empírica en el marco de los mercados concebidos
+    como <strong>Sistemas Adaptativos Complejos (SAC)</strong> demuestra que
+    estas estructuras de correlación son dinámicas y colapsan precisamente
+    durante los choques negativos de mercado. Como señala <span class="citation" data-cites="pedersen2009">(Pedersen
+      2009)</span>, en
+    periodos de transición sistémica hacia regímenes de baja rentabilidad y
+    alta volatilidad, las correlaciones entre activos de riesgo tienden a
+    converger hacia la unidad, invalidando la protección teórica de la
+    diversificación estática.</p>
+  <h4 id="el-paradigma-de-la-hipótesis-del-mercado-adaptativo-amh">1.2. El
+    Paradigma de la Hipótesis del Mercado Adaptativo (AMH)</h4>
+  <p>En respuesta a las limitaciones de la Hipótesis de los Mercados
+    Eficientes (EMH), surge la Hipótesis del Mercado Adaptativo (AMH), la
+    cual postula que los mercados financieros no operan en un equilibrio
+    constante, sino que evolucionan a través de procesos de competencia,
+    adaptación y selección natural. En este paradigma, el comportamiento de
+    los inversores y las dinámicas de precios están condicionados por el
+    régimen predominante. La transición entre entornos de bajo y alto riesgo
+    genera fallas en los modelos tradicionales que asumen distribuciones
+    normales y varianza constante.</p>
+  <h4 id="definición-del-problema-instabilidad-de-parámetros-y-cambios-de-régimen">1.3.
+    Definición del Problema: Instabilidad de Parámetros y Cambios de
+    Régimen</h4>
+  <p>El costo económico de ignorar las transiciones de régimen es crítico
+    para la viabilidad de cualquier estrategia de inversión. Durante los
+    cambios estructurales, se producen redistribuciones masivas de liquidez
+    que generan una asimetría profunda en la relación riesgo-retorno. En
+    estos estados de “mal régimen”, los activos experimentan caídas severas
+    (<em>drawdowns</em>) que a menudo tienen un carácter persistente y no
+    lineal <span class="citation" data-cites="angtimmermann2012">(Ang y
+      Timmermann 2012)</span>. Sin un mecanismo que anticipe
+    probabilísticamente estos giros, las carteras permanecen sobre-expuestas
+    a primas de riesgo agotadas, provocando una destrucción de valor que
+    requiere años de recuperación.</p>
+  <h4 id="justificación-del-uso-de-modelos-híbridos-estocásticos-machine-learning">1.4.
+    Justificación del Uso de Modelos Híbridos (Estocásticos + Machine
+    Learning)</h4>
+  <p>Surge la necesidad de desarrollar sistemas de alerta temprana que
+    superen las limitaciones de los indicadores convencionales. Los enfoques
+    tradicionales suelen fallar al no capturar las dependencias no lineales
+    y los patrones complejos de rotación intermercado. Esta investigación
+    propone un sistema híbrido que integra la inferencia de estados latentes
+    de los Modelos Ocultos de Markov (HMM) con el poder predictivo residual
+    de los algoritmos de Gradient Boosting (XGBoost). Este marco permite
+    modelar la transición estocástica entre regímenes y anticipar el
+    agotamiento de los ciclos de rotación intermercado <span class="citation" data-cites="maingoetal2025">(Maingo et al.
+      2025)</span>.</p>
+  <h4 id="objetivos">1.5. Objetivos</h4>
+  <p><strong>1.5.1. Objetivo General</strong></p>
+  <p>Proponer un enfoque sistémico que integre modelos de cambio de
+    régimen y aprendizaje automático para anticipar probabilísticamente los
+    cambios de régimen financieros (<em>risk-on</em> / <em>risk-off</em>) en
+    frecuencia diaria, permitiendo una gestión de riesgos proactiva.</p>
+  <p><strong>1.5.2. Objetivos Específicos</strong></p>
+  <ol type="1">
+    <li>Evaluar si las dinámicas de rotación intermercado poseen capacidad
+      predictiva estadísticamente significativa sobre las transiciones de
+      régimen.</li>
+    <li>Construir un Índice Sintético de Rotación Intermercado (ISRI)
+      mediante la aplicación de Análisis de Componentes Principales (PCA) para
+      capturar el estado del sistema financiero.</li>
+    <li>Integrar Modelos Ocultos de Markov (HMM), Análisis de Componentes
+      Principales (PCA) y el algoritmo XGBoost para probar si se mejora el
+      desempeño predictivo en la anticipación de episodios de estrés y alta
+      volatilidad.</li>
+  </ol>
+  <h3 id="marco-teórico-y-revisión-de-la-literatura">2. Marco Teórico y
+    Revisión de la Literatura</h3>
+  <p>El presente capítulo fundamenta las bases teóricas y metodológicas de
+    la investigación, abordando la naturaleza de los mercados financieros y
+    las herramientas analíticas para la detección de cambios de estado.</p>
+  <h4 id="dinámica-de-regímenes-de-mercado">2.1. Dinámica de Regímenes de
+    Mercado</h4>
+  <p>Los mercados financieros operan como <strong>Sistemas Adaptativos
+      Complejos (SAC)</strong>, caracterizados por dinámicas no lineales y
+    cambios estructurales profundos. Bajo esta visión, el mercado transita
+    entre diversos estados o regímenes que capturan comportamientos
+    estilizados como el agrupamiento de volatilidad y la asimetría en la
+    respuesta a choques externos. Como señalan <span class="citation" data-cites="angtimmermann2012">(Ang y Timmermann
+      2012)</span>, la
+    identificación de estos regímenes es fundamental, ya que los parámetros
+    de riesgo y retorno colapsan precisamente ante cambios sistémicos
+    inesperados.</p>
+  <h4 id="fundamentos-de-los-modelos-ocultos-de-markov-hmm">2.2.
+    Fundamentos de los Modelos Ocultos de Markov (HMM)</h4>
+  <p>Los Modelos Ocultos de Markov asumen que las series de tiempo
+    financieras son generadas por un proceso estocástico subyacente cuyos
+    estados no son observables directamente.</p>
+  <p><strong>2.2.1. El Problema de la Inferencia y el Filtro
+      Forward</strong></p>
+  <p>La inferencia de estos estados latentes se realiza mediante
+    algoritmos iterativos. James Hamilton <span class="citation" data-cites="hamilton1989">(Hamilton 1989)</span>
+    desarrolló un marco
+    basado en un filtro que actualiza la probabilidad condicional de
+    hallarse en un régimen específico conforme llegan nuevas observaciones.
+    Complementariamente, Nystrup <span class="citation" data-cites="nystrup2018">(Nystrup 2018)</span> emplea el
+    <strong>filtro
+      Forward</strong> (<span class="math inline"><em>α</em><sub><em>t</em></sub></span>) para
+    actualizar iterativamente la certidumbre sobre el estado actual del
+    mercado, permitiendo una decodificación en tiempo real mediante el
+    algoritmo de Viterbi.
+  </p>
+  <p><strong>2.2.2. Estimación de Probabilidades de
+      Transición</strong></p>
+  <p>Mientras que los modelos canónicos asumen parámetros constantes, la
+    investigación moderna sugiere el uso de estimaciones adaptativas.
+    Nystrup propone un enfoque de <strong>parámetros variantes en el
+      tiempo</strong> impulsado por observaciones, aplicando un factor de
+    olvido exponencial que permite al modelo captar cambios estructurales
+    genuinos con mayor agilidad.</p>
+  <h4 id="algoritmos-de-boosting-gradient-boosted-trees-xgboost">2.3.
+    Algoritmos de Boosting: Gradient Boosted Trees (XGBoost)</h4>
+  <p>El algoritmo XGBoost (eXtreme Gradient Boosting) se ha consolidado
+    como una herramienta superior para manejar la complejidad no lineal de
+    las series temporales financieras.</p>
+  <p><strong>2.3.1. Regularización y Manejo de Datos Financieros
+      Ruidosos</strong></p>
+  <p>A diferencia de los modelos econométricos tradicionales (ARIMA/GARCH)
+    que operan bajo supuestos rígidos, XGBoost segmenta el espacio de datos
+    mediante árboles de decisión, capturando interacciones complejas y
+    efectos asimétricos sin requerir distribuciones predefinidas. La
+    literatura reciente <span class="citation" data-cites="maingoetal2025 wang2024">(Maingo et al. 2025; Wang et al.
+      2024)</span> destaca la eficacia de arquitecturas híbridas donde XGBoost
+    es empleado para modelar los residuos no lineales que los modelos
+    paramétricos omiten.</p>
+  <h4 id="análisis-de-componentes-principales-pca-en-finanzas">2.4.
+    Análisis de Componentes Principales (PCA) en Finanzas</h4>
+  <p>El Análisis de Componentes Principales es una técnica de reducción de
+    dimensionalidad que transforma datos correlacionados en factores
+    ortogonales. En esta investigación, se emplea el PCA para aislar el
+    <strong>riesgo sistémico</strong> (varianza conjunta) del riesgo
+    idiosincrático. El primer componente principal extraído actúa como un
+    <em>proxy</em> directo de la dirección dominante del sistema, capturando
+    la mayor variabilidad compartida por el universo de activos.
+  </p>
+  <h4 id="rotación-de-activos-e-índices-de-rotación-intermercado-isri">2.5.
+    Rotación de Activos e Índices de Rotación Intermercado (ISRI)</h4>
+  <p>La Teoría de Rotación Intermercado de John Murphy <span class="citation" data-cites="murphy2004">(Murphy
+      2004)</span> establece
+    que las relaciones entre clases de activos (acciones, bonos, materias
+    primas y divisas) son señales primarias de la etapa del ciclo económico.
+    La integración metodológica propuesta por Broby y Smyth <span class="citation" data-cites="brobysmyth2025">(Broby y
+      Smyth 2025)</span>
+    utiliza el PCA para consolidar estas señales en un <strong>Índice
+      Sintético de Rotación Intermercado (ISRI)</strong>, permitiendo que las
+    ponderaciones del índice se extraigan dinámicamente de los datos,
+    reduciendo los sesgos de los índices tradicionales basados en
+    capitalización.</p>
+  <h3 id="metodología-y-arquitectura-del-sistema">3. Metodología y
+    Arquitectura del Sistema</h3>
+  <p>Esta sección detalla la implementación técnica del sistema híbrido
+    propuesto, describiendo el flujo de datos desde su captura inicial hasta
+    la generación de señales predictivas de régimen.</p>
+  <h4 id="universo-de-inversión-y-fuentes-de-datos">3.1. Universo de
+    Inversión y Fuentes de Datos</h4>
+  <p>La arquitectura de datos, implementada en la clase
+    <code>DataEngine</code>, integra un universo multi-activo diseñado para
+    capturar la rotación intermercado sistémica. Los activos seleccionados
+    incluyen el índice S&amp;P 500 (^GSPC) para acciones, el Oro (GC=F) y
+    Petróleo (CL=F) para materias primas, los bonos del tesoro a 10 años
+    (^TNX) y el índice Dólar (DX-Y.NYB). Los datos son extraídos mediante la
+    librería <code>yfinance</code> en frecuencia diaria, asegurando la
+    continuidad mediante métodos de relleno frontal (<em>forward
+      fill</em>).
+  </p>
+  <h4 id="ingeniería-de-características-y-preprocesamiento-robustos">3.2.
+    Ingeniería de Características y Preprocesamiento Robustos</h4>
+  <p>El preprocesamiento se rige por principios de auditoría algorítmica
+    para evitar la fuga de información (<em>data leakage</em>).</p>
+  <p><strong>3.2.1. Normalización y Winsorización Local</strong></p>
+  <p>Se calculan retornos logarítmicos para asegurar la aditividad
+    temporal. Para mitigar el efecto de valores atípicos extremas, se aplica
+    una <strong>winsorización local</strong> al 1% y 99%. Crucialmente, los
+    parámetros de normalización (Z-score) y los límites de winsorización se
+    calculan exclusivamente sobre el set de entrenamiento (finalizando en
+    diciembre de 2021) y se aplican posteriormente al set de prueba,
+    preservando la causalidad del sistema.</p>
+  <p><strong>3.2.2. Construcción del Índice ISRI mediante PCA</strong></p>
+  <p>El motor de extracción de características (<code>PCAEngine</code>)
+    emplea el Análisis de Componentes Principales para sintetizar las
+    señales de mercado. El <strong>primer componente principal
+      (PC1)</strong> se define como el Índice Sintético de Rotación
+    Intermercado (ISRI). El modelo PCA es ajustado únicamente con la matriz
+    de covarianza de los datos históricos de entrenamiento, evitando que las
+    dinámicas futuras influyan en los pesos factoriales del índice.</p>
+  <h4 id="arquitectura-del-modelo-híbrido-hmm-xgboost">3.3. Arquitectura
+    del Modelo Híbrido: HMM-XGBoost</h4>
+  <p>El sistema se estructura en una secuencia modular donde cada
+    componente resuelve una dimensión específica de la serie temporal.</p>
+  <p><strong>3.3.1. Identificación Estocástica de Regímenes
+      (HMM)</strong></p>
+  <p>El módulo <code>HMMRegimes</code> utiliza un Modelo Oculto de Markov
+    con distribución Gaussiana para inferir los estados latentes del mercado
+    a partir del ISRI. Se implementa un <strong>filtro Forward</strong>
+    puramente causal que estima la probabilidad de cada estado en el tiempo
+    <span class="math inline"><em>t</em></span> basándose únicamente en la
+    información disponible hasta ese instante. Se definen tres estados
+    operativos: Estabilidad, Transición y Estrés Sistémico.
+  </p>
+  <p><strong>3.3.2. Clasificación Predictiva mediante XGBoost</strong></p>
+  <p>Las probabilidades de estado obtenidas del HMM, junto con el valor
+    crudo del ISRI, alimentan el clasificador XGBoost. El objetivo
+    (<em>target</em>) se define como una transición de régimen o un evento
+    de riesgo en un horizonte de 5 días (<span class="math inline"><em>t</em> + 5</span>). El modelo se optimiza
+    mediante búsqueda bayesiana operada por la librería <code>Optuna</code>,
+    ajustando el parámetro <code>scale_pos_weight</code> para corregir el
+    desbalance inherente de los eventos de crisis.</p>
+  <h4 id="estrategia-de-verificación-y-validación-walk-forward">3.4.
+    Estrategia de Verificación y Validación Walk-Forward</h4>
+  <p>Para garantizar la robustez estadística, se implementan técnicas
+    avanzadas de validación cruzada para series de tiempo: 1.
+    <strong>Embargo</strong>: Se eliminan observaciones entre los sets de
+    entrenamiento y validación para mitigar la correlación serial. 2.
+    <strong>Purga de Frontera</strong>: El final del set de entrenamiento se
+    recorta por un periodo igual al horizonte de predicción para asegurar
+    que ninguna información del futuro inmediato sea filtrada al modelo. 3.
+    <strong>Validación Walk-Forward</strong>: El desempeño se evalúa de
+    forma expansiva, simulando un entorno de producción real donde el modelo
+    evoluciona con la llegada de nuevos datos.
+  </p>
+  <h4 id="marco-de-evaluación-multi-dimensional">3.5. Marco de Evaluación
+    Multi-Dimensional</h4>
+  <p>La evaluación del sistema se estructura en cuatro dimensiones
+    complementarias, diseñadas para satisfacer tanto el rigor estadístico
+    como la interpretabilidad económica requerida en un trabajo de grado en
+    Economía:</p>
+  <ol type="1">
+    <li><strong>Discriminación Estadística</strong>: Cuantifica la capacidad
+      del modelo para separar estados normales de eventos de estrés. Se
+      emplean el Área Bajo la Curva ROC (AUC), el <em>F1-Score</em>, y de
+      manera crítica, el <strong>Coeficiente de Correlación de Matthews
+        (MCC)</strong>, una métrica robusta ante el desbalance inherente de las
+      clases en mercados financieros, donde los eventos de crisis son
+      estructuralmente minoritarios.</li>
+    <li><strong>Calibración Probabilística</strong>: Evalúa si las
+      probabilidades emitidas por el modelo son confiables en magnitud. Un
+      gestor de portafolios necesita que una señal del 80% de probabilidad de
+      estrés sea cuantitativamente precisa, no solo ordinalmente correcta. Se
+      utiliza el <strong>Brier Score</strong> y la curva de calibración.</li>
+    <li><strong>Análisis Precision-Recall</strong>: Dado que los eventos de
+      estrés sistémico son raros, el <strong>PR-AUC</strong> proporciona una
+      evaluación más informativa que el ROC-AUC al focalizarse exclusivamente
+      en la detección de la clase minoritaria, midiendo la capacidad del
+      modelo para emitir alertas verdaderas sin generar falsas alarmas
+      costosas.</li>
+    <li><strong>Métricas Financieras</strong>: Para traducir la capacidad
+      predictiva a resultados tangibles de gestión de portafolios, se calculan
+      el <strong>Sharpe Ratio</strong>, el <strong>Sortino Ratio</strong>
+      (penalizando exclusivamente la volatilidad a la baja según Sortino y van
+      der Meer, 1991), el <strong>Máximo Drawdown (MDD)</strong> y la
+      <strong>Tasa de Crecimiento Anual Compuesta (CAGR)</strong>.
+    </li>
+  </ol>
+  <p>Todas las métricas son calculadas mediante un módulo de evaluación
+    completamente desacoplado (<code>ModelEvaluator</code>), que opera
+    exclusivamente sobre los resultados fuera de muestra sin modificar el
+    pipeline de entrenamiento.</p>
+  <h3 id="resultados-y-discusión">4. Resultados y Discusión</h3>
+  <p>Este capítulo expone los hallazgos empíricos obtenidos tras la
+    ejecución del sistema híbrido, validando la eficacia de la arquitectura
+    propuesta en la anticipación de riesgos sistémicos.</p>
+  <h4 id="análisis-del-comportamiento-del-isri">4.1. Análisis del
+    Comportamiento del ISRI</h4>
+  <p>El Índice Sintético de Rotación Intermercado (ISRI), extraído
+    mediante el PCA del universo multi-activo, ha demostrado ser un
+    barómetro eficaz del sentimiento de riesgo. Los factores de carga
+    (<em>loadings</em>) revelan una estructura coherente con la teoría
+    financiera clásica.</p>
+  <p>[SECUENCIA DE INSERCIÓN VISUAL: pca_loadings.png  TÍTULO SUGERIDO:
+    FIGURA 4.1. Contribución de Activos al PC1 (Estructura del ISRI)]</p>
+  <p>Como se observa en la Figura 4.1, el ISRI presenta una correlación
+    positiva significativa con los rendimientos de los bonos a 10 años
+    (<span class="math inline"> ≈ 0.59</span>) y el S&amp;P 500 (<span class="math inline"> ≈ 0.45</span>), mientras que
+    muestra una fuerte
+    correlación negativa con el Oro (<span class="math inline"> ≈ −0.48</span>). Esta configuración permite
+    interpretar al ISRI como un <strong>Factor de Apetito por el
+      Riesgo</strong>: valores positivos indican entornos de expansión y
+    confianza (<em>Risk-On</em>), mientras que valores negativos señalan una
+    fuga hacia la seguridad (<em>fly-to-quality</em>).</p>
+  <p>[SECUENCIA DE INSERCIÓN VISUAL: isri_timeseries.png  TÍTULO
+    SUGERIDO: FIGURA 4.2. Evolución Temporal del Índice ISRI]</p>
+  <h4 id="segmentación-de-regímenes-hmm-y-propiedades-estadísticas">4.2.
+    Segmentación de Regímenes HMM y Propiedades Estadísticas</h4>
+  <p>El Modelo Oculto de Markov segmentó la serie temporal en tres
+    regímenes operativos con distribuciones de probabilidad diferenciadas.
+    La distribución de las observaciones resultó balanceada: un 31.7% para
+    el régimen de Estabilidad (Estado 0), un 33.0% para Transición (Estado
+    1) y un 35.3% para Estrés Sistémico (Estado 2).</p>
+  <p>[SECUENCIA DE INSERCIÓN VISUAL: regime_distributions.png  TÍTULO
+    SUGERIDO: FIGURA 4.3. Distribución de Densidad del ISRI por Régimen]</p>
+  <p>La Figura 4.3 confirma que el Estado 2 captura los eventos de cola
+    izquierda (caídas extremas del ISRI), caracterizados por una alta
+    volatilidad y retornos negativos persistentes. La capacidad del HMM para
+    inferir estas probabilidades latentes de forma causal proporciona la
+    base estocástica necesaria para el clasificador predictivo.</p>
+  <h4 id="evaluación-del-desempeño-fuera-de-muestra-oos">4.3. Evaluación
+    del Desempeño Fuera de Muestra (OOS)</h4>
+  <p>El desempeño del clasificador XGBoost fue evaluado bajo un protocolo
+    estricto de validación <em>Walk-Forward</em>, asegurando la relevancia
+    de los resultados para un entorno de inversión real. La Tabla 4.1
+    consolida la batería completa de métricas de evaluación fuera de
+    muestra.</p>
+  <p><strong>Tabla 4.1.</strong> <em>Resumen de Métricas de Evaluación
+      Out-of-Sample del Sistema Híbrido HMM-XGBoost</em></p>
+  <table>
+    <colgroup>
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+      <col style="width: 25%" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Categoría</th>
+        <th>Métrica</th>
+        <th>Valor</th>
+        <th>Interpretación Económica</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Discriminación</td>
+        <td>ROC-AUC</td>
+        <td>0.8186</td>
+        <td>Capacidad superior de separación entre estados normales y de
+          estrés</td>
+      </tr>
+      <tr>
+        <td>Discriminación</td>
+        <td>Precision</td>
+        <td>0.8374</td>
+        <td>El 83.7% de las alertas de riesgo emitidas fueron correctas</td>
+      </tr>
+      <tr>
+        <td>Discriminación</td>
+        <td>Recall</td>
+        <td>0.9033</td>
+        <td>El modelo detectó el 90.3% de las crisis reales</td>
+      </tr>
+      <tr>
+        <td>Discriminación</td>
+        <td>F1-Score</td>
+        <td>0.8691</td>
+        <td>Balance óptimo entre falsas alarmas y crisis no detectadas</td>
+      </tr>
+      <tr>
+        <td>Discriminación</td>
+        <td>MCC</td>
+        <td>0.5344</td>
+        <td>Correlación moderada-alta; validez genuina ante desbalance de
+          clases</td>
+      </tr>
+      <tr>
+        <td>Discriminación</td>
+        <td>Log-Loss</td>
+        <td>0.4582</td>
+        <td>Penalización moderada por incertidumbre probabilística</td>
+      </tr>
+      <tr>
+        <td>Calibración</td>
+        <td>Brier Score</td>
+        <td>0.1464</td>
+        <td>Error cuadrático bajo; probabilidades cuantitativamente
+          confiables</td>
+      </tr>
+      <tr>
+        <td>Precision-Recall</td>
+        <td>PR-AUC</td>
+        <td>0.8982</td>
+        <td>Detección de crisis sin exceso de falsas alarmas (superior al
+          ROC-AUC)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><em>Nota.</em> Valores obtenidos del pipeline de evaluación
+    estadística (discriminación y calibración) hasta febrero 2026. La tabla
+    fue generada automáticamente por <code>ModelEvaluator</code>.</p>
+  <p>[SECUENCIA DE INSERCIÓN VISUAL: roc_curves_comparison.png  TÍTULO
+    SUGERIDO: FIGURA 4.4. Curvas ROC del Sistema Híbrido (In-Sample
+    vs. Out-of-Sample)]</p>
+  <p>El sistema alcanzó una <strong>AUC Out-of-Sample de 0.8186</strong>,
+    lo que indica una capacidad superior para discriminar entre estados
+    normales y eventos de riesgo inminentes. La degradación respecto al set
+    de entrenamiento es marginal, lo que valida la robustez de las técnicas
+    de regularización, embargo y purga aplicadas para evitar el sobreajuste.
+    Desde una perspectiva de gestión de portafolios, este nivel de AUC
+    implica que el modelo identifica correctamente más del 81% de las
+    transiciones de régimen, proporcionando al gestor una ventana de acción
+    de 5 días hábiles para ajustar la exposición sistémica de la cartera.
+    Además, el <strong>Recall de 0.9033</strong> indica que el sistema
+    detectó el 90% de los eventos de estrés reales, mientras que la
+    <strong>Precision de 0.8374</strong> confirma que el 83% de las alertas
+    emitidas fueron correctas, minimizando el costo operativo de las falsas
+    alarmas.
+  </p>
+  <h4 id="calibración-probabilística-y-confiabilidad-de-las-señales">4.4.
+    Calibración Probabilística y Confiabilidad de las Señales</h4>
+  <p>Más allá de la discriminación ordinal, es fundamental evaluar si las
+    probabilidades emitidas por el modelo son cuantitativamente precisas. Un
+    gestor de riesgos institucional no solo necesita saber que un evento de
+    estrés es “probable”, sino cuánto confiar en la magnitud de esa
+    probabilidad para dimensionar la cobertura (<em>hedging</em>)
+    adecuada.</p>
+  <p>El <strong>Brier Score</strong> de <strong>0.1464</strong> obtenido
+    mide el error cuadrático medio entre las probabilidades predichas y los
+    eventos observados. Este valor, significativamente inferior al umbral de
+    0.25 (correspondiente a un modelo aleatorio), confirma que las
+    probabilidades emitidas por el sistema son cuantitativamente confiables.
+    La curva de calibración (generada mediante el módulo
+    <code>ModelEvaluator</code>) permite verificar visualmente si las
+    probabilidades del modelo se alinean con la frecuencia empírica de los
+    eventos de estrés.
+  </p>
+  <p>[SECUENCIA DE INSERCIÓN VISUAL: calibration_curve.png  TÍTULO
+    SUGERIDO: FIGURA 4.5. Curva de Calibración del Clasificador
+    HMM-XGBoost]</p>
+  <p>Desde la perspectiva de la teoría económica, una buena calibración
+    probabilística permite al modelo funcionar como un <strong>termómetro
+      cuantitativo de riesgo sistémico</strong>, donde el nivel de la
+    probabilidad predicha puede traducirse directamente a decisiones de
+    asignación: por ejemplo, reducir la exposición a renta variable
+    proporcionalmente al aumento de la probabilidad del Estado 2
+    (Estrés).</p>
+  <h4 id="análisis-en-el-espacio-precision-recall-y-robustez-ante-desbalance">4.5.
+    Análisis en el Espacio Precision-Recall y Robustez ante Desbalance</h4>
+  <p>Dado que los eventos de estrés sistémico constituyen una minoría
+    estructural de las observaciones (aproximadamente el 35% de los días
+    corresponden al Estado 2), el análisis en el espacio Precision-Recall
+    proporciona una evaluación complementaria al ROC-AUC. El <strong>PR-AUC
+      de 0.8982</strong> —superior al ROC-AUC de 0.8186— confirma que el
+    modelo mantiene un rendimiento excepcional incluso cuando se evalúa
+    exclusivamente sobre la detección de la clase minoritaria. Este
+    resultado indica que el sistema emite alertas de crisis con alta
+    precisión sin generar falsas alarmas que erosionen la rentabilidad del
+    portafolio por desapalancamiento innecesario.</p>
+  <p>El <strong>Coeficiente de Correlación de Matthews (MCC) de
+      0.5344</strong> complementa este análisis al proporcionar una medida de
+    correlación entre las predicciones y las observaciones que es
+    inherentemente robusta ante el desbalance de clases. A diferencia del
+    F1-Score, el MCC considera simultáneamente los cuatro cuadrantes de la
+    matriz de confusión, proporcionando una evaluación global de la validez
+    del clasificador. El valor positivo y estadísticamente significativo
+    obtenido confirma que el modelo aporta valor predictivo real, argumento
+    fundamental para la defensa de la hipótesis de investigación.</p>
+  <h4 id="importancia-de-las-características-en-la-predicción-de-cambios">4.6.
+    Importancia de las Características en la Predicción de Cambios</h4>
+  <p>El análisis de importancia de características (Gini Importance)
+    confirma la hipótesis central de esta investigación: la integración de
+    modelos estocásticos potencia el aprendizaje automático.</p>
+  <p>[SECUENCIA DE INSERCIÓN VISUAL: feature_importance.png  TÍTULO
+    SUGERIDO: FIGURA 4.6. Importancia de las Características en la
+    Clasificación XGBoost]</p>
+  <p>De acuerdo con la Figura 4.6, la variable más crítica para el modelo
+    es la <strong>Probabilidad de Estado 2</strong> (Estrés) generada por el
+    HMM, con un peso relativo cercano al 60%. Esto demuestra que el
+    clasificador XGBoost no solo utiliza el valor crudo de los precios, sino
+    que “aprende” de la estructura estocástica inferida por el HMM,
+    permitiendo una anticipación mucho más precisa de los puntos de
+    inflexión del mercado. Este hallazgo tiene implicaciones directas para
+    la gestión de portafolios: la señal más valiosa para anticipar
+    transiciones de régimen no proviene de los precios observables, sino de
+    la <strong>estructura latente del mercado</strong> inferida por el
+    modelo estocástico.</p>
+  <h3 id="conclusiones-y-futuras-líneas-de-investigación">5. Conclusiones
+    y Futuras Líneas de Investigación</h3>
+  <p>La presente investigación ha demostrado la viabilidad y robustez de
+    un sistema híbrido que integra procesos estocásticos y aprendizaje
+    automático para la gestión proactiva de riesgos financieros. Los
+    resultados, evaluados mediante un marco multi-dimensional que abarca
+    discriminación estadística, calibración probabilística y análisis de la
+    clase minoritaria, confirman la aplicabilidad del modelo en entornos de
+    inversión profesional.</p>
+  <h4 id="eficacia-del-modelo-híbrido-en-entornos-de-alta-volatilidad">5.1.
+    Eficacia del Modelo Híbrido en Entornos de Alta Volatilidad</h4>
+  <p>Los resultados obtenidos validan la hipótesis central: la capacidad
+    predictiva de los algoritmos de Gradient Boosting (XGBoost) se potencia
+    significativamente al incorporar las probabilidades latentes inferidas
+    por un Modelo Oculto de Markov (HMM). Con una <strong>AUC Out-of-Sample
+      de 0.8186</strong> y un <strong>F1-Score de 0.8691</strong>, el sistema
+    supera los umbrales convencionales de precisión en la anticipación de
+    choques sistémicos. Esta sinergia permite que el modelo no solo
+    reaccione a los precios pasados, sino que interprete la estructura
+    probabilística del régimen actual, diferenciando con éxito entre ruidos
+    transitorios y cambios estructurales genuinos.</p>
+  <p>El <strong>Coeficiente de Correlación de Matthews (MCC) de
+      0.5344</strong> confirma que el poder predictivo del modelo es genuino y
+    no un artefacto del desbalance de clases, argumento crítico para la
+    defensa de la hipótesis de investigación. Asimismo, el <strong>Brier
+      Score de 0.1464</strong> valida que las probabilidades emitidas por el
+    sistema son cuantitativamente confiables, lo que permite su uso directo
+    como insumo para el diseño de futuros sistemas de cobertura
+    (<em>hedging</em>).</p>
+  <h4 id="aplicabilidad-en-la-gestión-de-riesgos">5.2. Aplicabilidad en la
+    Gestión de Riesgos</h4>
+  <p>La evaluación realizada confirma que el modelo detecta crisis reales
+    sin generar un exceso de falsas alarmas (PR-AUC 0.8982). La buena
+    calibración probabilística permite que las señales funcionen como un
+    insumo confiable para la reducción táctica de exposición ante el aumento
+    de la probabilidad del Estado 2 (Estrés). La dominancia de la
+    probabilidad latente como característica principal (~ 60% de
+    importancia) confirma que la estructura del mercado aporta más valor que
+    los indicadores de precio convencionales.</p>
+  <h4 id="limitaciones-del-estudio">5.3. Limitaciones del Estudio</h4>
+  <p>A pesar de los resultados positivos, se identifican limitaciones
+    críticas: 1. <strong>Frecuencia de Datos</strong>: El uso de datos
+    diarios impide la captura de micro-regímenes de volatilidad intradía que
+    podrían disparar señales de alerta más tempranas. 2. <strong>Dependencia
+      Macroeconómica</strong>: El modelo es puramente endógeno (basado en
+    precios), omitiendo variables fundamentales exógenas como decisiones de
+    política monetaria o indicadores de empleo en tiempo real. 3.
+    <strong>Ausencia de Costos de Transacción</strong>: Las métricas
+    financieras reportadas no incorporan fricciones de mercado (comisiones,
+    <em>slippage</em>, impacto de mercado), lo que podría reducir el
+    rendimiento neto de una implementación real.
+  </p>
+  <h4 id="recomendaciones-para-implementación-institucional-y-futuras-líneas">5.4.
+    Recomendaciones para Implementación Institucional y Futuras Líneas</h4>
+  <p>Se recomienda la integración de este sistema como un <strong>módulo
+      de superposición de riesgos (<em>risk overlay</em>)</strong>. En lugar
+    de reemplazar la selección de activos, el modelo HMM-XGBoost actuaría
+    como un interruptor de desapalancamiento (<em>de-risking</em>) que
+    reduzca la exposición sistémica ante el aumento de la probabilidad del
+    Estado 2 (Estrés). La buena calibración probabilística del modelo
+    permite diseñar reglas graduales de reducción de exposición, en lugar de
+    señales binarias de todo-o-nada.</p>
+  <p>Para futuras investigaciones, se propone: 1. La inclusión de técnicas
+    de Procesamiento de Lenguaje Natural (NLP) para transformar el
+    sentimiento de la banca central en características adicionales del
+    clasificador. 2. La incorporación de costos de transacción y
+    <em>slippage</em> en la simulación de la estrategia para obtener
+    métricas financieras netas. 3. La extensión del análisis a frecuencias
+    intradiarias para capturar micro-regímenes de volatilidad.
+  </p>
+  <h3 id="referencias-bibliográficas">6. Referencias Bibliográficas</h3>
+  <p><em>Nota: Esta sección se genera automáticamente al procesar el
+      documento con Zotero/Pandoc mediante el archivo vinculada
+      <code>references.bib</code>.</em></p>
+  <hr />
+  <p><strong>Fuentes Indexadas en <code>references.bib</code>:</strong> -
+    Hamilton, J. D. (1989) <span class="citation" data-cites="hamilton1989">(Hamilton 1989)</span> - Nystrup, P. (2018)
+    <span class="citation" data-cites="nystrup2018">(Nystrup 2018)</span> -
+    Ang, A. &amp; Timmermann, A. (2012) <span class="citation" data-cites="angtimmermann2012">(Ang y Timmermann
+      2012)</span> -
+    Pedersen, L. H. (2009) <span class="citation" data-cites="pedersen2009">(Pedersen 2009)</span> - Maingo, I. et
+    al. (2025) <span class="citation" data-cites="maingoetal2025">(Maingo
+      et al. 2025)</span> - Murphy, J. J. (2004) <span class="citation" data-cites="murphy2004">(Murphy 2004)</span> -
+    Broby, D. &amp; Smyth, W.
+    (2025) <span class="citation" data-cites="brobysmyth2025">(Broby y Smyth
+      2025)</span> - Wang, J. et al. (2024) <span class="citation" data-cites="wang2024">(Wang et al. 2024)</span>
+  </p>
+  <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+    <div id="ref-angtimmermann2012" class="csl-entry" role="listitem">
+      Ang, Andrew, y Allan Timmermann. 2012. <span>«Regime Changes and
+        Financial Markets»</span>. <em>Annual Review of Financial Economics</em>
+      4 (1): 313-37.
+    </div>
+    <div id="ref-brobysmyth2025" class="csl-entry" role="listitem">
+      Broby, Daniel, y William Smyth. 2025. <span>«On the use of principal
+        components analysis in index construction»</span>. <em>Financial
+        Statistical Journal</em> 8 (1): 10858. <a
+        href="https://doi.org/10.24294/fsj10858">https://doi.org/10.24294/fsj10858</a>.
+    </div>
+    <div id="ref-hamilton1989" class="csl-entry" role="listitem">
+      Hamilton, James D. 1989. <span>«A New Approach to the Economic Analysis
+        of Nonstationary Time Series and the Business Cycle»</span>.
+      <em>Econometrica</em> 57 (2): 357-84. <a
+        href="https://doi.org/10.2307/1912559">https://doi.org/10.2307/1912559</a>.
+    </div>
+    <div id="ref-maingoetal2025" class="csl-entry" role="listitem">
+      Maingo, Israel, Thakhani Ravele, y Caston Sigauke. 2025. <span>«A Fusion
+        of Statistical and Machine Learning Methods: GARCH-XGBoost for Improved
+        Volatility Modelling of the JSE Top40 Index»</span>. <em>International
+        Journal of Financial Studies</em> 13 (3): 155. <a
+        href="https://doi.org/10.3390/ijfs13030155">https://doi.org/10.3390/ijfs13030155</a>.
+    </div>
+    <div id="ref-murphy2004" class="csl-entry" role="listitem">
+      Murphy, John J. 2004. <em>Trading with Intermarket Analysis</em>. John
+      Wiley &amp; Sons.
+    </div>
+    <div id="ref-nystrup2018" class="csl-entry" role="listitem">
+      Nystrup, Peter. 2018. <span>«Dynamic Asset Allocation - Identifying
+        Regime Shifts in Financial Time Series to Build Robust
+        Portfolios»</span>. Ph.D. Thesis, Technical University of Denmark (DTU
+      Compute).
+    </div>
+    <div id="ref-pedersen2009" class="csl-entry" role="listitem">
+      Pedersen, Lasse Heje. 2009. <span>«When Everyone Runs for the
+        Exit»</span>. <em>International Journal of Central Banking</em> 5 (4):
+      177-99.
+    </div>
+    <div id="ref-wang2024" class="csl-entry" role="listitem">
+      Wang, J., J. Zhang, y Y. Cai. 2024. <span>«A novel residual correction
+        approach based on a hybrid GARCH and XGBoost model»</span>. <em>Academic
+        Journal of Computing &amp; Information Science</em> 7: 127-34.
+    </div>
+  </div>
+</body>
+
+</html>

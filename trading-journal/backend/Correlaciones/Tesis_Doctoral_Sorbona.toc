@@ -1,0 +1,64 @@
+\contentsline {section}{Resumen / Abstract}{4}{Doc-Start}%
+\contentsline {subsection}{Resumen en Español}{4}{Doc-Start}%
+\contentsline {subsection}{Abstract in English}{4}{Doc-Start}%
+\contentsline {section}{Capítulo 1: Introducción, Hipótesis, Objetivos y Alcance}{5}{Doc-Start}%
+\contentsline {subsection}{1.1. Introducción}{5}{Doc-Start}%
+\contentsline {subsection}{1.2. Planteamiento del Problema}{6}{Doc-Start}%
+\contentsline {subsection}{1.3. Formulación de la Hipótesis}{6}{Doc-Start}%
+\contentsline {subsection}{1.4. Objetivos}{7}{Doc-Start}%
+\contentsline {subsubsection}{1.4.1. Objetivo General}{7}{Doc-Start}%
+\contentsline {subsubsection}{1.4.2. Objetivos Específicos}{7}{Doc-Start}%
+\contentsline {subsection}{1.5. Alcance de la Investigación}{8}{Item.6}%
+\contentsline {subsection}{1.6. Contribuciones Originales (Novel Contributions)}{8}{Item.6}%
+\contentsline {section}{Capítulo 2: Marco Conceptual}{9}{Item.10}%
+\contentsline {subsection}{2.1. Dinámicas de Regímenes Financieros y No-Linealidad}{9}{Item.10}%
+\contentsline {subsection}{2.2. Modelación Estocástica de Regímenes (Hamilton y Nystrup)}{10}{Item.10}%
+\contentsline {subsection}{2.3. Teoría de Matrices Aleatorias (RMT) en Finanzas}{10}{Item.10}%
+\contentsline {subsection}{2.4. Redes Complejas y Topología del Mercado Financiero}{10}{Item.10}%
+\contentsline {subsection}{2.5. Literatura Moderna sobre Detección de Regímenes y Redes Financieras (2020--2026)}{11}{Item.10}%
+\contentsline {subsubsection}{2.5.1. Redes Neuronales de Grafos (GNN) y Riesgo Sistémico}{11}{Item.10}%
+\contentsline {subsubsection}{2.5.2. Análisis de Redes Dinámicas (Dynamic Network Analysis - DNA)}{11}{Item.10}%
+\contentsline {subsubsection}{2.5.3. Transformers Temporales y Detección de Regímenes}{12}{Item.10}%
+\contentsline {subsubsection}{2.5.4. Aprendizaje Estadístico con Restricciones Estructurales}{12}{Item.10}%
+\contentsline {subsubsection}{2.5.5. Dinámica de Portafolios Espectrales y Localización de Eigenvectors}{12}{Item.10}%
+\contentsline {section}{Capítulo 3: Metodologías Matemáticas y Estadísticas}{13}{Item.10}%
+\contentsline {subsection}{3.1. Estimación Econométrica de Covarianzas Dinámicas (DCC-GARCH)}{13}{Item.10}%
+\contentsline {subsubsection}{3.1.1. Etapa 1: Modelos Univariados GJR-GARCH}{13}{Item.10}%
+\contentsline {subsubsection}{3.1.2. Etapa 2: Propagación de Correlaciones y Regularización Ledoit-Wolf}{14}{Item.10}%
+\contentsline {subsection}{3.2. Características Espectrales mediante Teoría de Matrices Aleatorias}{14}{Item.10}%
+\contentsline {subsection}{3.3. Distancias de Información y Divergencia de Kullback-Leibler}{17}{figure.2}%
+\contentsline {subsection}{3.4. Topología de Redes Complejas (Grafo MST)}{19}{figure.3}%
+\contentsline {subsection}{3.5. Modelado del Meta-Clasificador Jerárquico Híbrido}{20}{figure.3}%
+\contentsline {subsubsection}{3.5.1. Capa 1: Filtro Log-Space Forward HMM Causal}{20}{figure.3}%
+\contentsline {subsubsection}{3.5.2. Capa 2: XGBoost Supervisado Monótono}{21}{figure.3}%
+\contentsline {section}{Capítulo 4: Manejo de Datos y Modelado}{21}{figure.4}%
+\contentsline {subsection}{4.1. Datos Históricos de Mercados Reales y Validación Empírica}{21}{figure.4}%
+\contentsline {subsection}{4.2. Estructuración del Universo de Activos (Mapeo de Tickers)}{23}{figure.4}%
+\contentsline {subsection}{4.3. Preprocesamiento Robustecido y Prevención de Fugas}{28}{none.1}%
+\contentsline {subsection}{4.4. Definición Causal del Target de Crisis}{28}{none.1}%
+\contentsline {section}{Capítulo 5: Desarrollo y Validación del Modelo}{29}{none.1}%
+\contentsline {subsection}{5.1. Protocolo de Validación Combinatoria Cruzada CPCV}{29}{none.1}%
+\contentsline {subsection}{5.2. Calibración y Sensibilidad de Hiperparámetros (Optuna)}{30}{none.1}%
+\contentsline {section}{Capítulo 6: Resultados y Discusión}{32}{none.2}%
+\contentsline {subsection}{6.1. Evaluación Cuantitativa Fuera de Muestra (OOS)}{32}{none.2}%
+\contentsline {subsubsection}{6.1.1. Análisis de Variabilidad e Invarianza entre Pliegues CPCV}{33}{none.3}%
+\contentsline {subsubsection}{6.1.2. Importancia de las Características Espectrales y Topológicas}{34}{none.3}%
+\contentsline {subsection}{6.2. Benchmarking y Ablation Study}{35}{none.3}%
+\contentsline {subsubsection}{6.2.1. Comparativa de Benchmarks Fuera de Muestra (OOS)}{35}{none.3}%
+\contentsline {paragraph}{6.2.1.1. Análisis Metodológico de los Benchmarks}{37}{none.4}%
+\contentsline {subsubsection}{6.2.2. Estudio de Ablación del Framework}{38}{figure.6}%
+\contentsline {subsection}{6.3. Economic Value Analysis (Backtest Overlay)}{41}{none.5}%
+\contentsline {subsubsection}{6.3.1. Regla de Decisión y Control de Exposición}{41}{none.5}%
+\contentsline {subsubsection}{6.3.2. Resultados del Backtest del Risk Overlay (2018-2026)}{42}{none.5}%
+\contentsline {subsection}{6.4. Robustness and Statistical Significance}{43}{figure.8}%
+\contentsline {subsubsection}{6.4.1. Comparación Formal de Curvas ROC mediante el Test de DeLong}{44}{figure.8}%
+\contentsline {paragraph}{6.4.1.1. Formulación Matemática del Test}{44}{figure.8}%
+\contentsline {paragraph}{6.4.1.2. Resultados Empíricos del Test}{46}{figure.8}%
+\contentsline {subsection}{6C.2. Evaluación de Significancia Predictiva con el Test de Diebold-Mariano}{47}{figure.8}%
+\contentsline {subsubsection}{6.4.3. Intervalos de Confianza por Bootstrapping CPCV y Significancia del Backtest}{48}{Item.27}%
+\contentsline {paragraph}{6.4.3.1. Discusión sobre la Ausencia de Solapamiento}{49}{none.7}%
+\contentsline {section}{Capítulo 7: Conclusiones y Recomendaciones}{50}{Item.30}%
+\contentsline {subsection}{7.1. Conclusiones Académicas}{50}{Item.30}%
+\contentsline {subsection}{7.2. Recomendaciones para Integración en Producción (MT5)}{50}{Item.30}%
+\contentsline {subsection}{7.3. Limitaciones del Framework y Líneas de Investigación Futura}{51}{Item.30}%
+\contentsline {section}{Referencias Bibliográficas}{52}{Item.34}%

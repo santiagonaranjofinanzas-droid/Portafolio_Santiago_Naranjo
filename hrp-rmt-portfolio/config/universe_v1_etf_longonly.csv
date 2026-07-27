@@ -1,0 +1,46 @@
+ticker,name,asset_class,sub_class,region,currency,role
+SPY,SPDR S&P 500 ETF Trust,Equity,US large cap,United States,USD,core
+VTI,Vanguard Total Stock Market ETF,Equity,US total market,United States,USD,benchmark_core
+QQQ,Invesco QQQ Trust,Equity,US growth/technology,United States,USD,satellite
+IWM,iShares Russell 2000 ETF,Equity,US small cap,United States,USD,diversifier
+EFA,iShares MSCI EAFE ETF,Equity,Developed ex-US,International Developed,USD,core
+IEFA,iShares Core MSCI EAFE ETF,Equity,Developed ex-US,International Developed,USD,core
+VGK,Vanguard FTSE Europe ETF,Equity,Europe,Europe,USD,satellite
+EWJ,iShares MSCI Japan ETF,Equity,Japan,Japan,USD,satellite
+EEM,iShares MSCI Emerging Markets ETF,Equity,Emerging markets,Emerging Markets,USD,core
+VWO,Vanguard FTSE Emerging Markets ETF,Equity,Emerging markets,Emerging Markets,USD,core
+FXI,iShares China Large-Cap ETF,Equity,China,China,USD,satellite
+XLF,Financial Select Sector SPDR Fund,Equity,Financials,United States,USD,sector
+XLK,Technology Select Sector SPDR Fund,Equity,Technology,United States,USD,sector
+XLE,Energy Select Sector SPDR Fund,Equity,Energy,United States,USD,sector
+XLV,Health Care Select Sector SPDR Fund,Equity,Health care,United States,USD,sector
+XLI,Industrial Select Sector SPDR Fund,Equity,Industrials,United States,USD,sector
+XLY,Consumer Discretionary Select Sector SPDR Fund,Equity,Consumer discretionary,United States,USD,sector
+XLP,Consumer Staples Select Sector SPDR Fund,Equity,Consumer staples,United States,USD,sector
+XLU,Utilities Select Sector SPDR Fund,Equity,Utilities,United States,USD,sector
+XLB,Materials Select Sector SPDR Fund,Equity,Materials,United States,USD,sector
+XLRE,Real Estate Select Sector SPDR Fund,Equity,Real estate sector,United States,USD,sector
+USMV,iShares MSCI USA Min Vol Factor ETF,Equity,Minimum volatility factor,United States,USD,factor
+MTUM,iShares MSCI USA Momentum Factor ETF,Equity,Momentum factor,United States,USD,factor
+VLUE,iShares MSCI USA Value Factor ETF,Equity,Value factor,United States,USD,factor
+QUAL,iShares MSCI USA Quality Factor ETF,Equity,Quality factor,United States,USD,factor
+AGG,iShares Core U.S. Aggregate Bond ETF,Fixed Income,US aggregate bonds,United States,USD,core
+BND,Vanguard Total Bond Market ETF,Fixed Income,US aggregate bonds,United States,USD,core
+TLT,iShares 20+ Year Treasury Bond ETF,Fixed Income,Long Treasuries,United States,USD,duration
+IEF,iShares 7-10 Year Treasury Bond ETF,Fixed Income,Intermediate Treasuries,United States,USD,duration
+SHY,iShares 1-3 Year Treasury Bond ETF,Fixed Income,Short Treasuries,United States,USD,defensive
+TIP,iShares TIPS Bond ETF,Fixed Income,Inflation-linked bonds,United States,USD,inflation
+LQD,iShares iBoxx Investment Grade Corporate Bond ETF,Fixed Income,Investment grade credit,United States,USD,credit
+HYG,iShares iBoxx High Yield Corporate Bond ETF,Fixed Income,High yield credit,United States,USD,credit
+EMB,iShares J.P. Morgan USD Emerging Markets Bond ETF,Fixed Income,Emerging market USD debt,Emerging Markets,USD,credit
+BNDX,Vanguard Total International Bond ETF,Fixed Income,International aggregate bonds,International Developed,USD,diversifier
+BIL,SPDR Bloomberg 1-3 Month T-Bill ETF,Cash,T-bills,United States,USD,cash
+SGOV,iShares 0-3 Month Treasury Bond ETF,Cash,T-bills,United States,USD,cash
+GLD,SPDR Gold Shares,Commodity,Gold,Global,USD,commodity
+IAU,iShares Gold Trust,Commodity,Gold,Global,USD,commodity
+SLV,iShares Silver Trust,Commodity,Silver,Global,USD,commodity
+DBC,Invesco DB Commodity Index Tracking Fund,Commodity,Broad commodities,Global,USD,commodity
+USO,United States Oil Fund LP,Commodity,Crude oil,Global,USD,commodity
+VNQ,Vanguard Real Estate ETF,Real Estate,US REITs,United States,USD,real_estate
+VNQI,Vanguard Global ex-U.S. Real Estate ETF,Real Estate,Global ex-US REITs,International,USD,real_estate
+RWX,SPDR Dow Jones International Real Estate ETF,Real Estate,International REITs,International,USD,real_estate

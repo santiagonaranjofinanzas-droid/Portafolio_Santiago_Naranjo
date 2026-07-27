@@ -1,0 +1,18 @@
+node_modules/
+.venv/
+__pycache__/
+.next/
+out/
+build/
+**/.env*
+*.db
+credenciales.txt
+index.lock
+node_modules
+
+# Logs y configuración local
+*.log
+*_log.txt
+local-workers/*.txt
+!local-workers/requirements.txt
+local-workers/automation_config.json

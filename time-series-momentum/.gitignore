@@ -1,0 +1,23 @@
+# Environment & Secrets
+.env
+.env.*
+*.pem
+credentials.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.pytest_cache/
+
+# Node
+node_modules/
+.next/
+dist/
+
+# Operating Systems
+.DS_Store
+Thumbs.db

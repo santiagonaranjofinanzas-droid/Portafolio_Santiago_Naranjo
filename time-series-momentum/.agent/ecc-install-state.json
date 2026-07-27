@@ -1,0 +1,21 @@
+{
+  "target": "antigravity",
+  "configRoot": ".agent",
+  "installedAt": "2026-06-12T03:00:00Z",
+  "components": {
+    "rules": [
+      "quant-governance.md",
+      "quant-validation.md",
+      "quant-no-leakage.md"
+    ],
+    "workflows": [
+      "quant-plan.md",
+      "quant-validate.md",
+      "quant-audit.md",
+      "quant-release.md"
+    ],
+    "skills": [
+      "quant-researcher.md"
+    ]
+  }
+}
